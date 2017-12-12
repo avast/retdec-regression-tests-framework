@@ -1,0 +1,8 @@
+colorama
+sqlalchemy
+flask
+flake8
+nose
+coverage
+sphinx
+sphinx-rtd-theme==0.1.8

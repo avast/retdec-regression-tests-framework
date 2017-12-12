@@ -1,0 +1,226 @@
+/* This style is based on trac (http://trac.edgewall.org/). */
+
+body {
+	background: #fff;
+	color: #000;
+	margin: 10px;
+	padding: 0;
+}
+
+body, tr {
+	font: normal 13px Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif;
+}
+
+h1, h2 {
+	font-family: Arial,Verdana,'Bitstream Vera Sans',Helvetica,sans-serif;
+	font-weight: bold;
+	letter-spacing: -0.018em;
+}
+
+h1 {
+	font-size: 19px;
+	margin: .15em 1em 0.5em 0;
+}
+
+h2 {
+	font-size: 17px;
+}
+
+p {
+	margin-left: .15em;
+}
+
+/* Forms */
+
+form .button {
+	font-size: 12px;
+	padding: 2px;
+	background-color: rgba(100,100,100,0.2);
+	border: 1px black solid;
+}
+
+/* Link styles */
+
+:link, :visited {
+	text-decoration: none;
+	color: #b00;
+	border-bottom: 1px dotted #bbb;
+}
+
+:link:hover, :visited:hover {
+	background-color: #eee;
+	color: #555
+}
+
+/* Tables */
+
+table {
+	border: 0;
+}
+
+table td {
+	vertical-align: top;
+	padding: 3px 3px;
+}
+
+/* Colors */
+
+.succeeded {
+	background-color: rgba(0,204,0,0.5);
+}
+
+.failed {
+	background-color: rgba(255,0,0,0.4);
+}
+
+.unknown {
+	background-color: rgba(100,100,100,0.2);
+}
+
+/* Results */
+
+#results-table {
+	border: 0;
+}
+
+#results-table tr:first-child td:first-child {
+	width: 500px;
+	min-width: 500px;
+}
+
+#builds-row {
+}
+
+#builds-row:hover {
+	background-color: #eee;
+}
+
+.build-details-row {
+}
+
+.build-cell {
+	text-align: center;
+	width: 150px;
+}
+
+.ended-build-cell {
+	cursor: pointer;
+	border: 2px solid transparent;
+}
+
+.build-shown-details {
+	border-color: black;
+}
+
+.build-detail {
+}
+
+#overall-results-row {
+}
+
+#overall-results-row td {
+	border: 2px solid black;
+}
+
+#overall-results-row td:first-child {
+	border: 0;
+}
+
+.summary-results-sep td {
+	padding: 5px 0;
+}
+
+.summary-results {
+	font-weight: bold;
+}
+
+.no-results-cell {
+	border: 0 !important;
+}
+
+.results-cell {
+	text-align: center;
+	width: 150px;
+}
+
+.module-results-row {
+	cursor: pointer;
+}
+
+.module-results-row:hover {
+	background-color: #eee;
+}
+
+.module-results-row-shown td {
+	font-weight: bold;
+}
+
+.module-results {
+}
+
+.module-details-row:hover {
+	background-color: #eee;
+}
+
+.module-details-sep td {
+	padding: 5px 0;
+}
+
+.case-name-indent {
+	display: inline-block;
+	padding: 0 5px 0 10px;
+}
+
+.case-name a {
+	color: black;
+}
+
+.case-results {
+	cursor: pointer;
+	border: 2px solid transparent;
+}
+
+.case-results-shown-details {
+	border-color: black;
+}
+
+.case-details-row {
+}
+
+.tool-args {
+	cursor: pointer;
+}
+
+.code-box {
+	border: 1px solid #eee;
+	background-color: rgba(240,240,240,0.1);
+	font-family: monospace;
+}
+
+.code-box pre {
+	margin: 0;
+}
+
+/* Commits */
+
+.commit {
+}
+
+/* Footer */
+
+#footer {
+	display: table;
+	margin: 50px auto;
+	color: grey;
+	text-align: center;
+}
+
+#footer a {
+	color: grey;
+}
+
+/* Other */
+
+.hidden {
+	display: none;
+}

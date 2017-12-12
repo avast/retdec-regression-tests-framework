@@ -1,0 +1,21 @@
+# Python
+__pycache__
+*.py[co]
+
+# Unit tests and coverage reports
+/.coverage
+/coverage
+
+# Configuration
+/config_local.ini
+
+# Databases
+/*.db
+/*.db-journal
+
+# PID files
+/*.pid
+
+# Virtual environments
+/venv
+/virtualenv
