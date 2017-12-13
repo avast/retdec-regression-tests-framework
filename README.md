@@ -1,4 +1,4 @@
-## RetDec Regression Tests
+## RetDec Regression Tests Framework
 
 A framework for writing and running regression tests for RetDec and related tools.
 
