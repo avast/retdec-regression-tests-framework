@@ -7,12 +7,12 @@ A framework for writing and running regression tests for RetDec and related tool
 To run regression tests, you must have:
 * Python >= 3.4
 * Clang 3.9.1 (exactly this version)
-* Cloned our `retdec` repository, built and installed RetDec.
-* Cloned our `retdec-regression-tests` repository that contains test cases.
+* Cloned our [retdec](https://github.com/avast-tl/retdec) repository, built and installed RetDec.
+* Cloned our [retdec-regression-tests](https://github.com/avast-tl/retdec-regression-tests) repository that contains test cases.
 
 Additionally, to run tests for our IDA plugin, you must have:
 * IDA 6.95 (exactly this version; older or newer version are not supported at the moment)
-* Cloned our `retdec-idaplugin` repository, built and installed our IDA plugin.
+* Cloned our [retdec-idaplugin](https://github.com/avast-tl/retdec-idaplugin) repository, built and installed our IDA plugin.
 
 ## Installation
 
