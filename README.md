@@ -54,7 +54,7 @@ Additionally, to run tests for our IDA plugin, you must have:
   ; Path to the RetDec's build directory.
   retdec_build_dir = /path/to/retdec/build
   ; Path to the RetDec's installation directory.
-  retdec_installed_dir = /path/to/retdec/installed
+  retdec_install_dir = /path/to/retdec/installed
   ; Path to the cloned RetDec repository.
   retdec_repo_dir = /path/to/retdec
   ```

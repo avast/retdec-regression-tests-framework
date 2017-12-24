@@ -114,18 +114,18 @@ def ensure_all_required_settings_are_set(config):
                     "does not seem to point to a RetDec build directory")
         sys.exit(1)
 
-    # [runner] -> retdec_installed_dir
-    retdec_installed_dir = config['runner']['retdec_installed_dir']
-    if not retdec_installed_dir:
-        print_error("no 'retdec_installed_dir' in the [runner] section of config_local.ini "
+    # [runner] -> retdec_install_dir
+    retdec_install_dir = config['runner']['retdec_install_dir']
+    if not retdec_install_dir:
+        print_error("no 'retdec_install_dir' in the [runner] section of config_local.ini "
                     "(you have to add it)")
         sys.exit(1)
-    elif not os.path.exists(retdec_installed_dir):
-        print_error("'retdec_installed_dir' in the [runner] section of config_local.ini "
+    elif not os.path.exists(retdec_install_dir):
+        print_error("'retdec_install_dir' in the [runner] section of config_local.ini "
                     "points to a non-existing directory")
         sys.exit(1)
-    elif not os.path.exists(os.path.join(retdec_installed_dir, 'bin', 'decompile.sh')):
-        print_error("'retdec_installed_dir' in the [runner] section of config_local.ini "
+    elif not os.path.exists(os.path.join(retdec_install_dir, 'bin', 'decompile.sh')):
+        print_error("'retdec_install_dir' in the [runner] section of config_local.ini "
                     "does not seem to point to RetDec")
         sys.exit(1)
 
@@ -192,7 +192,7 @@ def adjust_environment(config):
     update PATH).
     """
     if config['runner'].getboolean('idaplugin_tests_enabled'):
-        tools_dir = os.path.join(config['runner']['retdec_installed_dir'], 'bin')
+        tools_dir = os.path.join(config['runner']['retdec_install_dir'], 'bin')
 
         # run-ida-decompilation.sh requires decompile.sh to be reachable from PATH.
         os.environ['PATH'] = tools_dir + os.pathsep + os.environ['PATH']
@@ -596,7 +596,7 @@ try:
 
     # Command runner.
     cmd_runner = CmdRunner()
-    tools_dir = Directory(os.path.join(config['runner']['retdec_installed_dir'], 'bin'))
+    tools_dir = Directory(os.path.join(config['runner']['retdec_install_dir'], 'bin'))
 
     # Adjustment of the environment (e.g. update of PATH).
     adjust_environment(config)
