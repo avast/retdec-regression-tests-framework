@@ -103,7 +103,7 @@ Then, open `docs/_build/html/index.html` in your favorite web browser.
 
 Copyright (c) 2017 Avast Software, licensed under the MIT license. See the `LICENSE` file for more details.
 
-The framework includes several third-party libraries, whose code and licensing information is provided in the `libs` subdirectory.
+The framework includes several third-party libraries, whose code and licensing information is provided in the `deps` subdirectory.
 
 ## Contributing
 

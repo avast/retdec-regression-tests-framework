@@ -9,10 +9,10 @@ __all__ = [
     'files_in_dir',
 ]
 
-# Ensure that packages in the 'libs' directory can be found during import.
+# Ensure that packages in the 'deps' directory can be found during import.
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir, 'libs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir, 'deps'))
 
 # Imports to simplify the importing of nested modules/classes.
 from regression_tests.test import Test
