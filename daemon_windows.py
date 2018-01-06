@@ -11,7 +11,7 @@ import sys
 import time
 
 from regression_tests.cmd_runner import CmdRunner
-from regression_tests.config import parse as parse_config
+from regression_tests.config import parse_config
 from regression_tests.db import DB
 from regression_tests.git import Repository
 from regression_tests.io import print_error

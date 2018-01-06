@@ -5,7 +5,7 @@
 import configparser
 
 
-def parse(*config_files):
+def parse_config(*config_files):
     """Parses the given configuration files and returns the configuration.
 
     Options may be overridden. This allows one to have a global configuration

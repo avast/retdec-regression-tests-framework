@@ -18,7 +18,7 @@ from datetime import datetime
 
 from regression_tests.clang import setup_clang_bindings
 from regression_tests.cmd_runner import CmdRunner
-from regression_tests.config import parse as parse_config
+from regression_tests.config import parse_config
 from regression_tests.db import DB
 from regression_tests.email import prepare_email
 from regression_tests.email import send_email

@@ -5,7 +5,7 @@
 from unittest import mock
 
 from regression_tests.clang import setup_clang_bindings
-from regression_tests.config import parse as parse_config
+from regression_tests.config import parse_config
 
 
 class WithPatching:
