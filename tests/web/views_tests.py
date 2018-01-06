@@ -2,10 +2,10 @@
     Tests for the :mod:`regression_tests.web.views` module.
 """
 
-import configparser
 import unittest
 from unittest import mock
 
+from regression_tests.config import parse_standard_config_files
 from regression_tests.web import app
 
 
@@ -15,13 +15,15 @@ class BaseViewsTests(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
 
-        # Patch parse_config() to allow config customization.
-        parse_config_patcher = mock.patch('regression_tests.web.views.parse_config')
+        # Patch parse_standard_config_files() to allow config customization.
+        parse_config_patcher = mock.patch('regression_tests.web.views.parse_standard_config_files')
         self.addCleanup(parse_config_patcher.stop)
-        self.mock_parse_config = parse_config_patcher.start()
-        self.config = configparser.ConfigParser()
-        self.config.read('config.ini')
-        self.mock_parse_config.return_value = self.config
+        self.mock_parse_standard_config_files = parse_config_patcher.start()
+        # Do not parse the local configuration file to ensure that the tests
+        # are run with the same settings, disregarding overrides in the local
+        # configuration file.
+        self.config = parse_standard_config_files(include_local=False)
+        self.mock_parse_standard_config_files.return_value = self.config
 
         # Customize the config by overriding the needed global settings.
         # Use the SQLite :memory: database.

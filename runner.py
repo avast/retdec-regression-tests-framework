@@ -18,7 +18,7 @@ from datetime import datetime
 
 from regression_tests.clang import setup_clang_bindings
 from regression_tests.cmd_runner import CmdRunner
-from regression_tests.config import parse_config
+from regression_tests.config import parse_standard_config_files
 from regression_tests.db import DB
 from regression_tests.email import prepare_email
 from regression_tests.email import send_email
@@ -563,7 +563,7 @@ try:
     ensure_is_run_from_script_dir()
 
     # Config.
-    config = parse_config('config.ini', 'config_local.ini')
+    config = parse_standard_config_files()
     ensure_all_required_settings_are_set(config)
 
     # Logging.

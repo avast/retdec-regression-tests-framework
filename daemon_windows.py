@@ -11,7 +11,7 @@ import sys
 import time
 
 from regression_tests.cmd_runner import CmdRunner
-from regression_tests.config import parse_config
+from regression_tests.config import parse_standard_config_files
 from regression_tests.db import DB
 from regression_tests.git import Repository
 from regression_tests.io import print_error
@@ -86,7 +86,7 @@ exit_if_already_running()
 
 try:
     # Config.
-    config = parse_config('config.ini', 'config_local.ini')
+    config = parse_standard_config_files()
 
     # Logging.
     setup_logging(config, os.path.basename(__file__))
