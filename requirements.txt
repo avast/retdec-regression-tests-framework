@@ -3,6 +3,7 @@ sqlalchemy
 flask
 flake8
 nose
+nose-timer
 coverage
 sphinx
 sphinx-rtd-theme==0.1.8
