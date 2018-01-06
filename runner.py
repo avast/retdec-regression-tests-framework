@@ -68,20 +68,6 @@ def parse_args():
     return args
 
 
-def ensure_is_run_from_script_dir():
-    """Ensures that the script is run from its directory."""
-    script_dir = os.path.abspath(os.path.dirname(__file__))
-    if os.getcwd() != script_dir:
-        print_error(
-            '{} has to be run from {}, not from {}'.format(
-                os.path.basename(__file__),
-                script_dir,
-                os.getcwd()
-            )
-        )
-        sys.exit(1)
-
-
 def ensure_all_required_settings_are_set(config):
     """Ensures that all required settings in the given configuration are set."""
     # [runner] -> clang_dir
@@ -560,8 +546,6 @@ def request_username_for_repo(repo_url):
 
 
 try:
-    ensure_is_run_from_script_dir()
-
     # Config.
     config = parse_standard_config_files()
     ensure_all_required_settings_are_set(config)
