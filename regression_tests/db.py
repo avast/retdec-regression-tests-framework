@@ -78,7 +78,7 @@ class DB:
     def get_date_of_last_update(self):
         """Returns a date of the last update.
 
-        When the database is empt, it returns the minimal possible date.
+        When the database is empty, it returns the minimal possible date.
         """
         # We consider the last end_date in results as the date of the last
         # update.
