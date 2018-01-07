@@ -11,6 +11,8 @@
 #   USE regression_tests;
 #
 
+import os
+import re
 from datetime import datetime
 
 from regression_tests.commit_results import CommitResults
@@ -59,6 +61,7 @@ class DB:
         """
         :param str conn_url: Connection URL.
         """
+        conn_url = self._fix_conn_url(conn_url)
         # pool_recycle represents the number of seconds after which a
         # connection is automatically recycled. This is required for MySQL,
         # which removes connections after 8 hours idle by default. The value
@@ -352,6 +355,40 @@ class DB:
         return CommitsResults(
             self.get_results_for_commit(commit) for commit in self._get_recent_commits(count)
         )
+
+    def _fix_conn_url(self, conn_url):
+        """Returns a fixed version of the given connection URL (if needed).
+        """
+        if self._is_sqlite_conn_url_with_local_file(conn_url):
+            conn_url = self._fix_sqlite_conn_url_with_local_file(conn_url)
+
+        return conn_url
+
+    def _is_sqlite_conn_url_with_local_file(self, conn_url):
+        """Is the given connection URL an SQLite connection URL that suggests
+        to use an in-file database.
+        """
+        # The URL format for SQLite is sqlite://<nohostname>/<filepath>. If
+        # /<filepath> is not given, then it suggests to use an in-memory
+        # database.
+        return conn_url.startswith('sqlite:///')
+
+    def _fix_sqlite_conn_url_with_local_file(self, conn_url):
+        """Returns a fixed version of the given SQLite connection URL that
+        suggests to use an in-file database.
+        """
+        # When the local file is given by a relative path, we need to convert
+        # it into an absolute path to ensure that the database file is always
+        # stored in the root directory of the framework. This will allow us to
+        # use the framework from any location.
+        m = re.match('(sqlite:///)(.*)', conn_url)
+        assert m, 'not an in-file SQLite database connection URL'
+        db_schema = m.group(1)
+        db_path = m.group(2)
+        if not os.path.isabs(db_path):
+            db_path = os.path.join(os.path.dirname(__file__), os.pardir, db_path)
+        conn_url = db_schema + db_path
+        return conn_url
 
     def _execute(self, query):
         """Executes the given query."""

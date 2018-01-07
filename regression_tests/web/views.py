@@ -8,7 +8,7 @@ from flask import redirect
 from flask import render_template
 from flask import request
 
-from regression_tests.config import parse as parse_config
+from regression_tests.config import parse_standard_config_files
 from regression_tests.db import DB
 from regression_tests.utils.format import format_age
 from regression_tests.utils.format import format_date
@@ -37,7 +37,7 @@ def nl2br(eval_ctx, text):
 
 @app.before_request
 def before_request():
-    g.config = parse_config('config.ini', 'config_local.ini')
+    g.config = parse_standard_config_files()
     g.db = DB(g.config['db']['conn_url'])
 
     # Template settings.

@@ -5,7 +5,7 @@
 from unittest import mock
 
 from regression_tests.clang import setup_clang_bindings
-from regression_tests.config import parse as parse_config
+from regression_tests.config import parse_standard_config_files
 
 
 class WithPatching:
@@ -22,6 +22,6 @@ class WithPatching:
 
 # We need to setup Clang bindings as they are used by tests for parsing of C
 # source code.
-config = parse_config('config.ini', 'config_local.ini')
+config = parse_standard_config_files()
 setup_clang_bindings(config['runner']['clang_dir'])
 del config

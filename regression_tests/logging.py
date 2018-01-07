@@ -45,10 +45,11 @@ def _create_log_file_handler(config, script_name):
 
 def _get_log_file_for_script(config, script_name):
     """Returns a path to the log file for the given script."""
-    return os.path.join(
-        config['logging']['logs_dir'],
-        script_name + config['logging']['extension']
-    )
+    logs_dir = config['logging']['logs_dir']
+    if not os.path.isabs(logs_dir):
+        logs_dir = os.path.join(os.path.dirname(__file__), os.pardir, logs_dir)
+
+    return os.path.join(logs_dir, script_name + config['logging']['extension'])
 
 
 def _create_stderr_handler(config):
