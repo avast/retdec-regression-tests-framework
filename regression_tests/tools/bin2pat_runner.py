@@ -17,4 +17,4 @@ class Bin2PatRunner(ToolRunner):
 
     @overrides(ToolRunner)
     def _get_tool_executable_name(self, tool_name):
-        return 'bin2pat'
+        return 'retdec-bin2pat'
