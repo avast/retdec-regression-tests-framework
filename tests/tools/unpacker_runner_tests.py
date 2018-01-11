@@ -46,6 +46,18 @@ class UnpackerRunnerTests(unittest.TestCase):
     def test_tool_class_returns_unpacker(self):
         self.assertIs(self.unpacker_runner._tool_class, Unpacker)
 
+    def test_get_tool_executable_name_returns_correct_name_when_called_with_unpacker(self):
+        self.assertEqual(
+            self.unpacker_runner._get_tool_executable_name('unpacker'),
+            'retdec-unpacker'
+        )
+
+    def test_get_tool_executable_name_returns_correct_name_when_called_with_fileinfo(self):
+        self.assertEqual(
+            self.unpacker_runner._get_tool_executable_name('fileinfo'),
+            'retdec-fileinfo'
+        )
+
     def test_get_tool_does_not_run_fileinfo_when_fileinfo_run_was_not_requested(self):
         self.test_settings.run_fileinfo = False
 
@@ -65,7 +77,7 @@ class UnpackerRunnerTests(unittest.TestCase):
 
         self.cmd_runner.run_cmd.assert_called_once_with(
             [
-                os.path.join('bin', 'fileinfo'),
+                os.path.join('bin', 'retdec-fileinfo'),
                 self.unpacker_args.output_file.path,
                 '--json',
                 '--verbose'
@@ -89,7 +101,7 @@ class UnpackerRunnerTests(unittest.TestCase):
         log = self.unpacker_runner._create_log(unpacker, timeout=100)
 
         expected_log = '\n'.join([
-            '# Command: unpacker --unpacker-arg',
+            '# Command: retdec-unpacker --unpacker-arg',
             '# Timeout: 100 seconds',
             '',
             'unpacker output',
@@ -120,7 +132,7 @@ class UnpackerRunnerTests(unittest.TestCase):
         log = self.unpacker_runner._create_log(unpacker, timeout=100)
 
         expected_log = '\n'.join([
-            '# Command: unpacker --unpacker-arg',
+            '# Command: retdec-unpacker --unpacker-arg',
             '# Timeout: 100 seconds',
             '',
             'unpacker output',
@@ -130,7 +142,7 @@ class UnpackerRunnerTests(unittest.TestCase):
             '',
             '# ------------------------------------------------------------------------------',
             '',
-            '# Command: fileinfo --fileinfo-arg',
+            '# Command: retdec-fileinfo --fileinfo-arg',
             '# Timeout: 60 seconds',
             '',
             'fileinfo output',
