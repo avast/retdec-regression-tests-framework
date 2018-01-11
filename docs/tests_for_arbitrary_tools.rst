@@ -19,12 +19,12 @@ To specify a tool that differs from the decompiler, use the ``tool`` parameter o
         input='file.exe'
     )
 
-You can use any tool that is present in the RetDec's installation directory. For example, the following test settings prescribe to run all unit tests through the ``run-unit-tests.sh`` script:
+You can use any tool that is present in the RetDec's installation directory. For example, the following test settings prescribe to run all unit tests through the ``retdec-test-runner.sh`` script:
 
 .. code-block:: python
 
     settings = TestSettings(
-        tool='run-unit-tests.sh'
+        tool='retdec-test-runner.sh'
     )
 
 Since this script does not take any inputs, the ``input`` parameter is omitted.
@@ -85,7 +85,7 @@ For every tool, the following attributes are available:
 * ``self.$TOOL.timeouted``: Has the tool timeouted (``bool``)?
 * ``self.$TOOL.output``: Output from the tool (:class:`~parsers.text_parser.Text`). It is a combined output from the standard and error outputs.
 
-If your tool name includes characters out of ``[a-zA-Z0-9_]``, all such characters are replaced with underscores. For example, for ``run-unit-tests.sh``, you would use ``self.run_unit_tests_sh.return_code`` to get its return code.
+If your tool name includes characters out of ``[a-zA-Z0-9_]``, all such characters are replaced with underscores. For example, for ``retdec-test-runner.sh``, you would use ``self.retdec_test_runner_sh.return_code`` to get its return code.
 
 .. hint::
 
@@ -93,7 +93,7 @@ If your tool name includes characters out of ``[a-zA-Z0-9_]``, all such characte
 
     .. code-block:: python
 
-        assert self.run_unit_tests_sh.return_code == 0
+        assert self.retdec_test_runner_sh.return_code == 0
         assert self.tool.return_code == 0
 
     The ``self.tool`` alias is available for all tools.
