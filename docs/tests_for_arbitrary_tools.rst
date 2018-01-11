@@ -3,14 +3,14 @@
 Tests for Arbitrary Tools
 =========================
 
-By default, when you specify test settings (see :doc:`test_settings`), the tested tool is ``decompile.sh``, i.e. the decompiler. Sometimes, however, it may be desirable to directly test other tools, such as ``fileinfo`` or ``unpacker``, without the need to run a complete decompilation. This section describes how to write tests for tools other than ``decompile.sh``.
+By default, when you specify test settings (see :doc:`test_settings`), the tested tool is ``decompiler``. Sometimes, however, it may be desirable to directly test other tools, such as ``fileinfo`` or ``unpacker``, without the need to run a complete decompilation. This section describes how to write tests for tools other than the decompiler.
 
 It is assumed that you have read all the previous sections. That is, to understand the present section, you need to know how to write tests and specify test settings for decompilations.
 
 Specifying the Tool
 -------------------
 
-To specify a tool that differs from ``decompile.sh``, use the ``tool`` parameter of :class:`TestSettings`. For example, the next settings specify that ``fileinfo`` should be run with the given input file:
+To specify a tool that differs from the decompiler, use the ``tool`` parameter of :class:`TestSettings`. For example, the next settings specify that ``fileinfo`` should be run with the given input file:
 
 .. code-block:: python
 
@@ -31,12 +31,12 @@ Since this script does not take any inputs, the ``input`` parameter is omitted.
 
 .. note::
 
-    If you do not explicitly specify a tool, ``decompile.sh`` is used. That is, the following two settings are equivalent:
+    If you do not explicitly specify a tool, ``decompiler`` is used. That is, the following two settings are equivalent:
 
     .. code-block:: python
 
         settings1 = TestSettings(
-            tool='decompile.sh',
+            tool='decompiler',
             input='file.exe'
         )
 
@@ -77,7 +77,7 @@ Other parameters may be specified through the ``args`` parameter as a space-sepa
 Obtaining Outputs and Writing Tests
 -----------------------------------
 
-As with tests for ``decompile.sh``, your tool is automatically run and the outputs are made available to you. To access them from your tests, use ``self.$TOOL.$WHAT``. For example, for ``fileinfo`` tests, use ``self.fileinfo.return_code`` to get the return code or ``self.fileinfo.output`` to access the output.
+As with tests for the decompiler, your tool is automatically run and the outputs are made available to you. To access them from your tests, use ``self.$TOOL.$WHAT``. For example, for ``fileinfo`` tests, use ``self.fileinfo.return_code`` to get the return code or ``self.fileinfo.output`` to access the output.
 
 For every tool, the following attributes are available:
 

@@ -16,6 +16,10 @@ class DecompilationRunner(ToolRunner):
         return Decompilation
 
     @overrides(ToolRunner)
+    def _get_tool_executable_name(self, tool_name):
+        return 'retdec-decompiler.sh'
+
+    @overrides(ToolRunner)
     def _initialize_tool_dir_and_args(self, dir, args):
         if args.config_file is not None:
             # We have to copy the input configuration file to the output

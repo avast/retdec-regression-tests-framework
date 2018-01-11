@@ -50,12 +50,12 @@ class MyTest2(Test):
 # The following test is used to check that we can have settings for different
 # tool in a single test.
 class MyTest3(Test):
-    # Settings for a generic tool (not decompile.sh).
+    # Settings for a generic tool (not decompiler).
     settings1 = TestSettings(
         tool='my tool'
     )
 
-    # Settings for decompile.sh.
+    # Settings for decompiler.
     settings2 = TestSettings(
         input='file2.exe'
     )
@@ -130,7 +130,7 @@ class TestModuleTests(unittest.TestCase):
 
     def test_test_cases_returns_correct_number_of_cases_when_only_for_tool_is_given(self):
         with self.loaded_module() as module:
-            test_cases = module.test_cases(only_for_tool='decompile.sh')
+            test_cases = module.test_cases(only_for_tool='decompiler')
             self.assertEqual(len(test_cases), 5)
 
             test_cases = module.test_cases(only_for_tool='my tool')
@@ -155,7 +155,7 @@ class TestModuleTests(unittest.TestCase):
                     self.assertEqual(first_base, DecompilationTest)
                 elif test_case.test_class.__name__ == 'MyTest3':
                     # This test has settings for both a generic tool and
-                    # decompile.sh.
+                    # decompiler.
                     if test_case.test_settings.tool == 'my tool':
                         self.assertEqual(first_base, ToolTest)
                     else:

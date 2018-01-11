@@ -14,7 +14,7 @@ class DecompilationTestSettings(ToolTestSettings):
     """Settings for decompilation tests."""
 
     #: Name of the tool.
-    TOOL = 'decompile.sh'
+    TOOL = 'decompiler'
 
     def __init__(self, *, pdb=None, config=None, static_code_archive=None,
                  static_code_sigfile=None, arch=None, format=None, mode=None,

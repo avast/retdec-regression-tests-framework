@@ -84,22 +84,22 @@ class DecompilationTestSetUpTests(WithDecompilationTestTests):
     """Tests for `DecompilationTest.setUp()`."""
 
     def test_raises_assertion_error_with_output_when_decompilation_timeouted(self):
-        self.decomp.name = 'decompile.sh'
+        self.decomp.name = 'decompiler'
         self.decomp.end_of_output.return_value = 'END OF OUTPUT'
         type(self.decomp).timeouted = mock.PropertyMock(return_value=1)
         with self.assertRaisesRegex(
                 AssertionError,
-                re.compile(r'.*decompile.sh.*timeouted.*END OF OUTPUT.*', re.DOTALL)):
+                re.compile(r'.*decompiler.*timeouted.*END OF OUTPUT.*', re.DOTALL)):
             self.test.setUp()
 
     def test_raises_assertion_error_with_output_when_decompilation_failed(self):
-        self.decomp.name = 'decompile.sh'
+        self.decomp.name = 'decompiler'
         self.decomp.end_of_output.return_value = 'END OF OUTPUT'
         type(self.decomp).timeouted = mock.PropertyMock(return_value=0)
         type(self.decomp).return_code = mock.PropertyMock(return_value=1)
         with self.assertRaisesRegex(
                 AssertionError,
-                re.compile(r'.*decompile.sh.*failed.*END OF OUTPUT.*', re.DOTALL)):
+                re.compile(r'.*decompiler.*failed.*END OF OUTPUT.*', re.DOTALL)):
             self.test.setUp()
 
 

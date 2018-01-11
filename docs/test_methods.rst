@@ -328,4 +328,4 @@ Decompilation
     # the given comment.
     assert self.decomp.log.contains(r'# Done!')
 
-In the next section, you will learn how to write tests for arbitrary tools, not just for ``decompile.sh``.
+In the next section, you will learn how to write tests for arbitrary tools, not just for the decompiler.

@@ -20,7 +20,7 @@ Test settings are specified as class attributes inside test classes, described i
 
 The name can by any valid Python identifier, written conventionally in ``snake_case``. The used class can be either :class:`TestSettings` or its subclass :class:`CriticalTestSettings`. Test cases that use the first class are *regular tests* whereas test cases that use the second class are so-called *critical tests*. The difference between those two is described our our wiki.
 
-The arguments and values specified in the initializer of the used settings class define the parameters to be used for decompilations. For example, you may specify the input file, used architecture, or file format. The selected arguments and values are then used to create arguments for the ``decompile.sh`` script. For example, the following settings specify the input file and prescribe the use of the ``x86`` architecture and the ``elf`` file format:
+The arguments and values specified in the initializer of the used settings class define the parameters to be used for decompilations. For example, you may specify the input file, used architecture, or file format. The selected arguments and values are then used to create arguments for the decompiler. For example, the following settings specify the input file and prescribe the use of the ``x86`` architecture and the ``elf`` file format:
 
 .. code-block:: python
 
@@ -30,11 +30,11 @@ The arguments and values specified in the initializer of the used settings class
         format='elf'
     )
 
-From the above settings, the following ``decompile.sh`` argument list is automatically created:
+From the above settings, the following ``retdec-decompiler.sh`` argument list is automatically created:
 
 .. code-block:: text
 
-    decompile.sh file.exe -a x86 -f elf
+    retdec-decompiler.sh file.exe -a x86 -f elf
 
 For a complete list of possible arguments to the initializer, see the description of :class:`~tools.decompilation_test_settings.DecompilationTestSettings`.
 
@@ -52,8 +52,8 @@ For such settings, the following two decompilations are run:
 
 .. code-block:: text
 
-    decompile.sh file.exe -a x86
-    decompile.sh file.exe -a arm
+    retdec-decompiler.sh file.exe -a x86
+    retdec-decompiler.sh file.exe -a arm
 
 That is, the regression tests framework runs a single decompilation for every combination of the values specified in the settings.
 
@@ -123,10 +123,10 @@ We want to decompile ``file1.exe`` on ``x86`` and ``arm``, and ``file2.elf`` on 
     Sample (file1.exe -a arm)
     Sample (file2.elf -a thumb)
 
-Arbitrary Parameters for decompile.sh
--------------------------------------
+Arbitrary Parameters for the Decompiler
+---------------------------------------
 
-If you look at the complete list of possible arguments (:class:`~tools.decompilation_test_settings.DecompilationTestSettings`), you see that not all ``decompile.sh`` parameters may be specified as arguments to :class:`TestSettings`. The reason is that ``decompile.sh`` provides too many parameters and their support in the form of arguments would be cumbersome. However, it is possible to specify arbitrary arguments that are directly passed to the ``decompile.sh`` script via the ``args`` argument:
+If you look at the complete list of possible arguments (:class:`~tools.decompilation_test_settings.DecompilationTestSettings`), you see that not all ``retdec-decompiler.sh`` parameters may be specified as arguments to :class:`TestSettings`. The reason is that ``retdec-decompiler.sh`` provides too many parameters and their support in the form of arguments would be cumbersome. However, it is possible to specify arbitrary arguments that are directly passed to the ``retdec-decompiler.sh`` script via the ``args`` argument:
 
 .. code-block:: python
 
@@ -141,9 +141,9 @@ These settings result into the creation of the following decompilation:
 
 .. code-block:: text
 
-    decompile.sh file.exe -a x86 --select-decode-only --select-functions func1,func2
+    retdec-decompiler.sh file.exe -a x86 --select-decode-only --select-functions func1,func2
 
-In a greater detail, the ``args`` argument is taken, split into sub-arguments by whitespace, and passed to the ``decompile.sh`` script. The argument list internally looks like this:
+In a greater detail, the ``args`` argument is taken, split into sub-arguments by whitespace, and passed to the ``retdec-decompiler.sh`` script. The argument list internally looks like this:
 
 .. code-block:: python
 
@@ -151,7 +151,7 @@ In a greater detail, the ``args`` argument is taken, split into sub-arguments by
 
 .. hint::
 
-    When it is possible to specify a ``decompile.sh`` parameter in the form of a named argument (like architecture or file format), always prefer it to specifying raw arguments by using the ``args`` argument. That is, do **not** write
+    When it is possible to specify a ``retdec-decompiler.sh`` parameter in the form of a named argument (like architecture or file format), always prefer it to specifying raw arguments by using the ``args`` argument. That is, do **not** write
 
     .. code-block:: python
 
@@ -161,7 +161,7 @@ In a greater detail, the ``args`` argument is taken, split into sub-arguments by
                 args='-a x86'   # Always prefer using arch='x86'.
             )
 
-    The reason is that named arguments are less prone to changes in ``decompile.sh``. Indeed, when such an argument changes in ``decompile.sh``, all that has to be done is changing the internal mapping of named arguments to ``decompile.sh`` arguments. No test needs to be changed.
+    The reason is that named arguments are less prone to changes in ``retdec-decompiler.sh``. Indeed, when such an argument changes in ``retdec-decompiler.sh``, all that has to be done is changing the internal mapping of named arguments to ``retdec-decompiler.sh`` arguments. No test needs to be changed.
 
 If you want to specify separate arguments for several decompilations for single settings, place them into a list when specifying the settings. For example, consider the following test class:
 
@@ -182,8 +182,8 @@ It results into these two decompilations:
 
 .. code-block:: text
 
-    decompile.sh file.elf -a x86 -f elf --select-decode-only --select-functions func1,func2
-    decompile.sh file.elf -a x86 -f elf --select-decode-only --select-functions func3
+    retdec-decompiler.sh file.elf -a x86 -f elf --select-decode-only --select-functions func1,func2
+    retdec-decompiler.sh file.elf -a x86 -f elf --select-decode-only --select-functions func3
 
 You can also specify multiple settings, as already described earlier in this section.
 
