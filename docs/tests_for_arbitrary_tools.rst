@@ -124,7 +124,7 @@ Fileinfo
 ^^^^^^^^
 
 * The output from ``fileinfo`` is parsed to provide easier access. See the description of :class:`~parsers.fileinfo_output_parser.FileinfoOutput` for more details.
-* Even though the tool's name is ``fileinfo``, the tool is internally run via ``fileinfo.sh``. It is a shell script that wraps ``fileinfo`` and allows passing additional parameters. See its source code for more details.
+* Even though the tool's name is ``fileinfo``, the tool is internally run via ``retdec-fileinfo.sh``. It is a shell script that wraps ``retdec-fileinfo`` and allows passing additional parameters. See its source code for more details.
 
 IDA Plugin
 ^^^^^^^^^^
