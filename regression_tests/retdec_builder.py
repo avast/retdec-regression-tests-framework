@@ -92,7 +92,7 @@ def _get_make_cmd(procs):
     """Returns a ``make`` command for the given number of processors (0 means
     auto detection).
     """
-    make_cmd = ['./make.sh']
+    make_cmd = ['make']
     if procs != 0:
         make_cmd += ['-j', procs]
     return make_cmd
