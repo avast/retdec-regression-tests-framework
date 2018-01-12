@@ -44,42 +44,42 @@ regression\_tests\.tools\.bin2pat\_test\_settings module
     :undoc-members:
     :show-inheritance:
 
-regression\_tests\.tools\.decompilation module
-----------------------------------------------
+regression\_tests\.tools\.decompiler module
+-------------------------------------------
 
-.. automodule:: regression_tests.tools.decompilation
+.. automodule:: regression_tests.tools.decompiler
     :members:
     :undoc-members:
     :show-inheritance:
 
-regression\_tests\.tools\.decompilation\_arguments module
----------------------------------------------------------
-
-.. automodule:: regression_tests.tools.decompilation_arguments
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-regression\_tests\.tools\.decompilation\_runner module
+regression\_tests\.tools\.decompiler\_arguments module
 ------------------------------------------------------
 
-.. automodule:: regression_tests.tools.decompilation_runner
+.. automodule:: regression_tests.tools.decompiler_arguments
     :members:
     :undoc-members:
     :show-inheritance:
 
-regression\_tests\.tools\.decompilation\_test module
-----------------------------------------------------
+regression\_tests\.tools\.decompiler\_runner module
+---------------------------------------------------
 
-.. automodule:: regression_tests.tools.decompilation_test
+.. automodule:: regression_tests.tools.decompiler_runner
     :members:
     :undoc-members:
     :show-inheritance:
 
-regression\_tests\.tools\.decompilation\_test\_settings module
---------------------------------------------------------------
+regression\_tests\.tools\.decompiler\_test module
+-------------------------------------------------
 
-.. automodule:: regression_tests.tools.decompilation_test_settings
+.. automodule:: regression_tests.tools.decompiler_test
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+regression\_tests\.tools\.decompiler\_test\_settings module
+-----------------------------------------------------------
+
+.. automodule:: regression_tests.tools.decompiler_test_settings
     :members:
     :undoc-members:
     :show-inheritance:

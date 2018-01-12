@@ -2,18 +2,18 @@
     A runner of decompilations.
 """
 
-from regression_tests.tools.decompilation import Decompilation
+from regression_tests.tools.decompiler import Decompiler
 from regression_tests.tools.tool_runner import ToolRunner
 from regression_tests.utils import overrides
 
 
-class DecompilationRunner(ToolRunner):
+class DecompilerRunner(ToolRunner):
     """A runner of decompilations."""
 
     @property
     @overrides(ToolRunner)
     def _tool_class(self):
-        return Decompilation
+        return Decompiler
 
     @overrides(ToolRunner)
     def _get_tool_executable_name(self, tool_name):

@@ -36,7 +36,7 @@ From the above settings, the following ``retdec-decompiler.sh`` argument list is
 
     retdec-decompiler.sh file.exe -a x86 -f elf
 
-For a complete list of possible arguments to the initializer, see the description of :class:`~tools.decompilation_test_settings.DecompilationTestSettings`.
+For a complete list of possible arguments to the initializer, see the description of :class:`~tools.decompiler_test_settings.DecompilerTestSettings`.
 
 Every argument can be either a single value or a list of values. When you specify a single value, it will be used for all decompilations. However, if you specify multiple values, a separate decompilation is run for all of them. For example, consider the following test settings:
 
@@ -126,7 +126,7 @@ We want to decompile ``file1.exe`` on ``x86`` and ``arm``, and ``file2.elf`` on 
 Arbitrary Parameters for the Decompiler
 ---------------------------------------
 
-If you look at the complete list of possible arguments (:class:`~tools.decompilation_test_settings.DecompilationTestSettings`), you see that not all ``retdec-decompiler.sh`` parameters may be specified as arguments to :class:`TestSettings`. The reason is that ``retdec-decompiler.sh`` provides too many parameters and their support in the form of arguments would be cumbersome. However, it is possible to specify arbitrary arguments that are directly passed to the ``retdec-decompiler.sh`` script via the ``args`` argument:
+If you look at the complete list of possible arguments (:class:`~tools.decompiler_test_settings.DecompilerTestSettings`), you see that not all ``retdec-decompiler.sh`` parameters may be specified as arguments to :class:`TestSettings`. The reason is that ``retdec-decompiler.sh`` provides too many parameters and their support in the form of arguments would be cumbersome. However, it is possible to specify arbitrary arguments that are directly passed to the ``retdec-decompiler.sh`` script via the ``args`` argument:
 
 .. code-block:: python
 

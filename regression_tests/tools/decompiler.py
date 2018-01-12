@@ -10,7 +10,7 @@ from regression_tests.utils import memoize
 from regression_tests.utils import overrides
 
 
-class Decompilation(Tool):
+class Decompiler(Tool):
     """A representation of a decompilation that has run."""
 
     @property

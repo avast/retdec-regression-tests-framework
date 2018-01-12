@@ -9,7 +9,7 @@ from regression_tests.filesystem.directory import Directory
 from regression_tests.filesystem.file import File
 from regression_tests.filesystem.file import StandaloneFile
 from regression_tests.test_settings import InvalidTestSettingsError
-from regression_tests.tools.decompilation_arguments import DecompilationArguments
+from regression_tests.tools.decompiler_arguments import DecompilerArguments
 from regression_tests.tools.tool_arguments import ToolArguments
 from regression_tests.tools.tool_test_settings import ToolTestSettings
 from tests.filesystem.directory_tests import ROOT_DIR
@@ -158,9 +158,9 @@ class ToolArgumentsTests(unittest.TestCase):
         self.assertEqual(args, cloned_args)
 
     def test_clone_preserves_instance_type(self):
-        args = DecompilationArguments()
+        args = DecompilerArguments()
         cloned_args = args.clone()
-        self.assertIsInstance(cloned_args, DecompilationArguments)
+        self.assertIsInstance(cloned_args, DecompilerArguments)
 
     def test_clone_but_returns_other_args_equal_to_original_args_except_for_changed_attributes(self):
         args = ToolArguments(
@@ -173,9 +173,9 @@ class ToolArgumentsTests(unittest.TestCase):
         self.assertEqual(cloned_args.args, '--other-arg')
 
     def test_clone_but_preserves_instance_type(self):
-        args = DecompilationArguments()
+        args = DecompilerArguments()
         cloned_args = args.clone_but()
-        self.assertIsInstance(cloned_args, DecompilationArguments)
+        self.assertIsInstance(cloned_args, DecompilerArguments)
 
     def test_two_args_having_same_data_are_equal(self):
         args1 = ToolArguments(

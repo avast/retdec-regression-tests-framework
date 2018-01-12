@@ -9,7 +9,7 @@ import unittest
 from regression_tests.filesystem.directory import Directory
 from regression_tests.filesystem.file import File
 from regression_tests.test_module import TestModule
-from regression_tests.tools.decompilation_test import DecompilationTest
+from regression_tests.tools.decompiler_test import DecompilerTest
 from regression_tests.tools.tool_test import ToolTest
 from tests.utils import TemporaryFile
 
@@ -150,13 +150,13 @@ class TestModuleTests(unittest.TestCase):
             for test_case in test_cases:
                 first_base = test_case.test_class.__bases__[0]
                 if test_case.test_class.__name__ in ['MyTest1', 'MyTest2']:
-                    self.assertEqual(first_base, DecompilationTest)
+                    self.assertEqual(first_base, DecompilerTest)
                 elif test_case.test_class.__name__ == 'MyTest4':
-                    self.assertEqual(first_base, DecompilationTest)
+                    self.assertEqual(first_base, DecompilerTest)
                 elif test_case.test_class.__name__ == 'MyTest3':
                     # This test has settings for both a generic tool and
                     # decompiler.
                     if test_case.test_settings.tool == 'my tool':
                         self.assertEqual(first_base, ToolTest)
                     else:
-                        self.assertEqual(first_base, DecompilationTest)
+                        self.assertEqual(first_base, DecompilerTest)

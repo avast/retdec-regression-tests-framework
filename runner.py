@@ -201,7 +201,7 @@ def adjust_environment(config):
             )
 
     # We have to provide path to our supportive scripts (e.g.
-    # regression_tests.tools.decompilation_test.DecompilationTest._get_compiler_for_out_c()
+    # regression_tests.tools.decompiler_test.DecompilerTest._get_compiler_for_out_c()
     # relies on windows-gcc-32.sh being in PATH).
     root_path = os.path.dirname(__file__)
     scripts_dir = os.path.join(root_path, 'support', 'scripts')
