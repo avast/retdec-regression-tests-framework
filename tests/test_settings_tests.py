@@ -7,7 +7,7 @@ import unittest
 from regression_tests.test_settings import CriticalTestSettings
 from regression_tests.test_settings import InvalidTestSettingsError
 from regression_tests.test_settings import TestSettings
-from regression_tests.tools.decompilation_test_settings import DecompilationTestSettings
+from regression_tests.tools.decompiler_test_settings import DecompilerTestSettings
 
 
 class TestSettingsTests(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestSettingsTests(unittest.TestCase):
 
     def test_creates_decompilation_test_settings_when_tool_is_not_specified(self):
         settings = TestSettings(input='file.exe')
-        self.assertIsInstance(settings, DecompilationTestSettings)
+        self.assertIsInstance(settings, DecompilerTestSettings)
 
     def test_raises_exception_when_no_viable_test_settings_are_found(self):
         with self.assertRaisesRegex(InvalidTestSettingsError, r".*tool=None.*"):
@@ -39,7 +39,7 @@ class TestSettingsTests(unittest.TestCase):
         self.assertEqual(combinations, ref_combinations)
 
     def test_combinations_returns_same_settings_when_there_are_no_lists(self):
-        settings = DecompilationTestSettings(
+        settings = DecompilerTestSettings(
             input='file.exe',
             arch='x86',
             format='elf',
@@ -54,14 +54,14 @@ class TestSettingsTests(unittest.TestCase):
             settings, ref_combinations)
 
     def test_combinations_returns_two_settings_when_there_are_two_inputs(self):
-        settings = DecompilationTestSettings(
+        settings = DecompilerTestSettings(
             input=['file1.exe', 'file2.exe']
         )
         ref_combinations = [
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file1.exe'
             ),
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file2.exe'
             )
         ]
@@ -69,16 +69,16 @@ class TestSettingsTests(unittest.TestCase):
             settings, ref_combinations)
 
     def test_combinations_returns_two_settings_when_there_are_two_archs(self):
-        settings = DecompilationTestSettings(
+        settings = DecompilerTestSettings(
             input='file.exe',
             arch=['x86', 'arm']
         )
         ref_combinations = [
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file.exe',
                 arch='x86'
             ),
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file.exe',
                 arch='arm'
             )
@@ -87,16 +87,16 @@ class TestSettingsTests(unittest.TestCase):
             settings, ref_combinations)
 
     def test_combinations_returns_two_settings_when_there_are_two_formats(self):
-        settings = DecompilationTestSettings(
+        settings = DecompilerTestSettings(
             input='file.exe',
             format=['elf', 'pe']
         )
         ref_combinations = [
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file.exe',
                 format='elf'
             ),
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file.exe',
                 format='pe'
             )
@@ -105,16 +105,16 @@ class TestSettingsTests(unittest.TestCase):
             settings, ref_combinations)
 
     def test_combinations_returns_two_settings_when_there_are_two_modes(self):
-        settings = DecompilationTestSettings(
+        settings = DecompilerTestSettings(
             input='file',
             mode=['bin', 'raw']
         )
         ref_combinations = [
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file',
                 mode='bin'
             ),
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file',
                 mode='raw'
             )
@@ -123,16 +123,16 @@ class TestSettingsTests(unittest.TestCase):
             settings, ref_combinations)
 
     def test_combinations_returns_two_settings_when_there_are_two_hlls(self):
-        settings = DecompilationTestSettings(
+        settings = DecompilerTestSettings(
             input='file.exe',
             hll=['c', 'py']
         )
         ref_combinations = [
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file.exe',
                 hll='c'
             ),
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file.exe',
                 hll='py'
             )
@@ -141,16 +141,16 @@ class TestSettingsTests(unittest.TestCase):
             settings, ref_combinations)
 
     def test_combinations_returns_two_settings_when_there_are_two_ar_indexes(self):
-        settings = DecompilationTestSettings(
+        settings = DecompilerTestSettings(
             input='archive.a',
             ar_index=[0, 1]
         )
         ref_combinations = [
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='archive.a',
                 ar_index=0
             ),
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='archive.a',
                 ar_index=1
             )
@@ -159,16 +159,16 @@ class TestSettingsTests(unittest.TestCase):
             settings, ref_combinations)
 
     def test_combinations_returns_two_settings_when_there_are_two_ar_names(self):
-        settings = DecompilationTestSettings(
+        settings = DecompilerTestSettings(
             input='archive.a',
             ar_name=['file1.o', 'file2.o']
         )
         ref_combinations = [
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='archive.a',
                 ar_name='file1.o'
             ),
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='archive.a',
                 ar_name='file2.o'
             )
@@ -177,16 +177,16 @@ class TestSettingsTests(unittest.TestCase):
             settings, ref_combinations)
 
     def test_combinations_returns_two_settings_when_there_are_two_args(self):
-        settings = DecompilationTestSettings(
+        settings = DecompilerTestSettings(
             input='file.exe',
             args=['--arg1', '--arg2']
         )
         ref_combinations = [
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file.exe',
                 args='--arg1'
             ),
-            DecompilationTestSettings(
+            DecompilerTestSettings(
                 input='file.exe',
                 args='--arg2'
             )
@@ -249,7 +249,7 @@ class TestSettingsTests(unittest.TestCase):
         # public method) because the order in which attributes are stored in
         # __dict__ differs between interpreter instance runs, and all tests are
         # run in a single interpreter instance.
-        settings = DecompilationTestSettings(input='file.exe')
+        settings = DecompilerTestSettings(input='file.exe')
         self.assertEqual(
             settings._supported_attr_names(),
             [

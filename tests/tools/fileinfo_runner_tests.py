@@ -30,5 +30,5 @@ class FileinfoRunnerTests(unittest.TestCase):
     def test_get_tool_executable_name_returns_correct_name(self):
         self.assertEqual(
             self.decomp_runner._get_tool_executable_name('fileinfo'),
-            'fileinfo.sh'
+            'retdec-fileinfo.sh'
         )

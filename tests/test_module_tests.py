@@ -9,7 +9,7 @@ import unittest
 from regression_tests.filesystem.directory import Directory
 from regression_tests.filesystem.file import File
 from regression_tests.test_module import TestModule
-from regression_tests.tools.decompilation_test import DecompilationTest
+from regression_tests.tools.decompiler_test import DecompilerTest
 from regression_tests.tools.tool_test import ToolTest
 from tests.utils import TemporaryFile
 
@@ -50,12 +50,12 @@ class MyTest2(Test):
 # The following test is used to check that we can have settings for different
 # tool in a single test.
 class MyTest3(Test):
-    # Settings for a generic tool (not decompile.sh).
+    # Settings for a generic tool (not decompiler).
     settings1 = TestSettings(
         tool='my tool'
     )
 
-    # Settings for decompile.sh.
+    # Settings for decompiler.
     settings2 = TestSettings(
         input='file2.exe'
     )
@@ -130,7 +130,7 @@ class TestModuleTests(unittest.TestCase):
 
     def test_test_cases_returns_correct_number_of_cases_when_only_for_tool_is_given(self):
         with self.loaded_module() as module:
-            test_cases = module.test_cases(only_for_tool='decompile.sh')
+            test_cases = module.test_cases(only_for_tool='decompiler')
             self.assertEqual(len(test_cases), 5)
 
             test_cases = module.test_cases(only_for_tool='my tool')
@@ -150,13 +150,13 @@ class TestModuleTests(unittest.TestCase):
             for test_case in test_cases:
                 first_base = test_case.test_class.__bases__[0]
                 if test_case.test_class.__name__ in ['MyTest1', 'MyTest2']:
-                    self.assertEqual(first_base, DecompilationTest)
+                    self.assertEqual(first_base, DecompilerTest)
                 elif test_case.test_class.__name__ == 'MyTest4':
-                    self.assertEqual(first_base, DecompilationTest)
+                    self.assertEqual(first_base, DecompilerTest)
                 elif test_case.test_class.__name__ == 'MyTest3':
                     # This test has settings for both a generic tool and
-                    # decompile.sh.
+                    # decompiler.
                     if test_case.test_settings.tool == 'my tool':
                         self.assertEqual(first_base, ToolTest)
                     else:
-                        self.assertEqual(first_base, DecompilationTest)
+                        self.assertEqual(first_base, DecompilerTest)

@@ -18,6 +18,13 @@ class UnpackerRunner(ToolRunner):
         return Unpacker
 
     @overrides(ToolRunner)
+    def _get_tool_executable_name(self, tool_name):
+        # retdec-unpacker for "unpacker", retdec-fileinfo for "fileinfo". The
+        # reason for the support of two tools is that we have to potentially
+        # run fileinfo (if it was requested).
+        return 'retdec-{}'.format(tool_name)
+
+    @overrides(ToolRunner)
     def _get_tool(self, tool_name, args, dir, output, return_code, timeout,
                   timeouted):
         # The only difference between this method and ToolRunner._get_tool() is

@@ -82,35 +82,35 @@ Sometimes, however, you expect the decompilation to fail. For example, when the 
             pass
 
         def test_decompilation_fails_with_correct_error(self):
-            assert self.decomp.return_code == 1
-            assert self.decomp.log.contains(r"Error: Unsupported target format 'ELF64'.")
+            assert self.decompiler.return_code == 1
+            assert self.decompiler.log.contains(r"Error: Unsupported target format 'ELF64'.")
 
 Accessing Decompilation and Outputs
 -----------------------------------
 
-The corresponding decompilation is available in the ``self.decomp`` attribute, which is of type :class:`~tools.decompilation.Decompilation`. It provides access to the decompilation itself and to the produced files. Some of the available attributes are:
+The corresponding decompilation is available in the ``self.decompiler`` attribute, which is of type :class:`~tools.decompiler.Decompiler`. It provides access to the decompilation itself and to the produced files. Some of the available attributes are:
 
-* ``self.decomp.args`` - Arguments for the decompilation (:class:`~tools.decompilation_arguments.DecompilationArguments`).
-* ``self.decomp.return_code`` - Return code of the decompilation (``int``).
-* ``self.decomp.timeouted`` - Has the decompilation timeouted (``bool``)?
-* ``self.decomp.log`` - Full log from the decompilation (:class:`~parsers.text_parser.Text`).
-* ``self.decomp.fileinfo_output`` - Output from fileinfo (:class:`~parsers.fileinfo_output_parser.FileinfoOutput`).
-* ``self.decomp.fileinfo_outputs`` - A list of outputs from fileinfo (list of :class:`~parsers.fileinfo_output_parser.FileinfoOutput`). This is handy when fileinfo ran multiple times (e.g. when the input file is packed).
-* ``self.decomp.out_c`` - Output C (:class:`~parsers.c_parser.module.Module`).
-* ``self.decomp.out_dsm`` - Output DSM (:class:`~parsers.text_parser.Text`).
-* ``self.decomp.out_config`` - Output configuration file (:class:`~parsers.config_parser.Config`).
+* ``self.decompiler.args`` - Arguments for the decompilation (:class:`~tools.decompiler_arguments.DecompilerArguments`).
+* ``self.decompiler.return_code`` - Return code of the decompilation (``int``).
+* ``self.decompiler.timeouted`` - Has the decompilation timeouted (``bool``)?
+* ``self.decompiler.log`` - Full log from the decompilation (:class:`~parsers.text_parser.Text`).
+* ``self.decompiler.fileinfo_output`` - Output from fileinfo (:class:`~parsers.fileinfo_output_parser.FileinfoOutput`).
+* ``self.decompiler.fileinfo_outputs`` - A list of outputs from fileinfo (list of :class:`~parsers.fileinfo_output_parser.FileinfoOutput`). This is handy when fileinfo ran multiple times (e.g. when the input file is packed).
+* ``self.decompiler.out_c`` - Output C (:class:`~parsers.c_parser.module.Module`).
+* ``self.decompiler.out_dsm`` - Output DSM (:class:`~parsers.text_parser.Text`).
+* ``self.decompiler.out_config`` - Output configuration file (:class:`~parsers.config_parser.Config`).
 
-For a complete list of attributes :class:`~tools.decompilation.Decompilation` provides, see its documentation.
+For a complete list of attributes :class:`~tools.decompiler.Decompiler` provides, see its documentation.
 
 .. hint::
 
     As a shortcut, the :class:`Test` class provides the following attributes:
 
-    * ``self.out_c`` - Output C (alias to `self.decomp.out_c`).
-    * ``self.out_dsm`` - Output DSM (alias to `self.decomp.out_dsm`).
-    * ``self.out_config`` - Output configuration file (alias to `self.decomp.out_config`).
+    * ``self.out_c`` - Output C (alias to `self.decompiler.out_c`).
+    * ``self.out_dsm`` - Output DSM (alias to `self.decompiler.out_dsm`).
+    * ``self.out_config`` - Output configuration file (alias to `self.decompiler.out_config`).
 
-    That is, you can write, e.g, ``self.out_c`` and ``self.out_dsm`` instead of ``self.decomp.out_c`` and ``self.decomp.out_dsm``.
+    That is, you can write, e.g, ``self.out_c`` and ``self.out_dsm`` instead of ``self.decompiler.out_c`` and ``self.decompiler.out_dsm``.
 
 Accessing Test Settings
 -----------------------
@@ -132,7 +132,7 @@ Text outputs, like the decompilation log, output C, or output DSM, are instances
 
     assert self.out_c.contains(r'printf\("%d", \S+ / 4\);')
     assert self.out_dsm.contains(r'; function: factorial')
-    assert self.decomp.log.contains(r'# DONE')
+    assert self.decompiler.log.contains(r'# DONE')
 
 Verifying C Outputs
 -------------------
@@ -322,10 +322,10 @@ Decompilation
 
     # Check that the log from the decompilation contains
     # the given front-end phase.
-    assert self.decomp.log.contains(r'Running phase: libgcc idioms optimization')
+    assert self.decompiler.log.contains(r'Running phase: libgcc idioms optimization')
 
     # Check that the log from the decompilation contains
     # the given comment.
-    assert self.decomp.log.contains(r'# Done!')
+    assert self.decompiler.log.contains(r'# Done!')
 
-In the next section, you will learn how to write tests for arbitrary tools, not just for ``decompile.sh``.
+In the next section, you will learn how to write tests for arbitrary tools, not just for the decompiler.

@@ -40,7 +40,7 @@ Outputs from Decompilations
 
 After you run the regression tests, outputs from decompilations are placed into subdirectories named ``outputs``. In this way, you can check them after the tests finish to see what exactly was generated. These subdirectories are created inside the corresponding test directory. For example, for ``retdec-regression-tests/integration/ack``, the outputs are placed into ``retdec-regression-tests/integration/ack/outputs``.
 
-To differentiate between the outputs of different decompilations, the outputs from each decompilation are placed into a properly named directory. The name is based on the parameters that were passed to the ``decompile.sh`` script when the test ran.
+To differentiate between the outputs of different decompilations, the outputs from each decompilation are placed into a properly named directory. The name is based on the parameters that were passed to the decompiler when the test ran.
 
 For example, a directory with outputs for the ``factorial`` test may contain the following subdirectories and files:
 

@@ -110,7 +110,7 @@ def ensure_all_required_settings_are_set(config):
         print_error("'retdec_install_dir' in the [runner] section of config_local.ini "
                     "points to a non-existing directory")
         sys.exit(1)
-    elif not os.path.exists(os.path.join(retdec_install_dir, 'bin', 'decompile.sh')):
+    elif not os.path.exists(os.path.join(retdec_install_dir, 'bin', 'retdec-decompiler.sh')):
         print_error("'retdec_install_dir' in the [runner] section of config_local.ini "
                     "does not seem to point to RetDec")
         sys.exit(1)
@@ -180,7 +180,7 @@ def adjust_environment(config):
     if config['runner'].getboolean('idaplugin_tests_enabled'):
         tools_dir = os.path.join(config['runner']['retdec_install_dir'], 'bin')
 
-        # run-ida-decompilation.sh requires decompile.sh to be reachable from PATH.
+        # run-ida-decompilation.sh requires retdec-decompiler.sh to be reachable from PATH.
         os.environ['PATH'] = tools_dir + os.pathsep + os.environ['PATH']
 
         # run-ida-decompilation.sh requires path to IDA Pro.
@@ -201,7 +201,7 @@ def adjust_environment(config):
             )
 
     # We have to provide path to our supportive scripts (e.g.
-    # regression_tests.tools.decompilation_test.DecompilationTest._get_compiler_for_out_c()
+    # regression_tests.tools.decompiler_test.DecompilerTest._get_compiler_for_out_c()
     # relies on windows-gcc-32.sh being in PATH).
     root_path = os.path.dirname(__file__)
     scripts_dir = os.path.join(root_path, 'support', 'scripts')

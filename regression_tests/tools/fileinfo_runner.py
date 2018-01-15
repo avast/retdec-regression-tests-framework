@@ -17,4 +17,4 @@ class FileinfoRunner(ToolRunner):
 
     @overrides(ToolRunner)
     def _get_tool_executable_name(self, tool_name):
-        return 'fileinfo.sh'
+        return 'retdec-fileinfo.sh'

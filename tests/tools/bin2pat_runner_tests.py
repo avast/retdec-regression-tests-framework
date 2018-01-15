@@ -30,5 +30,5 @@ class Bin2PatRunnerTests(unittest.TestCase):
     def test_get_tool_executable_name_returns_correct_name(self):
         self.assertEqual(
             self.decomp_runner._get_tool_executable_name('bin2pat'),
-            'bin2pat'
+            'retdec-bin2pat'
         )

@@ -132,11 +132,11 @@ class _WindowsProcess(subprocess.Popen):
         # Shell scripts need to be run with 'sh' on Windows. Simply running the
         # script by its path doesn't work. That is, for example, instead of
         #
-        #     /path/to/decompile.sh
+        #     /path/to/retdec-decompiler.sh
         #
         # we need to run
         #
-        #     sh /path/to/decompile.sh
+        #     sh /path/to/retdec-decompiler.sh
         #
         if 'args' in kwargs and kwargs['args'] and kwargs['args'][0].endswith('.sh'):
             kwargs['args'].insert(0, 'sh')

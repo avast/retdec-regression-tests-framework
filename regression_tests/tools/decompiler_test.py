@@ -6,11 +6,11 @@ from regression_tests.tools.tool_test import ToolTest
 from regression_tests.utils.os import on_windows
 
 
-class DecompilationTest(ToolTest):
+class DecompilerTest(ToolTest):
     """Test class for decompilation tests."""
 
     @property
-    def decomp(self):
+    def decompiler(self):
         """The executed decompilation for the test."""
         return self._tool
 
@@ -18,41 +18,41 @@ class DecompilationTest(ToolTest):
     def out_c(self):
         """Contents of the output file in the C language.
 
-        An alias for ``self.decomp.out_hll``.
+        An alias for ``self.decompiler.out_hll``.
         """
-        return self.decomp.out_c
+        return self.decompiler.out_c
 
     @property
     def out_dsm(self):
         """Contents of the output DSM file.
 
-        An alias for ``self.decomp.out_dsm``.
+        An alias for ``self.decompiler.out_dsm``.
         """
-        return self.decomp.out_dsm
+        return self.decompiler.out_dsm
 
     @property
     def out_config(self):
         """Contents of the output configuration file.
 
-        An alias for ``self.decomp.out_config``.
+        An alias for ``self.decompiler.out_config``.
         """
-        return self.decomp.out_config
+        return self.decompiler.out_config
 
     def setUp(self):
         """Performs basic validations over the run decompilation."""
         super().setUp()
 
         msg = '{} timeouted; output:\n...\n{}'.format(
-            self.decomp.name,
-            self.decomp.end_of_output()
+            self.decompiler.name,
+            self.decompiler.end_of_output()
         )
-        self.assertFalse(self.decomp.timeouted, msg=msg)
+        self.assertFalse(self.decompiler.timeouted, msg=msg)
 
         msg = '{} failed; output:\n...\n{}'.format(
-            self.decomp.name,
-            self.decomp.end_of_output()
+            self.decompiler.name,
+            self.decompiler.end_of_output()
         )
-        self.assertEqual(self.decomp.return_code, 0, msg=msg)
+        self.assertEqual(self.decompiler.return_code, 0, msg=msg)
 
     def assert_c_produces_output_when_run(self, input, expected_output,
                                           expected_return_code=None, timeout=5):
@@ -101,7 +101,7 @@ class DecompilationTest(ToolTest):
 
     def _verify_decomp_output_is_c_file(self):
         """Verifies that the decompilation produced a C file."""
-        if not self.decomp.out_hll_is_c():
+        if not self.decompiler.out_hll_is_c():
             raise AssertionError('the output file is not a C file')
 
     def _compile_output_file(self, timeout):
@@ -119,24 +119,24 @@ class DecompilationTest(ToolTest):
     @property
     def _compiled_input_c_file(self):
         """Compiled input C file."""
-        return self.decomp.dir.get_file(
-            self.decomp.input_file.name + '-compiled'
+        return self.decompiler.dir.get_file(
+            self.decompiler.input_file.name + '-compiled'
         )
 
     @property
     def _fixed_out_c_file(self):
         """Fixed output C file."""
         if self._out_c_file_needs_to_be_fixed():
-            return self.decomp.out_c_file.renamed(
-                self.decomp.out_c_file.name + '.fixed.c')
+            return self.decompiler.out_c_file.renamed(
+                self.decompiler.out_c_file.name + '.fixed.c')
         # We can use the original file.
-        return self.decomp.out_c_file
+        return self.decompiler.out_c_file
 
     @property
     def _compiled_out_c_file(self):
         """Compiled output C file."""
-        return self.decomp.out_c_file.renamed(
-            self.decomp.out_c_file.name + '-compiled'
+        return self.decompiler.out_c_file.renamed(
+            self.decompiler.out_c_file.name + '-compiled'
         )
 
     def _compile_file_if_not_exists(self, input_file, output_file, timeout):
@@ -157,7 +157,7 @@ class DecompilationTest(ToolTest):
         #
         # If sizeof(char *) != sizeof(int32_t), the test fails because the cast
         # to int32_t garbles the address stored in str.
-        output, return_code, timeouted = self.decomp._run_cmd(
+        output, return_code, timeouted = self.decompiler._run_cmd(
             self._get_compiler_for_out_c() + [
                 '--std=c99', '-m32', input_file.path, '-o', output_file.path
             ]
@@ -200,9 +200,9 @@ class DecompilationTest(ToolTest):
             fix += 'double _modf(double a, double *b) { return modf(a, b); }\n'
         fix += '// ================= COMPILATION FIX END =================\n'
 
-        self.decomp.dir.store_file(
+        self.decompiler.dir.store_file(
             self._fixed_out_c_file.name,
-            fix + self.decomp.out_c
+            fix + self.decompiler.out_c
         )
 
     def _out_c_file_needs_to_be_fixed(self):
@@ -227,7 +227,7 @@ class DecompilationTest(ToolTest):
 
     def _fileinfo_run(self):
         """Did fileinfo run?"""
-        return bool(self.decomp.fileinfo_outputs)
+        return bool(self.decompiler.fileinfo_outputs)
 
     def _get_arch_from_fileinfo_output(self):
         """Returns the architecture of the input file from the output of
@@ -242,7 +242,7 @@ class DecompilationTest(ToolTest):
         try:
             # Use the last output because when the input file is packed,
             # fileinfo may run more than once.
-            arch = self.decomp.fileinfo_outputs[-1]['Architecture']
+            arch = self.decompiler.fileinfo_outputs[-1]['Architecture']
         except KeyError:
             # No architecture was detected.
             return None
@@ -260,7 +260,7 @@ class DecompilationTest(ToolTest):
 
     def _run_file(self, file, input, timeout):
         """Runs the given file with the given input and timeout. """
-        output, return_code, timeouted = self.decomp._run_cmd(
+        output, return_code, timeouted = self.decompiler._run_cmd(
             [file.path], input, timeout)
         self._verify_not_timeouted(
             "run of file '{}'".format(file.path),

@@ -107,11 +107,11 @@ class TestModule:
     def _test_case_for(self, test_class, test_settings):
         """Returns a test case for the given class and settings."""
         # We have to update the base class of the test class, depending on the
-        # tool that is being tested. For example, if the tested tool is
-        # decompile.sh, we use DecompilationTest as the base class. The reason
-        # is that the default base class, Test, is pretty abstract. In this
-        # way, proper attributes and methods are provided to users (e.g.
-        # self.decomp will be available in DecompilationTest, but not in a
+        # tool that is being tested. For example, if the tested tool is the
+        # decompiler, we use DecompilerTest as the base class. The reason is
+        # that the default base class, Test, is pretty abstract. In this way,
+        # proper attributes and methods are provided to users (e.g.
+        # self.decompiler will be available in DecompilerTest, but not in a
         # general ToolTest).
 
         # We have to copy the test class because a single test may contain

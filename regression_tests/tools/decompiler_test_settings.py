@@ -2,19 +2,19 @@
     Settings for decompilations.
 """
 
-from regression_tests.tools.decompilation_arguments import DecompilationArguments
-from regression_tests.tools.decompilation_runner import DecompilationRunner
-from regression_tests.tools.decompilation_test import DecompilationTest
+from regression_tests.tools.decompiler_arguments import DecompilerArguments
+from regression_tests.tools.decompiler_runner import DecompilerRunner
+from regression_tests.tools.decompiler_test import DecompilerTest
 from regression_tests.tools.tool_test_settings import ToolTestSettings
 from regression_tests.utils import overrides
 from regression_tests.utils.list import as_list
 
 
-class DecompilationTestSettings(ToolTestSettings):
+class DecompilerTestSettings(ToolTestSettings):
     """Settings for decompilation tests."""
 
     #: Name of the tool.
-    TOOL = 'decompile.sh'
+    TOOL = 'decompiler'
 
     def __init__(self, *, pdb=None, config=None, static_code_archive=None,
                  static_code_sigfile=None, arch=None, format=None, mode=None,
@@ -251,17 +251,17 @@ class DecompilationTestSettings(ToolTestSettings):
     @property
     @overrides(ToolTestSettings)
     def tool_arguments_class(self):
-        return DecompilationArguments
+        return DecompilerArguments
 
     @property
     @overrides(ToolTestSettings)
     def tool_runner_class(self):
-        return DecompilationRunner
+        return DecompilerRunner
 
     @property
     @overrides(ToolTestSettings)
     def tool_test_class(self):
-        return DecompilationTest
+        return DecompilerTest
 
     @classmethod
     @overrides(ToolTestSettings)

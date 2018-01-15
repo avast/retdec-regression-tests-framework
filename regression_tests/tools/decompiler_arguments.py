@@ -7,7 +7,7 @@ from regression_tests.tools.tool_arguments import ToolArguments
 from regression_tests.utils import overrides
 
 
-class DecompilationArguments(ToolArguments):
+class DecompilerArguments(ToolArguments):
     """A representation of decompilation arguments."""
 
     def __init__(self, *, pdb_file=None, config_file=None, static_code_archive=None,
@@ -141,7 +141,7 @@ class DecompilationArguments(ToolArguments):
     @classmethod
     @overrides(ToolArguments)
     def from_test_settings(cls, test_settings):
-        args = DecompilationArguments()
+        args = DecompilerArguments()
 
         # Input file.
         cls._verify_attr_is_set(test_settings, 'input')

@@ -10,7 +10,7 @@ from regression_tests.utils import memoize
 from regression_tests.utils import overrides
 
 
-class Decompilation(Tool):
+class Decompiler(Tool):
     """A representation of a decompilation that has run."""
 
     @property
@@ -116,9 +116,9 @@ class Decompilation(Tool):
                 (.*?)
                 \n
                 (?:
-                    \#\#\#\#\#\                         # Ended correctly.
+                    \#\#\#\#\#\                          # Ended correctly.
                 |
-                    \./decompile.sh:\ line\ \d+:        # Failed (segfault etc.).
+                    \./retdec-decompiler.sh:\ line\ \d+: # Failed (segfault etc.).
                 )
             """, self.log, re.VERBOSE | re.MULTILINE | re.DOTALL)
         return [FileinfoOutput(output.strip()) for output in outputs]
