@@ -5,7 +5,7 @@
 .PHONY: clean clean-tests docs docs-coverage help lint tests tests-coverage tests-timings
 
 help:
-	@echo "Use \`make <target>', where <target> is one of"
+	@echo "Use \`make <target>\`, where <target> is one of"
 	@echo "  clean          -> clean all the generated files"
 	@echo "  docs           -> generate the documentation"
 	@echo "  docs-coverage  -> generate documentation coverage"
