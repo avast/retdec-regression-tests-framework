@@ -27,14 +27,14 @@ The arguments and values specified in the initializer of the used settings class
     settings = TestSettings(
         input='file.exe',
         arch='x86',
-        format='elf'
+        format='pe'
     )
 
 From the above settings, the following ``retdec-decompiler.sh`` argument list is automatically created:
 
 .. code-block:: text
 
-    retdec-decompiler.sh file.exe -a x86 -f elf
+    retdec-decompiler.sh file.exe -a x86 -f pe
 
 For a complete list of possible arguments to the initializer, see the description of :class:`~tools.decompiler_test_settings.DecompilerTestSettings`.
 
