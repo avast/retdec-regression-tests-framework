@@ -56,7 +56,7 @@ tests-coverage:
 		--cover-html-dir coverage
 
 tests-timings:
-	@ENVIRONMENT=tests nosetests tests \
+	@nosetests tests \
 		--with-timer \
 		--timer-ok=10ms \
 		--timer-warning=50ms
