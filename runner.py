@@ -293,14 +293,14 @@ def initialize_worker(mp_lock):
     # share a single lock but each interpreter would create its own lock. This
     # would cause race conditions when emitting output or accessing the
     # database.
-    # Based on http://stackoverflow.com/a/28721419/2580955.
+    # Based on http://stackoverflow.com/a/28721419.
     global lock
     lock = mp_lock
 
     # Block SIGINT in the workers so that Ctrl+C kills only the main process.
     # It then terminates the workers. Otherwise, stack traces from all workers
     # would be printed to the standard error when Ctrl+C is used.
-    # Based on http://stackoverflow.com/a/11312948/2580955.
+    # Based on http://stackoverflow.com/a/11312948.
     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
 
@@ -346,7 +346,7 @@ def ordered_indexes(test_cases):
 def run_test_cases(test_cases, tested_commit, procs, resume, lock):
     """Runs the given test cases and returns a list of results."""
     # Properly handle Ctrl+C (KeyboardInterrupt).
-    # Based on http://stackoverflow.com/a/11312948/2580955.
+    # Based on http://stackoverflow.com/a/11312948.
     pool = mp.Pool(
         processes=procs,
         initializer=initialize_worker,

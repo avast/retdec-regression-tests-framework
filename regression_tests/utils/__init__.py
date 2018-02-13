@@ -35,7 +35,7 @@ def overrides(interface_class):
     When there is no such method in `interface_class`, it raises an assertion
     error.
     """
-    # Based on http://stackoverflow.com/a/8313042/2580955.
+    # Based on http://stackoverflow.com/a/8313042.
     def overrider(method):
         assert method.__name__ in dir(interface_class)
 
@@ -62,7 +62,7 @@ def copy_class(cls):
     """Returns a copy of the given test class."""
     # We cannot use the standard copy module because it does not copy modules
     # or classes. Therefore, we use the approach from
-    # http://stackoverflow.com/a/13379957/2580955.
+    # http://stackoverflow.com/a/13379957.
     return type(
         cls.__name__,
         cls.__bases__,

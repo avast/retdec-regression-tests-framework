@@ -52,7 +52,7 @@ def exit_if_already_running():
     # Instead of storing the PID of the process in the filesystem and checking
     # whether it already exists, we utilize AF_UNIX sockets and the abstract
     # namespace. In this way, we don't have to manage any files.
-    # Based on http://stackoverflow.com/a/7758075/2580955.
+    # Based on http://stackoverflow.com/a/7758075.
     # See also http://blog.eduardofleury.com/archives/2007/09/13 for more
     # information on AF_UNIX sockets.
     #

@@ -33,7 +33,7 @@ PID_FILE_PATH = os.path.join(ROOT_DIR, __file__ + '.pid')
 
 def process_exists(pid):
     """Checks if a process with the given PID exists."""
-    # Based on http://stackoverflow.com/a/20186516/2580955.
+    # Based on http://stackoverflow.com/a/20186516.
     try:
         os.kill(pid, 0)
     except PermissionError:

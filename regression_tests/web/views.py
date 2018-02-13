@@ -28,7 +28,7 @@ def nl2br(eval_ctx, text):
     """
     # Based on:
     #  - http://flask.pocoo.org/snippets/28/
-    #  - http://stackoverflow.com/a/14126505/2580955
+    #  - http://stackoverflow.com/a/14126505
     result = jinja2.escape(text).replace('\n', jinja2.Markup('<br />'))
     if eval_ctx.autoescape:
         result = jinja2.Markup(result)

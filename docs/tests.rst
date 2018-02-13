@@ -151,5 +151,5 @@ The following code is a complete example of a ``test.py`` file:
 
 Next, we will learn the details of specifying test settings.
 
-.. [#import-star-fn] Do not use the construct ``import *`` in real-world projects though because of namespace pollution and `other reasons <http://stackoverflow.com/a/2386740/2580955>`_.
+.. [#import-star-fn] Do not use the construct ``import *`` in real-world projects though because of namespace pollution and `other reasons <http://stackoverflow.com/a/2386740>`_.
 .. [#unittest-camel-case-fn] The assertions in the standard `unittest <https://docs.python.org/3/library/unittest.html#module-unittest>`_ module are historically named by using ``CamelCase`` instead of ``snake_case``.

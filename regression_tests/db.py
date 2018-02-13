@@ -71,7 +71,7 @@ class DB:
 
     def clear(self):
         """Clears the database."""
-        # Based on http://stackoverflow.com/a/5003705/2580955.
+        # Based on http://stackoverflow.com/a/5003705.
         for table in reversed(self._metadata.sorted_tables):
             self._execute(table.delete())
 
