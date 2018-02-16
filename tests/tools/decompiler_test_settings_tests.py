@@ -223,40 +223,6 @@ class DecompilerTestSettingsTests(unittest.TestCase):
         settings = DecompilerTestSettings(input=['file.exe'], arch=['x86', 'arm', 'x86'])
         self.assertEqual(settings.arch, ['x86', 'arm'])
 
-    def test_format_passed_to_constructor_is_accessible(self):
-        FORMAT = 'elf'
-        settings = DecompilerTestSettings(input='file.exe', format=FORMAT)
-        self.assertEqual(FORMAT, settings.format)
-
-    def test_format_as_list_returns_empty_list_if_format_is_not_set(self):
-        settings = DecompilerTestSettings(input='file.exe')
-        self.assertEqual([], settings.format_as_list)
-
-    def test_format_as_list_returns_format_when_format_is_list(self):
-        FORMAT = ['elf', 'pe']
-        settings = DecompilerTestSettings(input='file.exe', format=FORMAT)
-        self.assertEqual(FORMAT, settings.format_as_list)
-
-    def test_format_as_list_returns_list_when_there_is_single_format(self):
-        FORMAT = 'elf'
-        settings = DecompilerTestSettings(input='file.exe', format=FORMAT)
-        self.assertEqual([FORMAT], settings.format_as_list)
-
-    def test_has_multiple_formats_returns_true_when_there_are_multiple_formats(self):
-        settings = DecompilerTestSettings(input='file.exe', format=['elf', 'pe'])
-        self.assertTrue(settings.has_multiple_formats())
-
-    def test_has_multiple_formats_returns_false_when_there_is_just_single_format(self):
-        settings = DecompilerTestSettings(input='file.exe', format='elf')
-        self.assertFalse(settings.has_multiple_formats())
-
-    def test_duplicate_formats_are_merged(self):
-        settings = DecompilerTestSettings(input=['file.exe'], format=['elf', 'elf'])
-        self.assertEqual(settings.format, 'elf')
-
-        settings = DecompilerTestSettings(input=['file.exe'], format=['elf', 'pe', 'elf'])
-        self.assertEqual(settings.format, ['elf', 'pe'])
-
     def test_mode_passed_to_constructor_is_accessible(self):
         MODE = 'bin'
         settings = DecompilerTestSettings(input='file.exe', mode=MODE)

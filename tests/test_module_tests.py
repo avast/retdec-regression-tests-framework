@@ -33,8 +33,7 @@ class NonTest2(unittest.TestCase):
 class MyTest1(Test):
     settings = TestSettings(
         input='file1.exe',
-        arch='x86',
-        format='pe'
+        arch='x86'
     )
 
 class MyTest2(Test):

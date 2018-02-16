@@ -17,7 +17,7 @@ class DecompilerTestSettings(ToolTestSettings):
     TOOL = 'decompiler'
 
     def __init__(self, *, pdb=None, config=None, static_code_archive=None,
-                 static_code_sigfile=None, arch=None, format=None, mode=None,
+                 static_code_sigfile=None, arch=None, mode=None,
                  hll=None, ar_index=None, ar_name=None, **kwargs):
         """
         Each parameter can be either a single item or a list of items.
@@ -31,7 +31,6 @@ class DecompilerTestSettings(ToolTestSettings):
                                              functions to be considered as
                                              statically linked code.
         :param str/list arch: Architecture(s).
-        :param str/list format: File format(s).
         :param str/list mode: Mode(s).
         :param str/list hll: High-level language(s).
         :param int/str/list ar_index: Index(es) of the file(s) in the input
@@ -55,7 +54,6 @@ class DecompilerTestSettings(ToolTestSettings):
         self.static_code_sigfile = self._merge_duplicates(static_code_sigfile)
         self.config = self._merge_duplicates(config)
         self.arch = self._merge_duplicates(arch)
-        self.format = self._merge_duplicates(format)
         self.mode = self._merge_duplicates(mode)
         self.hll = self._merge_duplicates(hll)
         self.ar_index = self._merge_duplicates(ar_index)
@@ -150,24 +148,6 @@ class DecompilerTestSettings(ToolTestSettings):
                   ``False`` otherwise.
         """
         return self._has_multiple_values_for_attr('arch')
-
-    @property
-    def format_as_list(self):
-        """File format(s) as a list.
-
-        When the file format is not set, the empty list is returned. When there
-        is only a single file format, a singleton list is returned. When the
-        format is a list, it is returned directly.
-        """
-        return as_list(self.format)
-
-    def has_multiple_formats(self):
-        """Checks if the settings contains multiple formats.
-
-        :returns: ``True`` if the settings contains multiple formats, ``False``
-                  otherwise.
-        """
-        return self._has_multiple_values_for_attr('format')
 
     @property
     def mode_or_default(self):

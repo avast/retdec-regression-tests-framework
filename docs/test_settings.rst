@@ -20,21 +20,20 @@ Test settings are specified as class attributes inside test classes, described i
 
 The name can by any valid Python identifier, written conventionally in ``snake_case``. The used class can be either :class:`TestSettings` or its subclass :class:`CriticalTestSettings`. Test cases that use the first class are *regular tests* whereas test cases that use the second class are so-called *critical tests*. The difference between those two is described our our wiki.
 
-The arguments and values specified in the initializer of the used settings class define the parameters to be used for decompilations. For example, you may specify the input file, used architecture, or file format. The selected arguments and values are then used to create arguments for the decompiler. For example, the following settings specify the input file and prescribe the use of the ``x86`` architecture and the ``elf`` file format:
+The arguments and values specified in the initializer of the used settings class define the parameters to be used for decompilations. For example, you may specify the input file or the used architecture. The selected arguments and values are then used to create arguments for the decompiler. For example, the following settings specify the input file and prescribe the use of the ``x86`` architecture:
 
 .. code-block:: python
 
     settings = TestSettings(
         input='file.exe',
-        arch='x86',
-        format='pe'
+        arch='x86'
     )
 
 From the above settings, the following ``retdec-decompiler.sh`` argument list is automatically created:
 
 .. code-block:: text
 
-    retdec-decompiler.sh file.exe -a x86 -f pe
+    retdec-decompiler.sh file.exe -a x86
 
 For a complete list of possible arguments to the initializer, see the description of :class:`~tools.decompiler_test_settings.DecompilerTestSettings`.
 
@@ -44,8 +43,7 @@ Every argument can be either a single value or a list of values. When you specif
 
     settings = TestSettings(
         input='file.exe',
-        arch=['x86', 'arm'],
-        format='pe'
+        arch=['x86', 'arm']
     )
 
 For such settings, the following two decompilations are run:
@@ -151,7 +149,7 @@ In a greater detail, the ``args`` argument is taken, split into sub-arguments by
 
 .. hint::
 
-    When it is possible to specify a ``retdec-decompiler.sh`` parameter in the form of a named argument (like architecture or file format), always prefer it to specifying raw arguments by using the ``args`` argument. That is, do **not** write
+    When it is possible to specify a ``retdec-decompiler.sh`` parameter in the form of a named argument (like architecture or endianness), always prefer it to specifying raw arguments by using the ``args`` argument. That is, do **not** write
 
     .. code-block:: python
 
@@ -171,7 +169,6 @@ If you want to specify separate arguments for several decompilations for single 
         settings = TestSettings(
             input='file.elf'
             arch='x86',
-            format='elf',
             args=[
                 '--select-decode-only --select-functions func1,func2',
                 '--select-decode-only --select-functions func3'
@@ -182,8 +179,8 @@ It results into these two decompilations:
 
 .. code-block:: text
 
-    retdec-decompiler.sh file.elf -a x86 -f elf --select-decode-only --select-functions func1,func2
-    retdec-decompiler.sh file.elf -a x86 -f elf --select-decode-only --select-functions func3
+    retdec-decompiler.sh file.elf -a x86 --select-decode-only --select-functions func1,func2
+    retdec-decompiler.sh file.elf -a x86 --select-decode-only --select-functions func3
 
 You can also specify multiple settings, as already described earlier in this section.
 

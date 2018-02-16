@@ -11,7 +11,7 @@ class DecompilerArguments(ToolArguments):
     """A representation of decompilation arguments."""
 
     def __init__(self, *, pdb_file=None, config_file=None, static_code_archive=None,
-                 static_code_sigfile=None, arch=None, format=None, mode=None,
+                 static_code_sigfile=None, arch=None, mode=None,
                  hll=None, ar_index=None, ar_name=None, output_file=None,
                  **kwargs):
         """
@@ -23,7 +23,6 @@ class DecompilerArguments(ToolArguments):
                                          functions to be considered as
                                          statically linked code.
         :param str arch: Architecture.
-        :param str format: File format.
         :param str mode: Mode.
         :param str hll: High-level language.
         :param int/str ar_index: Index of the file in the input archive to be
@@ -40,7 +39,6 @@ class DecompilerArguments(ToolArguments):
         self.static_code_archive = static_code_archive
         self.static_code_sigfile = static_code_sigfile
         self.arch = arch
-        self.format = format
         self.mode = mode
         self.hll = hll
         self.ar_index = ar_index
@@ -93,10 +91,6 @@ class DecompilerArguments(ToolArguments):
         # Architecture.
         if self.arch is not None:
             arg_list.extend(['-a', self.arch])
-
-        # File format.
-        if self.format is not None:
-            arg_list.extend(['-f', self.format])
 
         # Index of a file in the input archive.
         if self.ar_index is not None:
@@ -178,10 +172,6 @@ class DecompilerArguments(ToolArguments):
         # Architecture.
         cls._verify_attr_is_not_list(test_settings, 'arch')
         args._set_attr_if_not_none(test_settings, 'arch')
-
-        # File format.
-        cls._verify_attr_is_not_list(test_settings, 'format')
-        args._set_attr_if_not_none(test_settings, 'format')
 
         # Mode.
         cls._verify_attr_is_not_list(test_settings, 'mode')

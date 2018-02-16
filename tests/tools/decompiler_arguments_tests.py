@@ -67,12 +67,6 @@ class DecompilerArgumentsTests(unittest.TestCase):
         )
         self.assertEqual(args.as_list, ['-a', 'x86'])
 
-    def test_as_list_returns_correct_list_when_just_format_is_set(self):
-        args = DecompilerArguments(
-            format='elf'
-        )
-        self.assertEqual(args.as_list, ['-f', 'elf'])
-
     def test_as_list_returns_correct_list_when_just_mode_is_set(self):
         args = DecompilerArguments(
             mode='bin'
@@ -146,11 +140,6 @@ class DecompilerArgumentsTests(unittest.TestCase):
         args = DecompilerArguments.from_test_settings(test_settings)
         self.assertEqual(args.arch, test_settings.arch)
 
-    def test_from_test_settings_format_is_present_when_set(self):
-        test_settings = TestSettings(input='file.exe', format='elf')
-        args = DecompilerArguments.from_test_settings(test_settings)
-        self.assertEqual(args.format, test_settings.format)
-
     def test_from_test_settings_mode_is_present_when_set(self):
         test_settings = TestSettings(input='file.exe', mode='bin')
         args = DecompilerArguments.from_test_settings(test_settings)
@@ -223,10 +212,6 @@ class DecompilerArgumentsTests(unittest.TestCase):
     def test_from_test_settings_error_is_raised_when_arch_is_list(self):
         test_settings = TestSettings(input='file.exe', arch=['x86', 'arm'])
         self.scenario_invalid_settings_error_is_raised(test_settings, 'arch')
-
-    def test_from_test_settings_error_is_raised_when_format_is_list(self):
-        test_settings = TestSettings(input='file.exe', format=['elf', 'pe'])
-        self.scenario_invalid_settings_error_is_raised(test_settings, 'format')
 
     def test_from_test_settings_error_is_raised_when_mode_is_list(self):
         test_settings = TestSettings(input='file.exe', mode=['bin', 'raw'])
@@ -325,7 +310,6 @@ class DecompilerArgumentsTests(unittest.TestCase):
             static_code_archive=StandaloneFile('file.a'),
             static_code_sigfile=StandaloneFile('file.sig'),
             arch='x86',
-            format='elf',
             mode='bin',
             hll='c',
             ar_index=0,
@@ -344,7 +328,6 @@ class DecompilerArgumentsTests(unittest.TestCase):
             static_code_archive=StandaloneFile('file.a'),
             static_code_sigfile=StandaloneFile('file.sig'),
             arch='x86',
-            format='elf',
             mode='bin',
             hll='c',
             ar_index=0,
@@ -358,7 +341,6 @@ class DecompilerArgumentsTests(unittest.TestCase):
             static_code_archive=StandaloneFile('file.a'),
             static_code_sigfile=StandaloneFile('file.sig'),
             arch='x86',
-            format='elf',
             mode='bin',
             hll='c',
             ar_index=0,
@@ -431,17 +413,6 @@ class DecompilerArgumentsTests(unittest.TestCase):
         )
         self.assertNotEqual(args1, args2)
 
-    def test_two_args_having_different_format_are_not_equal(self):
-        args1 = DecompilerArguments(
-            input_files=(StandaloneFile('file.exe'),),
-            format='elf'
-        )
-        args2 = DecompilerArguments(
-            input_files=(StandaloneFile('file.exe'),),
-            format='pe'
-        )
-        self.assertNotEqual(args1, args2)
-
     def test_two_args_having_different_modes_are_not_equal(self):
         args1 = DecompilerArguments(
             input_files=(StandaloneFile('file.exe'),),
@@ -505,7 +476,6 @@ class DecompilerArgumentsTests(unittest.TestCase):
             static_code_archive=StandaloneFile('file.a'),
             static_code_sigfile=StandaloneFile('file.sig'),
             arch='x86',
-            format='elf',
             mode='bin',
             hll='c',
             ar_index=0,

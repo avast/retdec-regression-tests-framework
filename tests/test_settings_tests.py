@@ -42,7 +42,6 @@ class TestSettingsTests(unittest.TestCase):
         settings = DecompilerTestSettings(
             input='file.exe',
             arch='x86',
-            format='elf',
             mode='bin',
             hll='c',
             ar_index=0,
@@ -81,24 +80,6 @@ class TestSettingsTests(unittest.TestCase):
             DecompilerTestSettings(
                 input='file.exe',
                 arch='arm'
-            )
-        ]
-        self.scenario_combinations_returns_given_combinations(
-            settings, ref_combinations)
-
-    def test_combinations_returns_two_settings_when_there_are_two_formats(self):
-        settings = DecompilerTestSettings(
-            input='file.exe',
-            format=['elf', 'pe']
-        )
-        ref_combinations = [
-            DecompilerTestSettings(
-                input='file.exe',
-                format='elf'
-            ),
-            DecompilerTestSettings(
-                input='file.exe',
-                format='pe'
             )
         ]
         self.scenario_combinations_returns_given_combinations(
@@ -198,7 +179,6 @@ class TestSettingsTests(unittest.TestCase):
         settings = TestSettings(
             input='file.exe',
             arch='x86',
-            format='elf',
             mode='bin',
             hll='c',
             ar_index=0,
@@ -213,7 +193,6 @@ class TestSettingsTests(unittest.TestCase):
         settings = TestSettings(
             input='file.exe',
             arch='x86',
-            format='elf',
             mode='bin',
             hll='c',
             ar_index=0,
@@ -222,7 +201,6 @@ class TestSettingsTests(unittest.TestCase):
         )
         cloned_settings = settings.clone_but(input='file2.exe')
         self.assertEqual(settings.arch, cloned_settings.arch)
-        self.assertEqual(settings.format, cloned_settings.format)
         self.assertEqual(settings.mode, cloned_settings.mode)
         self.assertEqual(settings.hll, cloned_settings.hll)
         self.assertEqual(settings.ar_index, cloned_settings.ar_index)
@@ -258,7 +236,6 @@ class TestSettingsTests(unittest.TestCase):
                 'arch',
                 'args',
                 'config',
-                'format',
                 'hll',
                 'input',
                 'mode',
@@ -274,7 +251,6 @@ class TestSettingsTests(unittest.TestCase):
         settings1 = TestSettings(
             input=['file1.exe', 'file2.exe'],
             arch='x86',
-            format='elf',
             mode='bin',
             hll='c',
             ar_index=0,
@@ -284,7 +260,6 @@ class TestSettingsTests(unittest.TestCase):
         settings2 = TestSettings(
             input=['file1.exe', 'file2.exe'],
             arch='x86',
-            format='elf',
             mode='bin',
             hll='c',
             ar_index=0,
@@ -310,17 +285,6 @@ class TestSettingsTests(unittest.TestCase):
         settings2 = TestSettings(
             input='file.exe',
             arch='arm'
-        )
-        self.assertNotEqual(settings1, settings2)
-
-    def test_two_settings_having_different_format_are_not_equal(self):
-        settings1 = TestSettings(
-            input='file.exe',
-            format='elf'
-        )
-        settings2 = TestSettings(
-            input='file.exe',
-            format='pe'
         )
         self.assertNotEqual(settings1, settings2)
 
@@ -383,7 +347,6 @@ class TestSettingsTests(unittest.TestCase):
         settings = TestSettings(
             input=['file1.exe', 'file2.exe'],
             arch='x86',
-            format='elf',
             mode='bin',
             hll='c',
             ar_index=0,
