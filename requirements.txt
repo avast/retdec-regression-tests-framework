@@ -1,3 +1,4 @@
+wheel==0.30.0
 colorama==0.3.9
 sqlalchemy==1.2.0
 flask==0.12.2
