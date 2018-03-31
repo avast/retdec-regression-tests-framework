@@ -7,6 +7,7 @@ import os
 import clang
 
 from regression_tests.utils.os import on_windows
+from regression_tests.utils.os import on_macos
 
 
 #: Include paths.
@@ -23,6 +24,8 @@ def setup_clang_bindings(clang_dir):
     # Set a proper path to libclang so that the bindings can find them.
     if on_windows():
         libclang_file_path = os.path.join(clang_dir, 'bin', 'libclang.dll')
+    elif on_macos():
+        libclang_file_path = os.path.join(clang_dir, 'lib', 'libclang.dylib')
     else:
         libclang_file_path = os.path.join(clang_dir, 'lib', 'libclang.so')
     assert os.path.exists(libclang_file_path), '{}: no such file'.format(libclang_file_path)
