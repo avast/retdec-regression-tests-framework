@@ -88,8 +88,9 @@ def make_dir_name_valid(dir_name, path_to_dir=None, max_nested_file_length=None)
 
 def on_windows():
     """Returns ``True`` if the script is running on MS Windows."""
-    platform = sys.platform.lower()
-    return platform.startswith('win') or platform == 'msys'
+    # On 64b Windows, the value of sys.platform is also 'win32'
+    # (https://stackoverflow.com/a/2145582).
+    return sys.platform in ('win32', 'msys')
 
 
 def _remove_invalid_characters(file_name):
