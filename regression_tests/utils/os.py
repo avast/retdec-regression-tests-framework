@@ -93,6 +93,11 @@ def on_windows():
     return sys.platform in ('win32', 'msys')
 
 
+def on_macos():
+    """Returns ``True`` if the script is running on macOS."""
+    return sys.platform == 'darwin'
+
+
 def _remove_invalid_characters(file_name):
     """Removes invalid characters from the given file name."""
     return re.sub(r'[/\x00-\x1f]', '', file_name)
