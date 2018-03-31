@@ -24,7 +24,7 @@ def parse(code, file_name='dummy.c', print_errors=False):
     tu = index.parse(
         file_name,
         # We have to use proper include paths. Without them, Clang cannot find
-        # some of the standard headers, like stddef.h.
+        # some of the standard headers, such as stddef.h.
         args=['-std=c99'] + ['-I{}'.format(path) for path in INCLUDE_PATHS],
         unsaved_files=[(file_name, code)]
     )
