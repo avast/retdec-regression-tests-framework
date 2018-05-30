@@ -671,7 +671,7 @@ try:
             if not stop_testing:
                 send_email_for_commit_if_needed(config, db, tested_commit)
 
-        sys.exit(0)
+        sys.exit(0 if tests_results.succeeded else 1)
 except Exception:
     logging.exception('unhandled exception')
     raise
