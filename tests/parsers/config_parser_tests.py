@@ -80,7 +80,7 @@ class ConfigTests(unittest.TestCase):
                     {
                         "name" : "my_func",
                         "fncType" : "staticallyLinked",
-                        "startAddr" : 1000
+                        "startAddr" : "1000"
                     }
                 ]
             }
@@ -94,7 +94,7 @@ class ConfigTests(unittest.TestCase):
                     {
                         "name" : "my_func",
                         "fncType" : "staticallyLinked",
-                        "startAddr" : 444
+                        "startAddr" : "444"
                     }
                 ]
             }
@@ -119,8 +119,8 @@ class ConfigTests(unittest.TestCase):
         config = Config("""
             {
                 "vtables" : [
-                    { "name" : "vt1", "address" : 1000 },
-                    { "name" : "vt2", "address" : 2000 }
+                    { "name" : "vt1", "address" : "1000" },
+                    { "name" : "vt2", "address" : "2000" }
                 ]
             }
         """)
@@ -131,8 +131,8 @@ class ConfigTests(unittest.TestCase):
         config = Config("""
             {
                 "vtables" : [
-                    { "name" : "vt1", "address" : 1000 },
-                    { "name" : "vt2", "address" : 2000 }
+                    { "name" : "vt1", "address" : "1000" },
+                    { "name" : "vt2", "address" : "2000" }
                 ]
             }
         """)
@@ -288,8 +288,8 @@ class ConfigTests(unittest.TestCase):
         config = Config("""
             {
                 "vtables" : [
-                    { "name" : "vt1", "address" : 1000 },
-                    { "name" : "vt2", "address" : 2000 }
+                    { "name" : "vt1", "address" : "1000" },
+                    { "name" : "vt2", "address" : "2000" }
                 ]
             }
         """)
@@ -300,8 +300,8 @@ class ConfigTests(unittest.TestCase):
         config = Config("""
             {
                 "vtables" : [
-                    { "name" : "vt1", "address" : 1000 },
-                    { "name" : "vt2", "address" : 2000 }
+                    { "name" : "vt1", "address" : "1000" },
+                    { "name" : "vt2", "address" : "2000" }
                 ]
             }
         """)
@@ -311,8 +311,8 @@ class ConfigTests(unittest.TestCase):
         config = Config("""
             {
                 "vtables" : [
-                    { "name" : "vt1", "address" : 1000 },
-                    { "name" : "vt2", "address" : 2000 }
+                    { "name" : "vt1", "address" : "1000" },
+                    { "name" : "vt2", "address" : "2000" }
                 ]
             }
         """)
@@ -322,8 +322,8 @@ class ConfigTests(unittest.TestCase):
         config = Config("""
             {
                 "vtables" : [
-                    { "name" : "vt1", "address" : 1000 },
-                    { "name" : "vt2", "address" : 2000 }
+                    { "name" : "vt1", "address" : "1000" },
+                    { "name" : "vt2", "address" : "2000" }
                 ]
             }
         """)
@@ -349,13 +349,13 @@ class ConfigTests(unittest.TestCase):
                         "address" : 1000,
                         "items" : [
                             {
-                                "address" : 1004,
-                                "targetAddress" : 2000,
+                                "address" : "1004",
+                                "targetAddress" : "2000",
                                 "targetName" : "func_2000"
                             },
                             {
-                                "address" : 1008,
-                                "targetAddress" : 3000,
+                                "address" : "1008",
+                                "targetAddress" : "3000",
                                 "targetName" : "func_3000"
                             }
                         ],
