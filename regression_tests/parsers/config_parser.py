@@ -246,6 +246,6 @@ class Class:
         self.virtualTables = json.get('virtualTables', [])
 
 
-def _string_to_int(val):
+def _string_to_int(s):
     """Converts the given `str` into `int`."""
-    return int(str(val), 0) if val else None
+    return int(str(s), 0) if s else None
