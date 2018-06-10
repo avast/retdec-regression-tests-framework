@@ -12,7 +12,10 @@ __all__ = [
 # Ensure that packages in the 'deps' directory can be found during import.
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir, 'deps'))
+# Insert the path to the beginning of import paths to prioritize our packages
+# in deps/ over system-level packages with the same name. This is needed when
+# the user has Python Clang bindings in his system (#5).
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), os.pardir, 'deps'))
 
 # Imports to simplify the importing of nested modules/classes.
 from regression_tests.test import Test
