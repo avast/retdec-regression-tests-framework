@@ -247,4 +247,5 @@ class Class:
 
 
 def _string_to_int(val):
+    """Converts the given `str` into `int`."""
     return int(str(val), 0) if val else None
