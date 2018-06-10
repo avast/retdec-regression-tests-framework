@@ -11,10 +11,6 @@ from regression_tests.utils.list import names_of
 from regression_tests.utils.list import names_to_set
 
 
-def string_to_int(val):
-    return int(str(val), 0) if val else None
-
-
 def parse(config):
     """Parses the given text representation of a config used by RetDec.
     (`str`).
@@ -77,7 +73,7 @@ class Config(Text):
         if config_func['fncType'] != 'staticallyLinked':
             return False
 
-        if address is not None and string_to_int(config_func.get('startAddr')) != address:
+        if address is not None and _string_to_int(config_func.get('startAddr')) != address:
             return False
 
         return True
@@ -209,7 +205,7 @@ class Vtable:
     def __init__(self, json):
         self.json = json
         self.name = json.get('name')
-        self.address = string_to_int(json.get('address'))
+        self.address = _string_to_int(json.get('address'))
         self.items = [VtableItem(d) for d in json.get('items', []) or []]
 
     @property
@@ -231,8 +227,8 @@ class VtableItem:
 
     def __init__(self, json):
         self.json = json
-        self.address = string_to_int(json.get('address'))
-        self.target_address = string_to_int(json.get('targetAddress'))
+        self.address = _string_to_int(json.get('address'))
+        self.target_address = _string_to_int(json.get('targetAddress'))
         self.target_name = json.get('targetName')
 
 
@@ -248,3 +244,7 @@ class Class:
         self.superClasses = json.get('superClasses', [])
         self.virtualMethods = json.get('virtualMethods', [])
         self.virtualTables = json.get('virtualTables', [])
+
+
+def _string_to_int(val):
+    return int(str(val), 0) if val else None
