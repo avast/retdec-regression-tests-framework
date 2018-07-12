@@ -70,7 +70,7 @@ class ToolTests(ToolTestsBase):
         self.assert_safe_name_returns('Tool', 'Tool')
 
     def test_safe_name_replaces_invalid_characters_with_underscores(self):
-        self.assert_safe_name_returns('test me.sh', 'test_me_sh')
+        self.assert_safe_name_returns('test me.py', 'test_me_py')
 
     def test_safe_name_ensures_that_name_starts_with_letter_or_undesrscore(self):
         self.assert_safe_name_returns('9tool', '_9tool')

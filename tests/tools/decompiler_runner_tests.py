@@ -32,7 +32,7 @@ class DecompilerRunnerTests(unittest.TestCase):
     def test_get_tool_executable_name_returns_correct_name(self):
         self.assertEqual(
             self.decomp_runner._get_tool_executable_name('decompiler'),
-            'retdec-decompiler.sh'
+            'retdec_decompiler.py'
         )
 
     def test_initialize_tool_dir_and_args_just_returns_args_when_config_file_is_not_set(self):

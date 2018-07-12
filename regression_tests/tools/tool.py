@@ -46,7 +46,7 @@ class Tool:
         .. code-block:: python
 
             Tool(name='Tool', ...).safe_name == 'Tool'
-            Tool(name='test me.sh', ...).safe_name == 'test_me_sh'
+            Tool(name='test me.py', ...).safe_name == 'test_me_py'
             Tool(name='9tool', ...).safe_name == '_9tool'
             Tool(name='', ...).safe_name == '_'
         """

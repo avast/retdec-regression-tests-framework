@@ -8,7 +8,7 @@ Welcome to Regression Tests' Documentation!
 
 This is an API documentation for the regression tests framework. It describes ways of writing regression tests and provides an overview of the supported functions and methods.
 
-The documentation is primarily focused on tests for the RetDec decompiler, i.e. for the ``retdec-decompiler.sh`` script. You can, however, write tests for arbitrary RetDec-related tools, such as ``fileinfo`` or ``unpacker``. This is described in section :doc:`tests_for_arbitrary_tools`. Nevertheless, it is highly recommended to read the whole documentation, even if you plan to write tests only for a single tool.
+The documentation is primarily focused on tests for the RetDec decompiler, i.e. for the ``retdec_decompiler.py`` script. You can, however, write tests for arbitrary RetDec-related tools, such as ``fileinfo`` or ``unpacker``. This is described in section :doc:`tests_for_arbitrary_tools`. Nevertheless, it is highly recommended to read the whole documentation, even if you plan to write tests only for a single tool.
 
 Table of Contents
 =================

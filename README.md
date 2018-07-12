@@ -63,10 +63,10 @@ Additionally, to run tests for our IDA plugin, you must have:
 
   ```
   idaplugin_tests_enabled = 1
-  ; Path to the IDA 6.95 directory.
+  ; Path to the IDA 7.x directory.
   idaplugin_ida_dir = /path/to/ida
   ; Path to our script run-ida-decompilation from the retdec-idaplugin repository.
-  idaplugin_script = /path/to/retdec-idaplugin/scripts/run-ida-decompilation.sh
+  idaplugin_script = /path/to/retdec-idaplugin/scripts/run_ida_decompilation.py
   ```
 
 ## Use

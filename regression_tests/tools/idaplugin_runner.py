@@ -17,4 +17,4 @@ class IDAPluginRunner(ToolRunner):
 
     @overrides(ToolRunner)
     def _get_tool_executable_name(self, tool_name):
-        return 'run-ida-decompilation.sh'
+        return 'run_ida_decompilation.py'

@@ -110,7 +110,7 @@ def ensure_all_required_settings_are_set(config):
         print_error("'retdec_install_dir' in the [runner] section of config_local.ini "
                     "points to a non-existing directory")
         sys.exit(1)
-    elif not os.path.exists(os.path.join(retdec_install_dir, 'bin', 'retdec-decompiler.sh')):
+    elif not os.path.exists(os.path.join(retdec_install_dir, 'bin', 'retdec_decompiler.py')):
         print_error("'retdec_install_dir' in the [runner] section of config_local.ini "
                     "does not seem to point to RetDec")
         sys.exit(1)
@@ -180,18 +180,18 @@ def adjust_environment(config):
     if config['runner'].getboolean('idaplugin_tests_enabled'):
         tools_dir = os.path.join(config['runner']['retdec_install_dir'], 'bin')
 
-        # run-ida-decompilation.sh requires retdec-decompiler.sh to be reachable from PATH.
+        # run_ida_decompilation.py requires retdec_decompiler.py to be reachable from PATH.
         os.environ['PATH'] = tools_dir + os.pathsep + os.environ['PATH']
 
-        # run-ida-decompilation.sh requires path to IDA Pro.
+        # run_ida_decompilation.py requires path to IDA Pro.
         os.environ['IDA_PATH'] = config['runner']['idaplugin_ida_dir']
 
-        # Copy run-ida-decompilation.sh into the directory where other tools
+        # Copy run_ida_decompilation.py into the directory where other tools
         # are located so it can be found. However, do this only when runner.py
         # is run (not for spawned processes to prevent multiple processes from
         # overwriting the same file).
         if __name__ == '__main__':
-            target_script_path = os.path.join(tools_dir, 'run-ida-decompilation.sh')
+            target_script_path = os.path.join(tools_dir, 'run_ida_decompilation.py')
             shutil.copyfile(config['runner']['idaplugin_script'], target_script_path)
             # We also need to ensure that the copied file is executable by the
             # current user.

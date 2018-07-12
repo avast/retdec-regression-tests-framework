@@ -129,6 +129,9 @@ class _WindowsProcess(subprocess.Popen):
     """An internal wrapper around ``subprocess.Popen`` for Windows."""
 
     def __init__(self, **kwargs):
+        # TODO: change for Python, either this is not needed anymore, or python3
+        # should be used instead of sh. 
+        #
         # Shell scripts need to be run with 'sh' on Windows. Simply running the
         # script by its path doesn't work. That is, for example, instead of
         #
