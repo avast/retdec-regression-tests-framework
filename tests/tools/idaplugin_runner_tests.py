@@ -30,5 +30,5 @@ class IDAPluginRunnerTests(unittest.TestCase):
     def test_get_tool_executable_name_returns_correct_name(self):
         self.assertEqual(
             self.decomp_runner._get_tool_executable_name('idaplugin'),
-            'run_ida_decompilation.py'
+            'run-ida-decompilation.py'
         )

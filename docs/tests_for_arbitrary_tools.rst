@@ -19,12 +19,12 @@ To specify a tool that differs from the decompiler, use the ``tool`` parameter o
         input='file.exe'
     )
 
-You can use any tool that is present in the RetDec's installation directory. For example, the following test settings prescribe to run all unit tests through the ``retdec_tests_runner.py`` script:
+You can use any tool that is present in the RetDec's installation directory. For example, the following test settings prescribe to run all unit tests through the ``retdec-tests-runner.py`` script:
 
 .. code-block:: python
 
     settings = TestSettings(
-        tool='retdec_tests_runner.py'
+        tool='retdec-tests-runner.py'
     )
 
 Since this script does not take any inputs, the ``input`` parameter is omitted.
@@ -85,7 +85,7 @@ For every tool, the following attributes are available:
 * ``self.$TOOL.timeouted``: Has the tool timeouted (``bool``)?
 * ``self.$TOOL.output``: Output from the tool (:class:`~parsers.text_parser.Text`). It is a combined output from the standard and error outputs.
 
-If your tool name includes characters out of ``[a-zA-Z0-9_]``, all such characters are replaced with underscores. For example, for ``retdec_tests_runner.py``, you would use ``self.retdec_test_runner_sh.return_code`` to get its return code.
+If your tool name includes characters out of ``[a-zA-Z0-9_]``, all such characters are replaced with underscores. For example, for ``retdec-tests-runner.py``, you would use ``self.retdec_test_runner_sh.return_code`` to get its return code.
 
 .. hint::
 
@@ -124,12 +124,12 @@ Fileinfo
 ^^^^^^^^
 
 * The output from ``fileinfo`` is parsed to provide easier access. See the description of :class:`~parsers.fileinfo_output_parser.FileinfoOutput` for more details.
-* Even though the tool's name is ``fileinfo``, the tool is internally run via ``retdec_fileinfo.py``. It is a shell script that wraps ``retdec-fileinfo`` and allows passing additional parameters. See its source code for more details.
+* Even though the tool's name is ``fileinfo``, the tool is internally run via ``retdec-fileinfo.py``. It is a shell script that wraps ``retdec-fileinfo`` and allows passing additional parameters. See its source code for more details.
 
 IDA Plugin
 ^^^^^^^^^^
 
-* The tool's name is ``idaplugin``. Internally, the tool is run via the ``run_ida_decompilation.py`` script.
+* The tool's name is ``idaplugin``. Internally, the tool is run via the ``run-ida-decompilation.py`` script.
 * The input IDA database file can be specified via the ``idb`` parameter when creating test settings.
 * The output C file can be accessed just like in decompilation tests: via ``self.out_c``. All C checks are available (e.g. you can check that only the given function was decompiled).
 

@@ -118,7 +118,7 @@ class Decompiler(Tool):
                 (?:
                     \#\#\#\#\#\                          # Ended correctly.
                 |
-                    \./retdec_decompiler.py:\ line\ \d+: # Failed (segfault etc.).
+                    \./retdec-decompiler.py:\ line\ \d+: # Failed (segfault etc.).
                 )
             """, self.log, re.VERBOSE | re.MULTILINE | re.DOTALL)
         return [FileinfoOutput(output.strip()) for output in outputs]

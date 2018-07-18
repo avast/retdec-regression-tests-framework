@@ -17,7 +17,7 @@ class DecompilerRunner(ToolRunner):
 
     @overrides(ToolRunner)
     def _get_tool_executable_name(self, tool_name):
-        return 'retdec_decompiler.py'
+        return 'retdec-decompiler.py'
 
     @overrides(ToolRunner)
     def _initialize_tool_dir_and_args(self, dir, args):
