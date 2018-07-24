@@ -137,7 +137,7 @@ class _WindowsProcess(subprocess.Popen):
         #
         # we need to run
         #
-        #     python /path/to/retdec-decompiler.sh
+        #     python /path/to/retdec-decompiler.py
         #
         if 'args' in kwargs and kwargs['args'] and kwargs['args'][0].endswith('.py'):
             kwargs['args'].insert(0, sys.executable)
