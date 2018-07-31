@@ -43,7 +43,7 @@ Additionally, to run tests for our IDA plugin, you must have:
   python check_dependencies.py
   ```
 
-* Create a new file `config_local.ini` with the following content (you will need to adjust the paths):
+* Create a new file `config_local.ini` with the following content (you will need to adjust the paths, use Windows style paths on Windows - e.g. `C:\path\to\clang`):
 
   ```
   [runner]
