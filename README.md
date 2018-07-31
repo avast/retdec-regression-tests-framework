@@ -11,7 +11,7 @@ To run regression tests, you must have:
 * Cloned our [retdec-regression-tests](https://github.com/avast-tl/retdec-regression-tests) repository that contains test cases.
 
 Additionally, to run tests for our IDA plugin, you must have:
-* IDA 6.95 (exactly this version; older or newer version are not supported at the moment)
+* IDA 7.x.
 * Cloned our [retdec-idaplugin](https://github.com/avast-tl/retdec-idaplugin) repository, built and installed our IDA plugin.
 
 ## Installation
