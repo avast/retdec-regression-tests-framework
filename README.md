@@ -10,16 +10,15 @@ To run regression tests, you must have:
 * Cloned our [retdec](https://github.com/avast-tl/retdec) repository, built and installed RetDec.
 * Cloned our [retdec-regression-tests](https://github.com/avast-tl/retdec-regression-tests) repository that contains test cases.
 
-Additionally, on Microsoft Windows you need a 32-bit GCC compiler from [MSYS2](http://www.msys2.org/):
+Additionally, on Microsoft Windows, you need a 32-bit GCC compiler from [MSYS2](http://www.msys2.org/):
 * Download and run an MSYS2 installer according to your system:
     * 32-bit Windows: http://sourceforge.net/projects/msys2/files/Base/i686/msys2-i686-20150916.exe/download
     * 64-bit Windows: http://sourceforge.net/projects/msys2/files/Base/x86_64/msys2-x86_64-20150916.exe/download
-* Open MSYS2 shell.
-* Install a 32-bit GCC compiler:
-    * `pacman -S mingw-w64-i686-gcc`
+* Open an MSYS2 shell.
+* Install a 32-bit GCC compiler via `pacman -S mingw-w64-i686-gcc`.
 
 Additionally, to run tests for our IDA plugin, you must have:
-* IDA 7.x.
+* IDA 7.x
 * Cloned our [retdec-idaplugin](https://github.com/avast-tl/retdec-idaplugin) repository, built and installed our IDA plugin.
 
 ## Installation
@@ -51,7 +50,7 @@ Additionally, to run tests for our IDA plugin, you must have:
   python check_dependencies.py
   ```
 
-* Create a new file `config_local.ini` with the following content (you will need to adjust the paths, use Windows style paths on Windows - e.g. `C:\path\to\clang`):
+* Create a new file `config_local.ini` with the following content (you will need to adjust the paths; use Windows style paths on Windows,  e.g. `C:\path\to\clang`):
 
   ```
   [runner]
