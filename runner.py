@@ -345,13 +345,22 @@ def ordered_indexes(test_cases):
 
 def run_test_cases(test_cases, tested_commit, procs, resume, lock):
     """Runs the given test cases and returns a list of results."""
-    # Properly handle Ctrl+C (KeyboardInterrupt).
-    # Based on http://stackoverflow.com/a/11312948.
     pool = mp.Pool(
         processes=procs,
         initializer=initialize_worker,
         initargs=(lock,)
     )
+
+    # Ensure that when the runner (= main process) is killed (either via Ctrl-C
+    # or SIGTERM), it terminates all the workers in the pool so they can
+    # terminate their subprocesses.
+    def handler(signum, frame):
+        pool.terminate()
+        pool.join()
+        sys.exit(1)
+    signal.signal(signal.SIGINT, handler)
+    signal.signal(signal.SIGTERM, handler)
+
     try:
         run_test_case_on_index_args = [
             (i, tested_commit, resume) for i in ordered_indexes(test_cases)
@@ -370,13 +379,10 @@ def run_test_cases(test_cases, tested_commit, procs, resume, lock):
                 chunksize=1
             )
         )
+        return test_results
+    finally:
         pool.close()
         pool.join()
-        return test_results
-    except KeyboardInterrupt:
-        pool.terminate()
-        pool.join()
-        sys.exit(1)
 
 
 def run_test_case_on_index(i, tested_commit, with_resume):
