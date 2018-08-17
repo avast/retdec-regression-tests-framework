@@ -97,9 +97,19 @@ class CmdRunner:
             stderr=subprocess.DEVNULL if discard_output else subprocess.STDOUT
         )
         if on_windows():
-            return _WindowsProcess(**kwargs)
+            p = _WindowsProcess(**kwargs)
         else:
-            return _LinuxProcess(**kwargs)
+            p = _LinuxProcess(**kwargs)
+
+        # We have to catch SIGTERM and terminate the subprocess to ensure that
+        # we do not leave running processes behind when forcibly killing the
+        # runner (= main process).
+        def handler(signum, frame):
+            p.kill()
+            sys.exit(1)
+        signal.signal(signal.SIGTERM, handler)
+
+        return p
 
 
 class _LinuxProcess(subprocess.Popen):
@@ -124,6 +134,15 @@ class _LinuxProcess(subprocess.Popen):
     def kill(self):
         """Kills the process, including its children."""
         os.killpg(self.pid, signal.SIGTERM)
+
+        # Ensure that when kill() is called for the second time, it does not do
+        # anything. This is needed to prevent killing of a random process when
+        # the original subprocess has already finished and its PID has been
+        # recycled. As we kill the currently running subprocess in a SIGTERM
+        # handler (see CmdRunner.start()), it may happen that the subprocess
+        # has already been stopped when we get to the handler (remember that
+        # the handler may be called asynchronously).
+        self.kill = lambda: None
 
 
 class _WindowsProcess(subprocess.Popen):
@@ -153,3 +172,12 @@ class _WindowsProcess(subprocess.Popen):
         # http://mackeblog.blogspot.cz/2012/05/killing-subprocesses-on-windows-in.html
         cmd = ['taskkill', '/F', '/T', '/PID', str(self.pid)]
         subprocess.call(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+        # Ensure that when kill() is called for the second time, it does not do
+        # anything. This is needed to prevent killing of a random process when
+        # the original subprocess has already finished and its PID has been
+        # recycled. As we kill the currently running subprocess in a SIGTERM
+        # handler (see CmdRunner.start()), it may happen that the subprocess
+        # has already been stopped when we get to the handler (remember that
+        # the handler may be called asynchronously).
+        self.kill = lambda: None
