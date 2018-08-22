@@ -1,6 +1,6 @@
 # Changelog
 
-2018-08-22: Fix: Add a missing setup of Clang bindings to `parse_c_file.py`.
+2018-08-22: Fix: Added a missing setup of Clang bindings to `parse_c_file.py`.
 2018-08-17: Fix: Correctly terminate all subprocesses upon receiving SIGINT (Ctrl-C) or SIGTERM.
 2018-08-01: Change: Use Python scripts instead of shell scripts to run our tools. This change corresponds to the recent migration from shell scripts to Python scripts in RetDec ([#338](https://github.com/avast-tl/retdec/pull/338)).
 2018-06-10: Fix: Prioritize our packages in `deps/` over system-level packages ([#5](https://github.com/avast-tl/retdec-regression-tests-framework/issues/5)).
