@@ -724,8 +724,8 @@ class Function:
         return ', '.join(map(lambda p: p.str_with_type(), self.params))
 
     def _unify_called_func_name(self, name):
-        # We have to unify names of builtins, such as memset(), because they
-        # are sometimes parsed as memset() but sometimes as e.g.
+        # We have to unify names of builtins, such as memset(). For example,
+        # memset() is sometimes parsed as memset() but sometimes as
         # __builtin___memset_chk(). This makes our regression tests easier to
         # write and read as we can assume that e.g. memset() is always memset()
         # and not __builtin___memset_chk().
