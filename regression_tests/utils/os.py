@@ -86,6 +86,11 @@ def make_dir_name_valid(dir_name, path_to_dir=None, max_nested_file_length=None)
     return make_file_name_valid(dir_name, max_length=max_length)
 
 
+def on_linux():
+    """Returns ``True`` if the script is running on Linux."""
+    return sys.platform == 'linux'
+
+
 def on_windows():
     """Returns ``True`` if the script is running on MS Windows."""
     # On 64b Windows, the value of sys.platform is also 'win32'
