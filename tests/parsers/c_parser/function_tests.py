@@ -306,6 +306,20 @@ class FunctionTests(WithModuleTests):
         """, 'func')
         self.assertEqual(func.called_func_names, {'func1', 'func2'})
 
+    def test_called_func_names_correctly_unifies_names_of_builtin_functions(self):
+        func = self.get_func("""
+            void func() {
+                int i;
+                __builtin___memset_chk(&i, 0, 2, 0);
+                __builtin___memcpy_chk(&i, &i, 2, 0);
+                __builtin___memmove_chk(&i, &i, 2, 0);
+            }
+        """, 'func')
+        self.assertEqual(
+            func.called_func_names,
+            {'memset', 'memcpy', 'memmove'}
+        )
+
     def test_has_any_for_loops_returns_false_when_there_is_no_for_loop(self):
         func = self.get_func("""
             void func() {}

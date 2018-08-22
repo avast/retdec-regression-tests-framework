@@ -175,7 +175,7 @@ class Function:
                 # We do not want to consider these as calls, so ensure that the
                 # spelling (= function name) is non-empty.
                 if node.spelling:
-                    calls.add(node.spelling)
+                    calls.add(self._unify_called_func_name(node.spelling))
 
         visit_node(self._node, add_to_calls_if_call)
 
@@ -722,6 +722,19 @@ class Function:
     @memoize
     def _params_as_str(self):
         return ', '.join(map(lambda p: p.str_with_type(), self.params))
+
+    def _unify_called_func_name(self, name):
+        # We have to unify names of builtins, such as memset(), because they
+        # are sometimes parsed as memset() but sometimes as e.g.
+        # __builtin___memset_chk(). This makes our regression tests easier to
+        # write and read as we can assume that e.g. memset() is always memset()
+        # and not __builtin___memset_chk().
+        BUILTINS = {
+            '__builtin___memset_chk': 'memset',
+            '__builtin___memcpy_chk': 'memcpy',
+            '__builtin___memmove_chk': 'memmove',
+        }
+        return BUILTINS.get(name, name)
 
     def _search(self, items, property, items_name):
         if not items:
