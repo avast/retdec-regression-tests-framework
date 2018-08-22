@@ -1,6 +1,6 @@
 # Changelog
 
-2018-08-22: Enhancement: Unified names of called functions in our C parser due to the presence of builtins. For example, `__builtin___memset_chk()` is now recognized as `memset()`.
+2018-08-22: Enhancement: Unified names of called functions in our C parser due to the presence of builtins. For example, `__builtin___memset_chk()` is now recognized as `memset()` when checking function calls.
 2018-08-22: Fix: Added a missing setup of Clang bindings to `parse_c_file.py`.
 2018-08-17: Fix: Correctly terminate all subprocesses upon receiving SIGINT (Ctrl-C) or SIGTERM.
 2018-08-01: Change: Use Python scripts instead of shell scripts to run our tools. This change corresponds to the recent migration from shell scripts to Python scripts in RetDec ([#338](https://github.com/avast-tl/retdec/pull/338)).
