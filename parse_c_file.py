@@ -7,6 +7,8 @@
 
 import argparse
 
+from regression_tests.clang import setup_clang_bindings
+from regression_tests.config import parse_standard_config_files
 from regression_tests.parsers.c_parser import parse_file
 
 
@@ -22,6 +24,8 @@ def parse_args():
 
 
 args = parse_args()
+config = parse_standard_config_files()
+setup_clang_bindings(config['runner']['clang_dir'])
 module = parse_file(args.FILE, print_errors=True)
 if module.has_parse_errors():
     print()
