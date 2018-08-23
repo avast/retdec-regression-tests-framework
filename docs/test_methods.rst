@@ -221,6 +221,25 @@ It compiles the output C file, runs it with the given input text, and verifies t
         # Increase the timeout to 10 seconds.
         self.assert_c_produces_output_when_run('input text', 'expected output', timeout=10)
 
+Running Code Only On Selected Platforms
+---------------------------------------
+
+Some checks should run only on specific platforms (e.g. a test works only on Linux and Windows but not on macOS). The framework provides the following three functions to check on which operating system the test is running:
+
+* :func:`~utils.os.on_linux()`
+* :func:`~utils.os.on_macos()`
+* :func:`~utils.os.on_windows()`
+
+Usage example:
+
+.. code-block:: python
+
+    if not on_macos():
+        # This code will not be executed when running on macOS.
+        # ...
+
+There is no need to import anything (other than the usual `from regression_tests import *` at the top of a `test.py` file).
+
 Examples
 --------
 

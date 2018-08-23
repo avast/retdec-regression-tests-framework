@@ -7,6 +7,9 @@ __all__ = [
     'TestSettings',
     'CriticalTestSettings',
     'files_in_dir',
+    'on_linux',
+    'on_macos',
+    'on_windows',
 ]
 
 # Ensure that packages in the 'deps' directory can be found during import.
@@ -24,6 +27,9 @@ from regression_tests.test_settings import CriticalTestSettings
 
 # Utilities.
 from regression_tests.test_utils import files_in_dir
+from regression_tests.utils.os import on_linux
+from regression_tests.utils.os import on_macos
+from regression_tests.utils.os import on_windows
 
 # Register available tool test settings. This cannot be done in modules because
 # they may not be imported (then, the registration would not be performed).
