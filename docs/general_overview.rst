@@ -50,22 +50,22 @@ For example, a directory with outputs for the ``factorial`` test may contain the
     ├── Test_2017 (factorial.x86.gcc.O0.exe)/
     │   ├── factorial.x86.gcc.O0.c
     │   ├── factorial.x86.gcc.O0.c-compiled
-    │   ├── factorial.x86.gcc.O0.c.backend.bc
-    │   ├── factorial.x86.gcc.O0.c.backend.ll
+    │   ├── factorial.x86.gcc.O0.bc
+    │   ├── factorial.x86.gcc.O0.ll
     │   ├── factorial.x86.gcc.O0.c.fixed.c
-    │   ├── factorial.x86.gcc.O0.c.frontend.dsm
-    │   ├── factorial.x86.gcc.O0.c.json
+    │   ├── factorial.x86.gcc.O0.dsm
+    │   ├── factorial.x86.gcc.O0.json
     │   └── factorial.x86.gcc.O0.c.log
     ├── ...
     └── Test_2017 (factorial.x86.clang.O0.exe)/
         ├── factorial.x86.clang.O0.c
         ├── factorial.x86.clang.O0.c-compiled
-        ├── factorial.x86.clang.O0.c.backend.bc
-        ├── factorial.x86.clang.O0.c.backend.ll
+        ├── factorial.x86.clang.O0.bc
+        ├── factorial.x86.clang.O0.ll
         ├── factorial.x86.clang.O0.c.fixed.c
-        ├── factorial.x86.clang.O0.c.frontend.dsm
-        ├── factorial.x86.clang.O0.c.json
-        └── factorial.x86.clang.O0.c.log
+        ├── factorial.x86.clang.O0.dsm
+        ├── factorial.x86.clang.O0.json
+        └── factorial.x86.clang.O0.log
 
 Naming Conventions
 ------------------

@@ -2,6 +2,7 @@
     A representation of a decompilation that has run.
 """
 
+import os
 import re
 
 from regression_tests.parsers.fileinfo_output_parser import FileinfoOutput
@@ -46,6 +47,12 @@ class Decompiler(Tool):
         return self.out_hll_file
 
     @property
+    def out_base_file_name(self):
+        """Base output file name used to construct other output file names.
+        """
+        return os.path.splitext(self.args.output_file.name)[0]
+
+    @property
     @memoize
     def out_c(self):
         """Contents of the output file in the C language.
@@ -60,7 +67,7 @@ class Decompiler(Tool):
     @property
     def out_dsm_file(self):
         """Output DSM file."""
-        return self._get_file(self.args.output_file.name + '.frontend.dsm')
+        return self._get_file(self.out_base_file_name + '.dsm')
 
     @property
     @memoize
@@ -72,7 +79,7 @@ class Decompiler(Tool):
     @property
     def out_config_file(self):
         """Output configuration file."""
-        return self._get_file(self.args.output_file.name + '.json')
+        return self._get_file(self.out_base_file_name + '.json')
 
     @property
     @memoize
