@@ -146,6 +146,8 @@ class DecompilerTest(ToolTest):
         if output_file.exists():
             return
 
+        compiler_arch_bitsize = '-m64' if self._use_64_bit_compiler() else '-m32'
+
         # We have to compile in the 32b mode (-m32). The reason is that in the
         # decompiled code, we sometimes convert pointers to integers and vice
         # versa. This is (of course) incorrect, but there is not much we can do
@@ -159,12 +161,13 @@ class DecompilerTest(ToolTest):
         # to int32_t garbles the address stored in str.
         output, return_code, timeouted = self.decompiler._run_cmd(
             self._get_compiler_for_out_c() + [
-                '--std=c99', '-m32', input_file.path, '-o', output_file.path
+                '--std=c99', compiler_arch_bitsize, input_file.path, '-o', output_file.path
             ]
         )
         what = "compilation of file '{}'".format(input_file.path)
         self._verify_not_timeouted(what, timeouted, timeout)
         self._verify_ended_successfully(what, return_code, output)
+
         return output
 
     def _get_compiler_for_out_c(self):
@@ -175,8 +178,15 @@ class DecompilerTest(ToolTest):
             # wrapper around gcc that properly handles the -m32 parameter.
             # Moreover, since this wrapper is a shell script, we have to run it
             # through sh.exe (otherwise, Windows doesn't find it).
-            return ['sh', 'windows-gcc-32.sh']
+            if self._use_64_bit_compiler():
+                return ['sh', 'windows-gcc-64.sh']
+            else:
+                return ['sh', 'windows-gcc-32.sh']
         return ['gcc']
+
+    def _use_64_bit_compiler(self):
+        arch = self.out_config.json.get('architecture')
+        return arch and arch.get('bitSize') == 64
 
     def _fix_out_c_file_if_needed(self):
         """Fixes the output C unless it has already been fixed or does not need

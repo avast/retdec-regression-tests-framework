@@ -33,7 +33,7 @@ class BaseDecompilerTestTests(unittest.TestCase):
         """Checks if GCC is run in the given arguments."""
         # On Windows, GCC is run via `sh.exe windows-gcc-32` instead of `gcc`.
         if on_windows():
-            return len(args[0]) > 1 and args[0][1] == 'windows-gcc-32.sh'
+            return len(args[0]) > 1 and (args[0][1] == 'windows-gcc-32.sh' or args[0][1] == 'windows-gcc-64.sh')
         return args[0][0] == 'gcc'
 
 
