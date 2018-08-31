@@ -173,6 +173,7 @@ class DecompilerTest(ToolTest):
         return ['gcc']
 
     def _use_64_bit_compiler(self):
+        """Should we use a 64b compiler to compile the output C file?"""
         arch = self.out_config.json.get('architecture')
         return arch and arch.get('bitSize') == 64
 
