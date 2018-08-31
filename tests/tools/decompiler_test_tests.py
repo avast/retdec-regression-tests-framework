@@ -7,6 +7,7 @@ import re
 import unittest
 from unittest import mock
 
+from regression_tests.parsers.config_parser import Config
 from regression_tests.parsers.fileinfo_output_parser import FileinfoOutput
 from regression_tests.test_settings import TestSettings
 from regression_tests.tools.decompiler import Decompiler
@@ -155,6 +156,32 @@ class BaseCompilationAssertionsTests(WithDecompilerTestTests):
         self.scenario_out_c_is_fixed_for_arch_when_input_is_binary('ARM')
         self.scenario_out_c_is_fixed_for_arch_when_input_is_binary('x86')
 
+    def scenario_passes_m32_to_gcc_by_default(self):
+        self.run_method_so_it_succeeds()
+
+        for call in self.decompiler._run_cmd.call_args_list:
+            # We need to check only positional arguments.
+            if '-m32' in call[0][0]:
+                break
+        else:  # nobreak
+            self.fail('did not find any calls to GCC with -m32')
+
+    def scenario_passes_m64_to_gcc_when_decompiling_64b_binary(self):
+        self.decompiler.out_config = Config("""{
+            "architecture": {
+                "bitSize": 64
+            }
+        }""")
+
+        self.run_method_so_it_succeeds()
+
+        for call in self.decompiler._run_cmd.call_args_list:
+            # We need to check only positional arguments.
+            if '-m64' in call[0][0]:
+                break
+        else:  # nobreak
+            self.fail('did not find any calls to GCC with -m64')
+
     def _check_out_c_gets_fixed(self):
         type(self.decompiler).out_c = mock.PropertyMock(return_value='')
         self.decompiler.dir.store_file.reset_mock()
@@ -228,6 +255,10 @@ class TestAssertCProducesOutputWhenRunTests(BaseCompilationAssertionsTests):
         self.scenario_out_c_is_fixed_when_needed_for_c_file()
         self.scenario_out_c_is_fixed_when_needed_for_binary_file()
 
+    def test_passes_correct_arch_bitsize_to_gcc(self):
+        self.scenario_passes_m32_to_gcc_by_default()
+        self.scenario_passes_m64_to_gcc_when_decompiling_64b_binary()
+
 
 class TestAssertIsCompilable(BaseCompilationAssertionsTests):
     """Tests for `DecompilerTest.assert_out_c_is_compilable()`."""
@@ -260,3 +291,7 @@ class TestAssertIsCompilable(BaseCompilationAssertionsTests):
     def test_out_c_is_fixed_when_needed(self):
         self.scenario_out_c_is_fixed_when_needed_for_c_file()
         self.scenario_out_c_is_fixed_when_needed_for_binary_file()
+
+    def test_passes_correct_arch_bitsize_to_gcc(self):
+        self.scenario_passes_m32_to_gcc_by_default()
+        self.scenario_passes_m64_to_gcc_when_decompiling_64b_binary()
