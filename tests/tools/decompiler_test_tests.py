@@ -31,7 +31,7 @@ class BaseDecompilerTestTests(unittest.TestCase):
 
     def is_gcc(self, args):
         """Checks if GCC is run in the given arguments."""
-        # On Windows, GCC is run via `sh.exe windows-gcc-32` instead of `gcc`.
+        # On Windows, GCC is run via `sh.exe windows-gcc-X.sh` instead of `gcc`.
         if on_windows():
             return len(args[0]) > 1 and args[0][1].startswith('windows-gcc-')
         return args[0][0] == 'gcc'

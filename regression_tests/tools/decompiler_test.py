@@ -147,18 +147,6 @@ class DecompilerTest(ToolTest):
             return
 
         compiler_arch_bitsize = '-m64' if self._use_64_bit_compiler() else '-m32'
-
-        # We have to compile in the 32b mode (-m32). The reason is that in the
-        # decompiled code, we sometimes convert pointers to integers and vice
-        # versa. This is (of course) incorrect, but there is not much we can do
-        # with this at the moment. For example, in the strlen integration test,
-        # we perform the following cast of a pointer to an integer:
-        #
-        #   int32_t my_strlen(char * str) {
-        #       int32_t v1 = (int32_t)str; // 0x804851c_0
-        #
-        # If sizeof(char *) != sizeof(int32_t), the test fails because the cast
-        # to int32_t garbles the address stored in str.
         output, return_code, timeouted = self.decompiler._run_cmd(
             self._get_compiler_for_out_c() + [
                 '--std=c99', compiler_arch_bitsize, input_file.path, '-o', output_file.path
@@ -175,9 +163,9 @@ class DecompilerTest(ToolTest):
         # Currently, we always use GCC.
         if on_windows():
             # Since MSYS2 does not support multilib, we have to use our custom
-            # wrapper around gcc that properly handles the -m32 parameter.
-            # Moreover, since this wrapper is a shell script, we have to run it
-            # through sh.exe (otherwise, Windows doesn't find it).
+            # wrappers around gcc that properly handle the -m32/-m64 parameters.
+            # Moreover, since these wrappers are shell scripts, we have to run
+            # them through sh.exe (otherwise, Windows doesn't find them).
             if self._use_64_bit_compiler():
                 return ['sh', 'windows-gcc-64.sh']
             else:
