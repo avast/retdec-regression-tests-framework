@@ -6,7 +6,7 @@ A framework for writing and running regression tests for RetDec and related tool
 
 To run regression tests, you must have:
 * Python >= 3.4
-* Clang 3.9.1 (exactly this version)
+* Clang 3.9.1 (exactly this version; download a pre-built package [from here](http://releases.llvm.org/download.html#3.9.1) and extract it somewhere)
 * Cloned our [retdec](https://github.com/avast-tl/retdec) repository, built and installed RetDec.
 * Cloned our [retdec-regression-tests](https://github.com/avast-tl/retdec-regression-tests) repository that contains test cases.
 
