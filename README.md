@@ -54,7 +54,7 @@ Additionally, to run tests for our IDA plugin, you must have:
 
   ```
   [runner]
-  ; Path to Clang containing subdirectories such as bin, include, lib, share.
+  ; Path to the extracted Clang package containing subdirectories such as bin, include, lib, share.
   clang_dir = /path/to/clang
   ; Path to the cloned repository containing regression tests.
   tests_root_dir = /path/to/retdec-regression-tests
