@@ -305,6 +305,9 @@ class Expression(metaclass=ABCMeta):
 #: Nodes that cannot be converted into expressions.
 _UNCONVERTABLE_NODES = [
     cindex.CursorKind.UNEXPOSED_EXPR,
+    # For `(x)`, we want to get `x` as there is no support for representing
+    # parentheses in the framework.
+    cindex.CursorKind.PAREN_EXPR,
 ]
 
 
