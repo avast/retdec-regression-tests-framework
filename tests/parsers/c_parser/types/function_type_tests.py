@@ -37,7 +37,7 @@ class PointerTypeTests(WithModuleTests):
         type = self.get_function_type('char (*fp)(int, float);')
         self.assertTrue(type.return_type.is_char())
 
-    def test_param_types_returns_correct_types(self):
+    def test_param_types_returns_correct_types_when_there_are_params(self):
         type = self.get_function_type('char (*fp)(char (*fp2)(int), float);')
         self.assertTrue(type.param_types[0].is_pointer())
         self.assertTrue(type.param_types[0].pointed_type.is_function())
