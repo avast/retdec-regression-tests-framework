@@ -45,6 +45,12 @@ class PointerTypeTests(WithModuleTests):
         self.assertTrue(type.param_types[0].pointed_type.param_types[0].is_int())
         self.assertTrue(type.param_types[1].is_float())
 
+    def test_param_types_returns_correct_types_when_there_are_unspecified_params(self):
+        # The code below checks that we have fixed the assertion in
+        # clang.cindex.Type.argument_types().
+        type = self.get_function_type('void (*x)();')
+        self.assertEqual(type.param_types, [])
+
     def test_param_count_returns_correct_value(self):
         type = self.get_function_type('void (*fp)(int, double, int);')
         self.assertEqual(type.param_count, 3)
