@@ -55,9 +55,6 @@ def parse_args():
                         help='Run only tests matching the given regular expression.')
     parser.add_argument('-R', '--resume', action='store_true', dest='resume',
                         help='Do not run tests that have already run for the commit.')
-    parser.add_argument('-s', '--support-stop', action='store_true', dest='support_stop',
-                        help=('Support a graceful stopping of run tests '
-                              '(Linux only, needed in the daemon).'))
     parser.add_argument('-t', '--tool', type=str, metavar='TOOL', dest='tool',
                         help='Run only tests for the given tool.')
     args = parser.parse_args()
@@ -390,16 +387,10 @@ def run_test_case_on_index(i, tested_commit, with_resume):
     global cmd_runner
     global db
     global lock
-    global stop_testing
     global test_cases
     global tools_dir
 
     test_case = test_cases[i]
-
-    # Should we stop testing? See install_stop_testing_handler() for more
-    # details.
-    if stop_testing:
-        return NoTestResults(test_case.module_name, test_case.name)
 
     # Check whether the test case should run. We only need to consult the
     # database if resume is requested, i.e. when only running tests that have
@@ -523,26 +514,6 @@ def send_email_for_commit_if_needed(config, db, commit):
     db.insert_email_for_commit(email, commit)
 
 
-def install_stop_testing_handler():
-    """Installs a handler for the "stop testing" signal.
-
-    When this signal is received, the testing should stop and the script should
-    exit. This is marked by setting the ``stop_testing`` global variable to
-    ``True``.
-    """
-    # The used signal is SIGCONT. This particular signal was chosen because it
-    # does not terminate applications without an explicit signal handler, such
-    # as our scripts and tools.
-    def sigcont_handler(signum, frame):
-        global stop_testing
-        if stop_testing is not True:
-            stop_testing = True
-
-    global stop_testing
-    stop_testing = False
-    signal.signal(signal.SIGCONT, sigcont_handler)
-
-
 def request_username_for_repo(repo_url):
     """Requests a username for the given repository and returns a new URL,
     containing the username.
@@ -567,12 +538,6 @@ try:
 
     # Arguments.
     args = parse_args()
-
-    # Support for stopping the tests. The stop_testing below needs to be global
-    # because it is used in a signal handler.
-    stop_testing = False
-    if args.support_stop:
-        install_stop_testing_handler()
 
     # Quality of Service.
     qos_enabled = config.getboolean('qos', 'enabled')
@@ -674,8 +639,7 @@ try:
             print_summary(tests_results)
 
             # Send notifications (if needed).
-            if not stop_testing:
-                send_email_for_commit_if_needed(config, db, tested_commit)
+            send_email_for_commit_if_needed(config, db, tested_commit)
 
         sys.exit(0 if tests_results.succeeded else 1)
 except Exception:
