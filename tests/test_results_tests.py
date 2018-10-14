@@ -13,7 +13,7 @@ from regression_tests.test_results import TestsResults
 
 def create_test_results(module_name='module', case_name='Test (input.exe)',
                         start_date=datetime.now(), end_date=datetime.now(),
-                        run_tests=1, failed_tests=0, output='', critical=False):
+                        run_tests=1, failed_tests=0, output=''):
     """Creates a TestResults object from the given parameters."""
     return TestResults(
         module_name,
@@ -23,7 +23,6 @@ def create_test_results(module_name='module', case_name='Test (input.exe)',
         run_tests,
         failed_tests,
         output,
-        critical
     )
 
 
@@ -116,10 +115,6 @@ class TestResultsTests(unittest.TestCase):
         OUTPUT = 'test output'
         test_results = create_test_results(output=OUTPUT)
         self.assertEqual(test_results.output, OUTPUT)
-
-    def test_critical_returns_correct_value(self):
-        test_results = create_test_results(critical=True)
-        self.assertEqual(test_results.critical, True)
 
     def test_module_names_returns_correct_value(self):
         MODULE_NAME = 'my_module'
@@ -386,19 +381,3 @@ class TestsResultsTests(unittest.TestCase):
     def test_has_run_returns_true_when_some_results(self):
         tests_results = TestsResults([create_test_results(run_tests=1)])
         self.assertTrue(tests_results.has_run())
-
-    def test_any_non_critical_returns_true_if_one_test_is_non_critical(self):
-        tests_results = TestsResults([create_test_results(critical=False)])
-        self.assertTrue(tests_results.any_non_critical)
-
-    def test_any_non_critical_returns_false_if_all_tests_are_critical(self):
-        tests_results = TestsResults([create_test_results(critical=True)])
-        self.assertFalse(tests_results.any_non_critical)
-
-    def test_all_critical_returns_true_if_all_tests_are_critical(self):
-        tests_results = TestsResults([create_test_results(critical=True)])
-        self.assertTrue(tests_results.all_critical)
-
-    def test_all_critical_returns_false_if_no_test_is_critical(self):
-        tests_results = TestsResults([create_test_results(critical=False)])
-        self.assertFalse(tests_results.all_critical)

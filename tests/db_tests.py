@@ -102,64 +102,6 @@ class DBTests(unittest.TestCase):
     def test_topmost_commit_has_succeeded_returns_false_if_no_commit(self):
         self.assertFalse(self.db.topmost_commit_has_succeeded())
 
-    def test_get_commit_for_non_critical_tests_returns_none_when_no_commits(self):
-        self.assertIsNone(self.db.get_commit_for_non_critical_tests())
-
-    def test_get_commit_for_non_critical_tests_returns_none_when_all_commits_have_run_non_critical_tests(self):
-        commit = create_commit()
-        self.db.insert_commit(commit)
-        test_results = create_test_results(critical=False, run_tests=2, failed_tests=1)
-        self.db.insert_test_results(test_results, commit)
-
-        self.assertIsNone(self.db.get_commit_for_non_critical_tests())
-
-    def test_get_commit_for_non_critical_tests_returns_none_when_topmost_commit_passed_non_critical_tests(self):
-        commit1 = create_commit()
-        self.db.insert_commit(commit1)
-        test_results1 = create_test_results(critical=True)
-        self.db.insert_test_results(test_results1, commit1)
-
-        commit2 = create_commit()
-        self.db.insert_commit(commit2)
-        test_results2 = create_test_results(critical=False, run_tests=2, failed_tests=0)
-        self.db.insert_test_results(test_results2, commit2)
-
-        self.assertIsNone(self.db.get_commit_for_non_critical_tests())
-
-    def test_get_commit_for_non_critical_tests_returns_none_when_no_commit_in_max_depth(self):
-        commit1 = create_commit()
-        self.db.insert_commit(commit1)
-        test_results1 = create_test_results(critical=True)
-        self.db.insert_test_results(test_results1, commit1)
-
-        commit2 = create_commit()
-        self.db.insert_commit(commit2)
-        test_results2 = create_test_results(critical=False, run_tests=2, failed_tests=0)
-        self.db.insert_test_results(test_results2, commit2)
-
-        self.assertIsNone(self.db.get_commit_for_non_critical_tests(1))
-
-    def test_get_commit_for_non_critical_tests_skips_commits_that_failed_to_build(self):
-        commit = create_commit()
-        self.db.insert_commit(commit)
-        build_id = self.db.insert_build_started_info(commit, datetime.now())
-        self.db.insert_build_ended_info(build_id, create_build_info(succeeded=False))
-
-        self.assertIsNone(self.db.get_commit_for_non_critical_tests(1))
-
-    def test_get_commit_for_non_critical_tests_returns_correct_commit_when_topmost_not_passed_non_critical_tests(self):
-        commit1 = create_commit()
-        self.db.insert_commit(commit1)
-        test_results1 = create_test_results(critical=True)
-        self.db.insert_test_results(test_results1, commit1)
-
-        commit2 = create_commit()
-        self.db.insert_commit(commit2)
-        test_results2 = create_test_results(critical=False, run_tests=2, failed_tests=1)
-        self.db.insert_test_results(test_results2, commit2)
-
-        self.assertEqual(self.db.get_commit_for_non_critical_tests(), commit1)
-
     def test_initialize_commit_records_inserts_commit_when_not_exists(self):
         commit = create_commit()
 

@@ -12,7 +12,6 @@ from regression_tests.test import Test
 from regression_tests.test_case import TestCase
 from regression_tests.test_case import TestCaseName
 from regression_tests.test_module import TestModule
-from regression_tests.test_settings import CriticalTestSettings
 from regression_tests.test_settings import TestSettings
 from regression_tests.tools.tool_test_settings import ToolTestSettings
 from regression_tests.utils.os import make_file_name_valid
@@ -162,19 +161,3 @@ class TestCaseTests(unittest.TestCase):
             test_settings
         )
         self.assertEqual(test_case.tool_timeout, 250)
-
-    def test_is_critical_returns_true_when_settings_is_critical(self):
-        test_case = TestCase(
-            self.test_module,
-            self.test_class,
-            CriticalTestSettings(input='file.exe')
-        )
-        self.assertTrue(test_case.is_critical())
-
-    def test_is_critical_returns_false_when_settings_is_not_critical(self):
-        test_case = TestCase(
-            self.test_module,
-            self.test_class,
-            TestSettings(input='file.exe')
-        )
-        self.assertFalse(test_case.is_critical())

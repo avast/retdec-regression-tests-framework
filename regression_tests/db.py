@@ -134,27 +134,6 @@ class DB:
         return (commit_results.build_has_succeeded() and
                 not commit_results.has_failed_tests())
 
-    def get_commit_for_non_critical_tests(self, max_depth=8):
-        """Returns a commit for which non-critical tests should run.
-
-        Only the first `max_depth` commits are checked.
-        """
-        commits_results = self.get_results_for_recent_commits(max_depth)
-        for commit_results in reversed(commits_results):
-            # We stop searching after we find either a commit which passed all
-            # the non-critical tests, or a commit for which non-critical tests
-            # should be run.
-            if commit_results.build_has_failed():
-                # There is no point in running non-critical tests for a commit
-                # whose build has failed.
-                continue
-            elif commit_results.has_results_for_non_critical_tests():
-                if not commit_results.has_failed_tests():
-                    return None
-            else:
-                return commit_results.commit
-        return None
-
     def initialize_commit_records(self, commit, remove_build_infos=True,
                                   remove_test_results=True, remove_emails=True):
         """Initializes records for the given commit.
@@ -267,7 +246,6 @@ class DB:
             run_tests=test_results.run_tests,
             failed_tests=test_results.failed_tests,
             output=str(test_results.output),
-            critical=test_results.critical
         ))
         self._execute(insert)
 
@@ -451,7 +429,6 @@ class DB:
             schema.Column('run_tests', types.Integer()),
             schema.Column('failed_tests', types.Integer()),
             schema.Column('output', types.Text(length=TEXT_LENGTH)),
-            schema.Column('critical', types.Boolean()),
         )
 
         # Emails.
@@ -507,7 +484,6 @@ class DB:
                 r.run_tests,
                 r.failed_tests,
                 r.output,
-                r.critical
             ) for r in results
         ])
 

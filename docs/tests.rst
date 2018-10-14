@@ -58,7 +58,6 @@ The first line imports all the needed class names from the :mod:`regression_test
 
 * :class:`Test`
 * :class:`TestSettings`
-* :class:`CriticalTestSettings`
 
 Also, other useful functions are automatically imported, which we will use later.
 
@@ -91,13 +90,7 @@ Every test setting is of the following form:
         # ...
     )
 
-The arguments specify the input file(s), architecture(s), file format(s), and other settings to be used in the test cases. Instead of class :class:`TestSettings`, you can also use :class:`CriticalTestSettings`. See our wiki for more details on the difference between regular and critical tests. Example:
-
-.. code-block:: python
-
-    settings = TestSettings(
-        input='ack.exe'
-    )
+The arguments specify the input file(s), architecture(s), file format(s), and other settings to be used in the test cases.
 
 Finally, there have to be some test methods to check that the decompiled code satisfies the needed properties. Every test method is of the following form:
 

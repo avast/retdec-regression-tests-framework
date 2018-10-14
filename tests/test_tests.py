@@ -5,7 +5,6 @@
 import unittest
 
 from regression_tests.test import Test
-from regression_tests.test_settings import CriticalTestSettings
 from regression_tests.test_settings import TestSettings
 
 
@@ -50,15 +49,6 @@ class TestSettingsCombinationsTests(unittest.TestCase):
             TestSettings(input='file.exe'),
             TestSettings(input='file.exe', arch='x86'),
             TestSettings(input='file.exe', arch='arm')
-        ])
-
-    def test_recognizes_critical_settings(self):
-        class MyTest(Test):
-            settings1 = TestSettings(input='file.exe')
-            settings2 = CriticalTestSettings(input='file.exe', arch='x86')
-
-        self.assertEqual(MyTest.settings_combinations(only_critical=True), [
-            CriticalTestSettings(input='file.exe', arch='x86'),
         ])
 
     def test_recognizes_settings_for_tool(self):

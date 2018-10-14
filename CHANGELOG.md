@@ -1,5 +1,6 @@
 # Changelog
 
+2018-10-14: Change: Removed distinguishing of critical and non-critical tests. Now, there is only a single type of tests (called "non-critical" in the original parlance).
 2018-10-14: Change: Removed support for running tests via a custom daemon. We no longer need this piece of functionality as we run tests via TeamCity.
 2018-10-05: Fix: Fixed parsing of pointers to functions having unspecified number of parameters.
 2018-10-05: Enhancement: Added support for parsing C source code containing parenthesized expressions.

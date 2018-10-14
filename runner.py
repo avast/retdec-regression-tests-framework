@@ -49,8 +49,6 @@ def parse_args():
                         help=('Build RetDec before testing (enabled if -c/--commit is used).'))
     parser.add_argument('-c', '--commit', type=str, metavar='SHA', dest='commit',
                         help='Force commit to be tested.')
-    parser.add_argument('-C', '--critical', action='store_true', dest='only_critical',
-                        help='Run only critical tests.')
     parser.add_argument('-r', '--regexp', type=str, metavar='REGEXP', dest='regexp',
                         help='Run only tests matching the given regular expression.')
     parser.add_argument('-R', '--resume', action='store_true', dest='resume',
@@ -277,7 +275,6 @@ def get_test_cases_to_run(tests_dir, tests_root_dir, excluded_dirs, config, args
         tests_root_dir,
         config['runner']['test_file'],
         excluded_dirs,
-        only_critical=args.only_critical,
         only_for_tool=args.tool,
         only_matching=args.regexp
     )
@@ -457,7 +454,6 @@ def run_test_case(test_case, tool_runner):
         test_result.testsRun,
         len(test_result.errors) + len(test_result.failures),
         test_output.getvalue(),
-        test_case.is_critical()
     )
 
 
@@ -622,9 +618,10 @@ try:
                 relative_excluded_dirs = ', '.join(
                     os.path.relpath(dir.path, tests_root_dir.path) for dir in excluded_dirs
                 )
-                print_error('no {}tests found in {} (excluded directories: {})'.format(
-                    'critical ' if args.only_critical else '', tests_dir.path,
-                    relative_excluded_dirs))
+                print_error('no tests found in {} (excluded directories: {})'.format(
+                    tests_dir.path,
+                    relative_excluded_dirs,
+                ))
                 sys.exit(1)
 
             # Run them.

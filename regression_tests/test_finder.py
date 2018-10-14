@@ -38,7 +38,7 @@ def get_tests_dir(tests_dir_path, tests_root_dir):
 
 
 def find_tests(dir, root_dir, test_file_name, excluded_dirs=None,
-               only_critical=False, only_for_tool=None, only_matching=None):
+               only_for_tool=None, only_matching=None):
     """Finds all tests in the given directory and subdirectories.
 
     :param Directory dir: Directory in which tests will be searched.
@@ -46,7 +46,6 @@ def find_tests(dir, root_dir, test_file_name, excluded_dirs=None,
     :param str test_file_name: Name of the file containing test configuration.
     :param list excluded_dirs: A list of directories to be excluded from
                                searching.
-    :param bool only_critical: Include only critical tests.
     :param str only_for_tool: When given, include only tests for the given
                               tool.
     :param str only_matching: When given, include only tests matching the given
@@ -62,7 +61,7 @@ def find_tests(dir, root_dir, test_file_name, excluded_dirs=None,
             if file.name == test_file_name:
                 test_module = TestModule(file, root_dir)
                 for test_case in test_module.test_cases(
-                        only_critical, only_for_tool, only_matching):
+                        only_for_tool, only_matching):
                     tests.append(test_case)
     return tests
 

@@ -60,11 +60,9 @@ class TestModule:
         )
         return re.sub(r'\.?[^.]*$', '', rel_module_path.replace(os.path.sep, '.'))
 
-    def test_cases(self, only_critical=False, only_for_tool=None,
-                   only_matching=None):
+    def test_cases(self, only_for_tool=None, only_matching=None):
         """A list of test cases in the module.
 
-        :param bool only_critical: Include only critical test cases.
         :param str only_for_tool: When given, include only tests for the given
                                   tool.
         :param str only_matching: When given, include only tests matching the
@@ -74,8 +72,7 @@ class TestModule:
         """
         test_cases = []
         for test_class in self._test_classes:
-            for test_settings in test_class.settings_combinations(
-                    only_critical, only_for_tool):
+            for test_settings in test_class.settings_combinations(only_for_tool):
                 test_case = self._test_case_for(test_class, test_settings)
                 if self._should_be_included(test_case, only_matching):
                     test_cases.append(test_case)
