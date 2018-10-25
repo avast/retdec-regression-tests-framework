@@ -12,15 +12,13 @@ Test settings are specified as class attributes inside test classes, described i
 
 .. code-block:: python
 
-    settings_name = SettingsClass(
+    settings_name = TestSettings(
         arg1=value1,
         arg2=value2,
         # ...
     )
 
-The name can by any valid Python identifier, written conventionally in ``snake_case``. The used class can be either :class:`TestSettings` or its subclass :class:`CriticalTestSettings`. Test cases that use the first class are *regular tests* whereas test cases that use the second class are so-called *critical tests*. The difference between those two is described our our wiki.
-
-The arguments and values specified in the initializer of the used settings class define the parameters to be used for decompilations. For example, you may specify the input file or the used architecture. The selected arguments and values are then used to create arguments for the decompiler. For example, the following settings specify the input file and prescribe the use of the ``x86`` architecture:
+The name can by any valid Python identifier, written conventionally in ``snake_case``. The arguments and values specified in the initializer of the used settings class define the parameters to be used for decompilations. For example, you may specify the input file or the used architecture. The selected arguments and values are then used to create arguments for the decompiler. For example, the following settings specify the input file and prescribe the use of the ``x86`` architecture:
 
 .. code-block:: python
 

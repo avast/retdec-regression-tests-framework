@@ -15,7 +15,7 @@ class TestResults:
     __test__ = False
 
     def __init__(self, module_name, case_name, start_date, end_date, run_tests,
-                 failed_tests, output, critical):
+                 failed_tests, output):
         """
         :param str module_name: Name of the module to which the test correspond.
         :param str case_name: Name of the case to which the test correspond.
@@ -24,7 +24,6 @@ class TestResults:
         :param int run_tests: Total number of tests that were run.
         :param int failed_tests: Number of failed tests.
         :param str output: Output from the tests.
-        :param bool critical: Is the test critical?
         """
         self._module_name = module_name
         self._case_name = TestCaseName(case_name)
@@ -33,7 +32,6 @@ class TestResults:
         self._run_tests = run_tests
         self._failed_tests = failed_tests
         self._output = output
-        self._critical = critical
 
     @property
     def module_name(self):
@@ -71,11 +69,6 @@ class TestResults:
     def output(self):
         """Output from the tests (`str`)."""
         return self._output
-
-    @property
-    def critical(self):
-        """Is the test critical?"""
-        return self._critical
 
     @property
     def full_name(self):
@@ -156,7 +149,6 @@ class NoTestResults(TestResults):
             run_tests=0,
             failed_tests=0,
             output='',
-            critical=False
         )
 
 
@@ -275,22 +267,6 @@ class TestsResults(list):
     def has_run(self):
         """Has at least one test run?"""
         return self.run_tests > 0
-
-    @property
-    def any_non_critical(self):
-        """Is any of the tests non-critical?"""
-        for result in self:
-            if not result.critical:
-                return True
-        return False
-
-    @property
-    def all_critical(self):
-        """Are all the tests critical?"""
-        for result in self:
-            if not result.critical:
-                return False
-        return True
 
 
 def sort_module_names(names):

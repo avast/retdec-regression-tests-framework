@@ -58,7 +58,7 @@ class TestSettings:
         )
 
     def __new__(cls, **kwargs):
-        if cls in [TestSettings, CriticalTestSettings]:
+        if cls is TestSettings:
             return cls._create_test_settings_from_arguments(**kwargs)
         return super().__new__(cls)
 
@@ -66,18 +66,7 @@ class TestSettings:
         """See the description of subclasses for a list of supported
         parameters.
         """
-        self._critical = kwargs.pop('_critical', False)
         self._verify_no_arguments_are_left(kwargs)
-
-    @property
-    def critical(self):
-        """Are the test settings critical?
-
-        Use :class:`~regression_tests.settings.CriticalTestSettings` to create
-        critical test settings.
-        :class:`~regression_tests.settings.TestSettings` are not critical by default.
-        """
-        return self._critical
 
     @property
     def combinations(self):
@@ -244,15 +233,3 @@ class TestSettings:
                     attrs += ', '
                 attrs += '{}={!r}'.format(attr_name, attr_value)
         return '{}({})'.format(self.__class__.__name__, attrs)
-
-
-class CriticalTestSettings(TestSettings):
-    """Settings for critical regression tests.
-
-    To differentiate between test settings for normal and critical tests, only
-    a different class has to be used.
-    """
-
-    def __new__(cls, **kwargs):
-        kwargs['_critical'] = True
-        return super().__new__(cls, **kwargs)

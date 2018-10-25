@@ -41,7 +41,7 @@ class MyTest2(Test):
         input='file2.exe',
         arch='arm'
     )
-    settings2 = CriticalTestSettings(
+    settings2 = TestSettings(
         input='file3.exe',
         arch='x86'
     )
@@ -117,16 +117,6 @@ class TestModuleTests(unittest.TestCase):
                 Directory(f_dir)
             )
 
-    def test_test_cases_returns_correct_number_of_cases_when_only_critical_is_false(self):
-        with self.loaded_module() as module:
-            test_cases = module.test_cases(only_critical=False)
-            self.assertEqual(len(test_cases), 6)
-
-    def test_test_cases_returns_correct_number_of_cases_when_only_critical_is_true(self):
-        with self.loaded_module() as module:
-            test_cases = module.test_cases(only_critical=True)
-            self.assertEqual(len(test_cases), 1)
-
     def test_test_cases_returns_correct_number_of_cases_when_only_for_tool_is_given(self):
         with self.loaded_module() as module:
             test_cases = module.test_cases(only_for_tool='decompiler')
@@ -145,7 +135,7 @@ class TestModuleTests(unittest.TestCase):
 
     def test_test_cases_returns_cases_with_test_classes_having_correct_base_class(self):
         with self.loaded_module() as module:
-            test_cases = module.test_cases(only_critical=False)
+            test_cases = module.test_cases()
             for test_case in test_cases:
                 first_base = test_case.test_class.__bases__[0]
                 if test_case.test_class.__name__ in ['MyTest1', 'MyTest2']:

@@ -40,11 +40,10 @@ class Test(unittest.TestCase):
         return self.__dict__['settings']
 
     @classmethod
-    def settings_combinations(cls, only_critical=False, only_for_tool=None):
+    def settings_combinations(cls, only_for_tool=None):
         """Returns all single-test-settings combinations that can be created
         from all the specified test settings.
 
-        :param bool only_critical: Include only critical settings.
         :param str only_for_tool: When given, include only tests for the given
                                   tool.
 
@@ -57,14 +56,6 @@ class Test(unittest.TestCase):
         :func:`~regression_tests.test_settings.TestSettings.combinations()`),
         this function returns a list of four
         :class:`~regression_tests.test_settings.TestSettings` instances.
-
-        Critical settings are settings that are instances of
-        :class:`~regression_tests.test_settings.CriticalTestSettings`.
-        Instances of just :class:`~regression_tests.test_settings.TestSettings`
-        are not considered to be critical settings.
-
-        When `only_critical` is ``False`` (the default), critical settings are
-        considered to be normal settings, and are included in the combinations.
         """
         def are_settings_to_consider(attr):
             if not isinstance(attr, TestSettings):
@@ -74,9 +65,7 @@ class Test(unittest.TestCase):
                     attr.tool != only_for_tool):
                 return False
 
-            if not only_critical:
-                return True
-            return attr.critical
+            return True
 
         combinations = []
         for _, settings in inspect.getmembers(cls, are_settings_to_consider):

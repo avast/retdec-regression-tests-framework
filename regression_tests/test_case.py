@@ -124,10 +124,6 @@ class TestCase:
             )
         return suite
 
-    def is_critical(self):
-        """Is the test critical?"""
-        return self.test_settings.critical
-
     @property
     def _tool_arguments(self):
         """Tool arguments."""

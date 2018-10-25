@@ -1851,7 +1851,16 @@ class Type(Structure):
 
                 return result
 
-        assert self.kind == TypeKind.FUNCTIONPROTO
+        # RetDec (2018-10-06):
+        #
+        # Original code:
+        # assert self.kind == TypeKind.FUNCTIONPROTO
+        #
+        # New code (the type kind may actually be also FUNCTIONNOPROTO, see our
+        #           unit test that fail when FUNCTIONNOPROTO is removed from
+        #           the list below):
+        assert self.kind in [TypeKind.FUNCTIONPROTO, TypeKind.FUNCTIONNOPROTO], self.kind
+
         return ArgumentsIterator(self)
 
     @property

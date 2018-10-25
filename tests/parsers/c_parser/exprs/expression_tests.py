@@ -253,6 +253,18 @@ class ExpressionTests(WithModuleTests):
         expr = self.get_struct_deref_op_expr('s', 'x')
         self.assertIsInstance(expr, StructDerefOpExpr)
 
+    def test_from_clang_node_skips_parenthesized_expressions(self):
+        # The include and NULL have to be there. Otherwise, the expression is
+        # not of kind cindex.CursorKind.PAREN_EXPR (the point of this test).
+        module = self.parse("""
+            #include <stdlib.h>
+
+            void (*x)() = NULL;
+        """)
+        x = module.global_vars[0]
+        self.assertEqual(x.name, 'x')
+        self.assertIsInstance(x.initializer, CastExpr)  # Cast from NULL to void*.
+
     def test_from_clang_node_raises_assertion_error_upon_unsupported_expression(self):
         unsupported_expr = mock.Mock()
         with self.assertRaisesRegex(AssertionError, r'.*unsupported.*'):

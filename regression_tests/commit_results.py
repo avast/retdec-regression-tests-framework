@@ -58,10 +58,6 @@ class CommitResults:
         """Are there any results?"""
         return self.results.has_run()
 
-    def has_results_for_non_critical_tests(self):
-        """Are there any results for non-critical tests?"""
-        return self.results.any_non_critical
-
     def has_failed_tests(self):
         """Has any of the tests failed?"""
         return self.results.failed

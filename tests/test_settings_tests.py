@@ -4,7 +4,6 @@
 
 import unittest
 
-from regression_tests.test_settings import CriticalTestSettings
 from regression_tests.test_settings import InvalidTestSettingsError
 from regression_tests.test_settings import TestSettings
 from regression_tests.tools.decompiler_test_settings import DecompilerTestSettings
@@ -24,10 +23,6 @@ class TestSettingsTests(unittest.TestCase):
     def test_raises_exception_when_unsupported_argument_is_found(self):
         with self.assertRaisesRegex(InvalidTestSettingsError, r".*xxx='yyy'.*"):
             TestSettings(input='file.exe', xxx='yyy')
-
-    def test_settings_are_not_critical(self):
-        settings = TestSettings(input='file.exe')
-        self.assertFalse(settings.critical)
 
     def test_outpus_dir_name_returns_correct_value(self):
         settings = TestSettings(input='file.exe')
@@ -354,11 +349,3 @@ class TestSettingsTests(unittest.TestCase):
             args='--arg'
         )
         self.assertEqual(settings, eval(repr(settings)))
-
-
-class CriticalTestSettingsTests(unittest.TestCase):
-    """Tests for `CriticalTestSettings`."""
-
-    def test_settings_are_critical(self):
-        settings = CriticalTestSettings(input='file.exe')
-        self.assertTrue(settings.critical)

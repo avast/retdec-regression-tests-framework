@@ -169,9 +169,7 @@ class Expression(metaclass=ABCMeta):
 
         :raises AssertionError: If the expression is not supported.
         """
-        # Nodes of kind UNEXPOSED_EXPR are useless because we cannot convert
-        # them, so skip them.
-        node = Expression._skip_unexposed_expressions(node)
+        node = Expression._skip_unconvertable_nodes(node)
 
         # Literals.
         if node.kind == cindex.CursorKind.INTEGER_LITERAL:
@@ -295,13 +293,22 @@ class Expression(metaclass=ABCMeta):
         raise NotImplementedError
 
     @staticmethod
-    def _skip_unexposed_expressions(node):
-        """Skips nodes of kind `UNEXPOSED_EXPR` and returns the first node that
-        is not of that kind.
+    def _skip_unconvertable_nodes(node):
+        """Skips nodes that cannot be directly converted and returns the first
+        node that can.
         """
-        while node.kind == cindex.CursorKind.UNEXPOSED_EXPR:
+        while node.kind in _UNCONVERTABLE_NODES:
             node = first_child_node(node)
         return node
+
+
+#: Nodes that cannot be converted into expressions.
+_UNCONVERTABLE_NODES = [
+    cindex.CursorKind.UNEXPOSED_EXPR,
+    # For `(x)`, we want to get `x` as there is no support for representing
+    # parentheses in the framework.
+    cindex.CursorKind.PAREN_EXPR,
+]
 
 
 from regression_tests.parsers.c_parser.exprs.init_list_expr import InitListExpr

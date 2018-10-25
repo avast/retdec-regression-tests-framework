@@ -1,5 +1,9 @@
 # Changelog
 
+2018-10-14: Change: Removed distinguishing of critical and non-critical tests. Now, there is only a single type of tests (called "non-critical" in the original parlance).
+2018-10-14: Change: Removed support for running tests via a custom daemon. We no longer need this piece of functionality as we run tests via TeamCity.
+2018-10-05: Fix: Fixed parsing of pointers to functions having unspecified number of parameters.
+2018-10-05: Enhancement: Added support for parsing C source code containing parenthesized expressions.
 2018-08-31: Enhancement: Added support for compiling decompiled C source code via 64b GCC. This will be needed to test 64b decompilations (work in progress).
 2018-08-23: Enhancement: Provide `on_linux()`, `on_macos()`, and `on_windows()` to regression tests so that some checks can be performed only on a specific platform.
 2018-08-22: Enhancement: Unified names of called functions in our C parser due to the presence of builtins. For example, `__builtin___memset_chk()` is now recognized as `memset()` when checking function calls.

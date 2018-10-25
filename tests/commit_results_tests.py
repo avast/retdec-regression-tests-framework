@@ -71,22 +71,6 @@ class CommitResultsTests(unittest.TestCase):
         )
         self.assertTrue(commit_results.has_results())
 
-    def test_has_results_for_non_critical_tests_returns_false_when_no_non_critical_results(self):
-        commit_results = CommitResults(create_commit(), TestsResults([
-            create_test_results(critical=True),
-            create_test_results(critical=True),
-            create_test_results(critical=True)
-        ]))
-        self.assertFalse(commit_results.has_results_for_non_critical_tests())
-
-    def test_has_results_for_non_critical_tests_returns_true_when_there_are_non_critical_results(self):
-        commit_results = CommitResults(create_commit(), TestsResults([
-            create_test_results(critical=False),
-            create_test_results(critical=True),
-            create_test_results(critical=False)
-        ]))
-        self.assertTrue(commit_results.has_results_for_non_critical_tests())
-
     def test_has_failed_tests_returns_true_if_test_failed(self):
         commit_results = CommitResults(
             create_commit(),
