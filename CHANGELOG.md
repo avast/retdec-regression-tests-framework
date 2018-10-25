@@ -1,5 +1,6 @@
 # Changelog
 
+2018-08-31: Enhancement: Added support for compiling decompiled C source code via 64b GCC. This will be needed to test 64b decompilations (work in progress).
 2018-08-23: Enhancement: Provide `on_linux()`, `on_macos()`, and `on_windows()` to regression tests so that some checks can be performed only on a specific platform.
 2018-08-22: Enhancement: Unified names of called functions in our C parser due to the presence of builtins. For example, `__builtin___memset_chk()` is now recognized as `memset()` when checking function calls.
 2018-08-22: Fix: Added a missing setup of Clang bindings to `parse_c_file.py`.
