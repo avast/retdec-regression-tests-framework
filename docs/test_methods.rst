@@ -98,6 +98,7 @@ The corresponding decompilation is available in the ``self.decompiler`` attribut
 * ``self.decompiler.fileinfo_outputs`` - A list of outputs from fileinfo (list of :class:`~parsers.fileinfo_output_parser.FileinfoOutput`). This is handy when fileinfo ran multiple times (e.g. when the input file is packed).
 * ``self.decompiler.out_c`` - Output C (:class:`~parsers.c_parser.module.Module`).
 * ``self.decompiler.out_dsm`` - Output DSM (:class:`~parsers.text_parser.Text`).
+* ``self.decompiler.out_ll`` - Output LLVM IR (:class:`~parsers.text_parser.Text`).
 * ``self.decompiler.out_config`` - Output configuration file (:class:`~parsers.config_parser.Config`).
 
 For a complete list of attributes :class:`~tools.decompiler.Decompiler` provides, see its documentation.
@@ -108,6 +109,7 @@ For a complete list of attributes :class:`~tools.decompiler.Decompiler` provides
 
     * ``self.out_c`` - Output C (alias to `self.decompiler.out_c`).
     * ``self.out_dsm`` - Output DSM (alias to `self.decompiler.out_dsm`).
+    * ``self.out_ll`` - Output LLVM IR (alias to `self.decompiler.out_ll`).
     * ``self.out_config`` - Output configuration file (alias to `self.decompiler.out_config`).
 
     That is, you can write, e.g, ``self.out_c`` and ``self.out_dsm`` instead of ``self.decompiler.out_c`` and ``self.decompiler.out_dsm``.
@@ -126,12 +128,13 @@ The settings used for the particular decompilation can be accessed through ``sel
 Verifying Text Outputs
 ----------------------
 
-Text outputs, like the decompilation log, output C, or output DSM, are instances of :class:`~parsers.text_parser.Text`. Instances of this class behave like strings and provide all the methods the standard ``str`` class provides (`documentation <https://docs.python.org/3/library/stdtypes.html?highlight=str#textseq>`_). Apart from them, however, it also contains a special method ``contains()`` that can be used to verify whether the output contains the given `regular expression <https://docs.python.org/3/library/re.html?highlight=re#module-re>`_. Example:
+Text outputs, like the decompilation log, output C, output LLVM IR, or output DSM, are instances of :class:`~parsers.text_parser.Text`. Instances of this class behave like strings and provide all the methods the standard ``str`` class provides (`documentation <https://docs.python.org/3/library/stdtypes.html?highlight=str#textseq>`_). Apart from them, however, it also contains a special method ``contains()`` that can be used to verify whether the output contains the given `regular expression <https://docs.python.org/3/library/re.html?highlight=re#module-re>`_. Example:
 
 .. code-block:: python
 
     assert self.out_c.contains(r'printf\("%d", \S+ / 4\);')
     assert self.out_dsm.contains(r'; function: factorial')
+    assert self.out_ll.contains(r'dec_label_pc_400010')
     assert self.decompiler.log.contains(r'# DONE')
 
 Verifying C Outputs
@@ -324,6 +327,14 @@ Output DSM
 
     # Check that the output DSM contains the given comment.
     assert self.out_dsm.contains(r'; function: ack')
+
+Output LLVM IR
+^^^^^^^^^^
+
+.. code-block:: python
+
+    # Check that the output LLVM IR contains the given label.
+    assert self.out_ll.contains(r'dec_label_pc_400010')
 
 Output Config
 ^^^^^^^^^^^^^

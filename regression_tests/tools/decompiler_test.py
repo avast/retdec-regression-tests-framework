@@ -38,6 +38,14 @@ class DecompilerTest(ToolTest):
         """
         return self.decompiler.out_config
 
+    @property
+    def out_ll(self):
+        """Contents of the output LLVM IR file.
+
+        An alias for ``self.decompiler.out_ll``.
+        """
+        return self.decompiler.out_ll
+
     def setUp(self):
         """Performs basic validations over the run decompilation."""
         super().setUp()

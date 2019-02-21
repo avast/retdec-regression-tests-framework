@@ -58,6 +58,10 @@ class DecompilerTestTests(BaseDecompilerTestTests):
         test = self.create(TestSettings(input='file.exe'))
         self.assertEqual(test.out_dsm, test.decompiler.out_dsm)
 
+    def test_out_ll_returns_same_result_as_decomp_out_ll(self):
+        test = self.create(TestSettings(input='file.exe'))
+        self.assertEqual(test.out_ll, test.decompiler.out_ll)
+
     def test_out_config_returns_same_result_as_decomp_out_config(self):
         test = self.create(TestSettings(input='file.json'))
         self.assertEqual(test.out_config, test.decompiler.out_config)

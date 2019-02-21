@@ -77,6 +77,19 @@ class Decompiler(Tool):
         return self.out_dsm_file.text
 
     @property
+    @memoize
+    def out_ll_file(self):
+        """Output LLVM IR file."""
+        return self._get_file(self.out_base_file_name + '.ll')
+
+    @property
+    @memoize
+    def out_ll(self):
+        """Contents of the output LLVM IR file.
+        """
+        return self.out_ll_file.text
+
+    @property
     def out_config_file(self):
         """Output configuration file."""
         return self._get_file(self.out_base_file_name + '.json')
