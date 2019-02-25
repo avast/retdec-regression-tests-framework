@@ -1,5 +1,7 @@
 ## RetDec Regression Tests Framework
 
+[![Documentation Status](https://readthedocs.org/projects/retdec-regression-tests-framework/badge/?version=latest)](https://retdec-regression-tests-framework.readthedocs.io/en/latest/?badge=latest)
+
 A framework for writing and running regression tests for RetDec and related tools.
 
 ## Requirements
