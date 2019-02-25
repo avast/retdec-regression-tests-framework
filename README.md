@@ -102,7 +102,7 @@ $ python runner.py --help
 
 ## Documentation
 
-To generate detailed documentation on how to write tests, execute
+The documentation is available [online](https://retdec-regression-tests-framework.readthedocs.io/en/latest/). To generate it locally, execute
 
 ```
 $ make docs
