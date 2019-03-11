@@ -12,12 +12,12 @@ To run regression tests, you must have:
 * Cloned our [retdec](https://github.com/avast-tl/retdec) repository, built and installed RetDec.
 * Cloned our [retdec-regression-tests](https://github.com/avast-tl/retdec-regression-tests) repository that contains test cases.
 
-Additionally, on Microsoft Windows, you need a 32-bit GCC compiler from [MSYS2](http://www.msys2.org/):
-* Download and run an MSYS2 installer according to your system:
-    * 32-bit Windows: http://sourceforge.net/projects/msys2/files/Base/i686/msys2-i686-20150916.exe/download
+Additionally, on Microsoft Windows, you need a 32-bit and a 64-bit GCC compiler from [MSYS2](http://www.msys2.org/):
+* Download and run an MSYS2 installer:
     * 64-bit Windows: http://sourceforge.net/projects/msys2/files/Base/x86_64/msys2-x86_64-20150916.exe/download
 * Open an MSYS2 shell.
 * Install a 32-bit GCC compiler via `pacman -S mingw-w64-i686-gcc`.
+* Install a 64-bit GCC compiler via `pacman -S mingw-w64-x86_64-gcc`.
 
 Additionally, to run tests for our IDA plugin, you must have:
 * IDA 7.x
