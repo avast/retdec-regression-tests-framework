@@ -35,7 +35,7 @@ lint:
 	@flake8 \
 		--jobs=auto \
 		--max-line-length=100 \
-		--ignore=E402 \
+		--ignore=E402,W504 \
 		regression_tests tests *.py | \
 		grep -v "tests/.*:[0-9]*:[0-9]*: E501 line too long .*" | \
 		grep -v "regression_tests/parsers/c_parser/__init__.py:[0-9]*:[0-9]*: F401 'parse' imported but unused" | \
