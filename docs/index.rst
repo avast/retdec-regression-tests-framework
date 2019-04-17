@@ -6,7 +6,7 @@
 Welcome to Regression Tests' Documentation!
 ===========================================
 
-This is a documentation for the `regression tests framework <https://github.com/avast-tl/retdec-regression-tests-framework/>`_. It describes how to write regression tests for `RetDec <https://github.com/avast-tl/retdec/>`_ and its tools, and provides an overview of the supported functions and methods.
+This is a documentation for the `regression tests framework <https://github.com/avast/retdec-regression-tests-framework/>`_. It describes how to write regression tests for `RetDec <https://github.com/avast/retdec/>`_ and its tools, and provides an overview of the supported functions and methods.
 
 The documentation is primarily focused on tests for the RetDec decompiler, i.e. for the ``retdec-decompiler.py`` script. You can, however, write tests for arbitrary RetDec-related tools, such as ``fileinfo`` or ``unpacker``. This is described in section :doc:`tests_for_arbitrary_tools`. Nevertheless, it is highly recommended to read the whole documentation, even if you plan to write tests only for a single tool.
 

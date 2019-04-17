@@ -9,8 +9,8 @@ A framework for writing and running regression tests for RetDec and related tool
 To run regression tests, you must have:
 * Python >= 3.4
 * Clang 3.9.1 (exactly this version; download a pre-built package [from here](http://releases.llvm.org/download.html#3.9.1) and extract it somewhere)
-* Cloned our [retdec](https://github.com/avast-tl/retdec) repository, built and installed RetDec.
-* Cloned our [retdec-regression-tests](https://github.com/avast-tl/retdec-regression-tests) repository that contains test cases.
+* Cloned our [retdec](https://github.com/avast/retdec) repository, built and installed RetDec.
+* Cloned our [retdec-regression-tests](https://github.com/avast/retdec-regression-tests) repository that contains test cases.
 
 Additionally, on Microsoft Windows, you need a 32-bit and a 64-bit GCC compiler from [MSYS2](http://www.msys2.org/):
 * Download and run an MSYS2 installer:
@@ -21,7 +21,7 @@ Additionally, on Microsoft Windows, you need a 32-bit and a 64-bit GCC compiler 
 
 Additionally, to run tests for our IDA plugin, you must have:
 * IDA 7.x
-* Cloned our [retdec-idaplugin](https://github.com/avast-tl/retdec-idaplugin) repository, built and installed our IDA plugin.
+* Cloned our [retdec-idaplugin](https://github.com/avast/retdec-idaplugin) repository, built and installed our IDA plugin.
 
 ## Installation
 
@@ -112,10 +112,10 @@ Then, open `docs/_build/html/index.html` in your favorite web browser.
 
 ## License
 
-Copyright (c) 2017 Avast Software, licensed under the MIT license. See the [`LICENSE`](https://github.com/avast-tl/retdec-regression-tests-framework/blob/master/LICENSE) file for more details.
+Copyright (c) 2017 Avast Software, licensed under the MIT license. See the [`LICENSE`](https://github.com/avast/retdec-regression-tests-framework/blob/master/LICENSE) file for more details.
 
 The framework includes several third-party libraries, whose code and licensing information is provided in the `deps` subdirectory.
 
 ## Contributing
 
-See [RetDec contribution guidelines](https://github.com/avast-tl/retdec/wiki/Contribution-Guidelines).
+See [RetDec contribution guidelines](https://github.com/avast/retdec/wiki/Contribution-Guidelines).
