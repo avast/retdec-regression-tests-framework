@@ -109,7 +109,7 @@ class FileinfoOutput(Text):
 
     .. code-block:: python
 
-        assert fileinfo_output.contains(r'.*GCC.*4\.7.*')
+        assert fileinfo_output.contains('.*GCC.*4\\.7.*')
 
     The behavior of the ``in`` operator depends on the format of the output.
     For plain-text output, it behaves like regular ``in`` for strings,
