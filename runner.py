@@ -167,6 +167,18 @@ def ensure_all_required_settings_are_set(config):
                         "points to a non-existing file")
             sys.exit(1)
 
+    if config['runner'].getboolean('r2plugin_tests_enabled'):
+        # [runner] -> r2plugin_script
+        r2plugin_script = config['runner']['r2plugin_script']
+        if not r2plugin_script:
+            print_error("no 'r2plugin_script' in the [runner] section of config_local.ini "
+                        "(you have to add it to run tests for our IDA plugin)")
+            sys.exit(1)
+        elif not os.path.exists(r2plugin_script):
+            print_error("'r2plugin_script' in the [runner] section of config_local.ini "
+                        "points to a non-existing file")
+            sys.exit(1)
+
 
 def adjust_environment(config):
     """Adjusts the environment so that the regression tests may run (e.g.
@@ -188,6 +200,26 @@ def adjust_environment(config):
         if __name__ == '__main__':
             target_script_path = os.path.join(tools_dir, 'run-ida-decompilation.py')
             shutil.copyfile(config['runner']['idaplugin_script'], target_script_path)
+            # We also need to ensure that the copied file is executable by the
+            # current user.
+            os.chmod(
+                target_script_path,
+                os.stat(target_script_path).st_mode | stat.S_IXUSR
+            )
+
+    if config['runner'].getboolean('r2plugin_tests_enabled'):
+        tools_dir = os.path.join(config['runner']['retdec_install_dir'], 'bin')
+
+        # run-r2-decompilation.py requires retdec-decompiler.py to be reachable from PATH.
+        os.environ['PATH'] = tools_dir + os.pathsep + os.environ['PATH']
+
+        # Copy run-r2-decompilation.py into the directory where other tools
+        # are located so it can be found. However, do this only when runner.py
+        # is run (not for spawned processes to prevent multiple processes from
+        # overwriting the same file).
+        if __name__ == '__main__':
+            target_script_path = os.path.join(tools_dir, 'run-r2-decompilation.py')
+            shutil.copyfile(config['runner']['r2plugin_script'], target_script_path)
             # We also need to ensure that the copied file is executable by the
             # current user.
             os.chmod(
@@ -263,6 +295,11 @@ def get_excluded_dirs(tests_root_dir, config):
     # directory so they are not discovered by automatic test discovery.
     if not config['runner'].getboolean('idaplugin_tests_enabled'):
         dir_paths.append(os.path.join('tools', 'idaplugin'))
+
+    # When tests for r2 plugin are disabled, we have to exclude their
+    # directory so they are not discovered by automatic test discovery.
+    if not config['runner'].getboolean('r2plugin_tests_enabled'):
+        dir_paths.append(os.path.join('tools', 'r2plugin'))
 
     excluded_dirs = [tests_root_dir.get_dir(path) for path in dir_paths]
     return excluded_dirs

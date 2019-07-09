@@ -54,6 +54,8 @@ def _module_name_to_class_name(module_name):
     # generic conversion below is inadequate.
     if module_name == 'idaplugin_test_settings':
         return 'IDAPluginTestSettings'
+    elif module_name == 'r2plugin_test_settings':
+        return 'R2PluginTestSettings'
     elif module_name == 'bin2pat_test_settings':
         return 'Bin2PatTestSettings'
 
