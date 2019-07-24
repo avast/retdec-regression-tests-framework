@@ -20,13 +20,18 @@ class R2PluginTestSettings(ToolTestSettings):
     #: Name of the tool.
     TOOL = 'r2plugin'
 
-    def __init__(self, **kwargs):
+    def __init__(self, project=None, **kwargs):
         """
+        :param str project: R2 project file.
+
         See the description of :class:`.ToolTestSettings` for additional
         parameters.
         """
         kwargs['tool'] = self.TOOL
         ToolTestSettings.__init__(self, **kwargs)
+
+        # r2 project
+        self.project = self._merge_duplicates(project)
 
     @property
     @overrides(ToolTestSettings)
@@ -47,3 +52,21 @@ class R2PluginTestSettings(ToolTestSettings):
     @overrides(ToolTestSettings)
     def should_be_created_from(cls, **kwargs):
         return kwargs.get('tool') == cls.TOOL
+
+    @property
+    def project_as_list(self):
+        """R2 project file(s) as a list.
+
+        When the R2 project file is not set, the empty list is returned.
+        When there is only a single R2 project file, a singleton list is
+        returned. When there are multiple files, the list is returned directly.
+        """
+        return as_list(self.project)
+
+    def has_multiple_projects(self):
+        """Checks if the settings contains multiple R2 project files.
+
+        :returns: ``True`` if the settings contains multiple R2 project
+                  files, ``False`` otherwise.
+        """
+        return self._has_multiple_values_for_attr('project')

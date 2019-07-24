@@ -10,13 +10,15 @@ from regression_tests.utils import overrides
 class R2PluginArguments(ToolArguments):
     """A representation of r2 plugin arguments."""
 
-    def __init__(self, *, output_file=None, **kwargs):
+    def __init__(self, *, project_file=None, output_file=None, **kwargs):
         """
+        :param File project_file: Input R2 project file.
         :param File output_file: Output file.
 
         All arguments are passed to :class:`.ToolArguments`.
         """
         super().__init__(**kwargs)
+        self.project_file = project_file
         self.output_file = output_file
 
     @property
@@ -33,6 +35,10 @@ class R2PluginArguments(ToolArguments):
         if self.input_files:
             arg_list.append(self.input_file.path)
 
+        # R2 project file.
+        if self.project_file is not None:
+            arg_list.extend(['--project', self.project_file.path])
+
         # Output file.
         if self.output_file is not None:
             arg_list.extend(['-o', self.output_file.path])
@@ -47,6 +53,7 @@ class R2PluginArguments(ToolArguments):
     def without_paths_and_output_files(self):
         args = self.clone()
         args._remove_paths_from_files_attr('input_files')
+        args._remove_path_from_file_attr('project_file')
         args.output_file = None
         return args
 
@@ -54,6 +61,7 @@ class R2PluginArguments(ToolArguments):
     def with_rebased_files(self, inputs_dir, outputs_dir):
         args = self.clone()
         args._rebase_files_attr('input_files', inputs_dir)
+        args._rebase_file_attr('project_file', inputs_dir)
         args._rebase_file_attr('output_file', outputs_dir)
         return args
 
@@ -66,6 +74,10 @@ class R2PluginArguments(ToolArguments):
         cls._verify_attr_is_set(test_settings, 'input')
         cls._verify_attr_is_not_list(test_settings, 'input')
         args._set_files_attr_if_not_none(test_settings, 'input')
+
+        # R2 project file.
+        cls._verify_attr_is_not_list(test_settings, 'project')
+        args._set_file_attr_if_not_none(test_settings, 'project')
 
         # Output file.
         args.output_file = StandaloneFile(
