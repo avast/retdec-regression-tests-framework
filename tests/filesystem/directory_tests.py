@@ -172,7 +172,7 @@ class DirectoryGetFileTests(CreatedDirectoryTests):
         self.assertIsInstance(self.directory.get_file('file.c'), CFile)
 
     def test_returns_ConfigFile_for_file_ending_with_dot_json(self):
-        self.assertIsInstance(self.directory.get_file('file.json'), ConfigFile)
+        self.assertIsInstance(self.directory.get_file('file.config.json'), ConfigFile)
 
     def test_returns_YaraFile_for_file_ending_with_dot_yara(self):
         self.assertIsInstance(self.directory.get_file('file.yara'), YaraFile)

@@ -36,9 +36,9 @@ class FileinfoArgumentsTests(unittest.TestCase):
     def test_as_list_returns_correct_list_when_config_file_is_set(self):
         args = FileinfoArguments(
             input_files=(StandaloneFile('file.exe'),),
-            config_file=StandaloneFile('file.json')
+            config_file=StandaloneFile('file.config.json')
         )
-        self.assertEqual(args.as_list, ['file.exe', '-c', 'file.json'])
+        self.assertEqual(args.as_list, ['file.exe', '-c', 'file.config.json'])
 
     def test_as_list_returns_correct_list_when_just_args_is_set(self):
         args = FileinfoArguments(
@@ -55,7 +55,7 @@ class FileinfoArgumentsTests(unittest.TestCase):
     def test_from_test_settings_config_file_is_present_when_set(self):
         test_settings = FileinfoTestSettings(input='test.exe')
         args = FileinfoArguments.from_test_settings(test_settings)
-        self.assertEqual(args.config_file.name, 'test.exe.json')
+        self.assertEqual(args.config_file.name, 'test.exe.config.json')
 
     def test_from_test_settings_args_is_present_when_set(self):
         test_settings = FileinfoTestSettings(input='test.exe', args='--arg1 --arg2')
@@ -86,7 +86,7 @@ class FileinfoArgumentsTests(unittest.TestCase):
     def test_without_paths_and_output_files_returns_correct_args_when_there_are_files(self):
         args = FileinfoArguments(
             input_files=(File('file.exe', Directory(os.path.join(ROOT_DIR, 'inputs'))),),
-            config_file=File('file.json', Directory(os.path.join(ROOT_DIR, 'outputs')))
+            config_file=File('file.config.json', Directory(os.path.join(ROOT_DIR, 'outputs')))
         )
         stripped_args = args.without_paths_and_output_files
         self.assertEqual(len(stripped_args.input_files), 1)
@@ -104,7 +104,7 @@ class FileinfoArgumentsTests(unittest.TestCase):
     def test_with_rebased_files_returns_correct_args_when_there_are_files(self):
         args = FileinfoArguments(
             input_files=(StandaloneFile('file.exe'),),
-            config_file=StandaloneFile('file.json')
+            config_file=StandaloneFile('file.config.json')
         )
         rebased_args = args.with_rebased_files(
             Directory(os.path.join(ROOT_DIR, 'inputs')),
@@ -117,13 +117,13 @@ class FileinfoArgumentsTests(unittest.TestCase):
         )
         self.assertEqual(
             rebased_args.config_file.path,
-            os.path.join(ROOT_DIR, 'outputs', 'file.json')
+            os.path.join(ROOT_DIR, 'outputs', 'file.config.json')
         )
 
     def test_clone_returns_other_args_equal_to_original_args(self):
         args = FileinfoArguments(
             input_files=(StandaloneFile('file.exe'),),
-            config_file=StandaloneFile('file.json'),
+            config_file=StandaloneFile('file.config.json'),
             args='--arg'
         )
         cloned_args = args.clone()
@@ -152,10 +152,10 @@ class FileinfoArgumentsTests(unittest.TestCase):
 
     def test_two_args_having_different_config_file_are_not_equal(self):
         args1 = FileinfoArguments(
-            config_file=StandaloneFile('file1.json')
+            config_file=StandaloneFile('file1.config.json')
         )
         args2 = FileinfoArguments(
-            config_file=StandaloneFile('file2.json')
+            config_file=StandaloneFile('file2.config.json')
         )
         self.assertNotEqual(args1, args2)
 
@@ -173,7 +173,7 @@ class FileinfoArgumentsTests(unittest.TestCase):
     def test_repr_returns_executable_repr_that_creates_original_args(self):
         args = FileinfoArguments(
             input_files=(StandaloneFile('file.exe'),),
-            config_file=StandaloneFile('file.json'),
+            config_file=StandaloneFile('file.config.json'),
             args='--arg'
         )
         self.assertEqual(args, eval(repr(args)))

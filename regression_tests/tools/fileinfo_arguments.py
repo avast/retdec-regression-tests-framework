@@ -82,4 +82,4 @@ class FileinfoArguments(ToolArguments):
         """Returns the name of the output configuration file from the input
         file.
         """
-        return self.input_file.name + '.json'
+        return self.input_file.name + '.config.json'

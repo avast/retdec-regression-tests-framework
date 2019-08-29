@@ -51,10 +51,10 @@ class DecompilerRunnerTests(unittest.TestCase):
     def test_initialize_tool_dir_and_args_copies_config_file_when_it_is_set(self):
         input_dir = mock.Mock()
         tool_dir = mock.Mock()
-        tool_dir.copy_file.return_value = File('file.json', tool_dir)
+        tool_dir.copy_file.return_value = File('file.config.json', tool_dir)
         args = DecompilerArguments(
             input_files=(File('file.exe', input_dir),),
-            config_file=File('file.json', input_dir)
+            config_file=File('file.config.json', input_dir)
         )
 
         new_args = self.decomp_runner._initialize_tool_dir_and_args(

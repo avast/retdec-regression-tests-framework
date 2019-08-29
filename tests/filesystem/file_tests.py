@@ -175,18 +175,18 @@ class ConfigFileTests(unittest.TestCase):
         dir = new_dir(TMP_DIR_PATH)
         CONFIG_TEXT = '{}'
         dir.read_text_file.return_value = CONFIG_TEXT
-        file = ConfigFile('config.json', dir)
+        file = ConfigFile('config.config.json', dir)
         self.assertEqual(file.text, parse_config_mock.return_value)
         parse_config_mock.assert_called_once_with(CONFIG_TEXT)
 
     def test_text_is_memoized(self):
         dir = new_dir(TMP_DIR_PATH)
         dir.read_text_file.return_value = '{}'
-        file = ConfigFile('config.json', dir)
+        file = ConfigFile('config.config.json', dir)
         # We call text() two times and check that the text was read only once.
         file.text
         file.text
-        dir.read_text_file.assert_called_once_with('config.json')
+        dir.read_text_file.assert_called_once_with('config.config.json')
 
 
 class YaraFileTests(unittest.TestCase):
