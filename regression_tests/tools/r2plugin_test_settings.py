@@ -20,7 +20,7 @@ class R2PluginTestSettings(ToolTestSettings):
     #: Name of the tool.
     TOOL = 'r2plugin'
 
-    def __init__(self, project=None, **kwargs):
+    def __init__(self, project=None, commands=None, **kwargs):
         """
         :param str project: R2 project file.
 
@@ -32,6 +32,7 @@ class R2PluginTestSettings(ToolTestSettings):
 
         # r2 project
         self.project = self._merge_duplicates(project)
+        self.commands = commands
 
     @property
     @overrides(ToolTestSettings)
@@ -62,6 +63,17 @@ class R2PluginTestSettings(ToolTestSettings):
         returned. When there are multiple files, the list is returned directly.
         """
         return as_list(self.project)
+
+    @property
+    def commands_as_list(self):
+        """R2 project file(s) as a list.
+
+        When the R2 commands are not set, the empty list is returned.
+        When there is only a single R2 command, a singleton list is
+        returned. When there are multiple commands, the list is returned
+        directly.
+        """
+        return as_list(self.commands)
 
     def has_multiple_projects(self):
         """Checks if the settings contains multiple R2 project files.

@@ -10,7 +10,7 @@ from regression_tests.utils import overrides
 class R2PluginArguments(ToolArguments):
     """A representation of r2 plugin arguments."""
 
-    def __init__(self, *, project_file=None, output_file=None, **kwargs):
+    def __init__(self, *, project_file=None, output_file=None, commands=None, **kwargs):
         """
         :param File project_file: Input R2 project file.
         :param File output_file: Output file.
@@ -20,6 +20,7 @@ class R2PluginArguments(ToolArguments):
         super().__init__(**kwargs)
         self.project_file = project_file
         self.output_file = output_file
+        self.commands = commands
 
     @property
     def input_file(self):
@@ -42,6 +43,13 @@ class R2PluginArguments(ToolArguments):
         # Output file.
         if self.output_file is not None:
             arg_list.extend(['-o', self.output_file.path])
+
+        if self.commands:
+            if type(self.commands) is tuple:
+                arg_list.extend(['-c', ';'.join(self.commands)])
+
+            else:
+                arg_list.extend(['-c', self.commands])
 
         # Additional arguments.
         arg_list.extend(self.args_as_list)
@@ -78,6 +86,9 @@ class R2PluginArguments(ToolArguments):
         # R2 project file.
         cls._verify_attr_is_not_list(test_settings, 'project')
         args._set_file_attr_if_not_none(test_settings, 'project')
+
+        # R2 init commands.
+        args._set_attr_if_not_none(test_settings, 'commands')
 
         # Output file.
         args.output_file = StandaloneFile(
