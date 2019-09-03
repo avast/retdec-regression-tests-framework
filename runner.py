@@ -46,7 +46,7 @@ def parse_args():
     parser.add_argument('tests_dir', type=str, metavar='PATH', nargs='?',
                         help='Explicit path to the tests.')
     parser.add_argument('-b', '--build', action='store_true', dest='build',
-                        help=('Build RetDec before testing (enabled if -c/--commit is used).'))
+                        help='Build RetDec before testing (enabled if -c/--commit is used).')
     parser.add_argument('-c', '--commit', type=str, metavar='SHA', dest='commit',
                         help='Force commit to be tested.')
     parser.add_argument('-r', '--regexp', type=str, metavar='REGEXP', dest='regexp',
