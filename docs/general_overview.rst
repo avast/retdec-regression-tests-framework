@@ -54,7 +54,7 @@ For example, a directory with outputs for the ``factorial`` test may contain the
     │   ├── factorial.x86.gcc.O0.ll
     │   ├── factorial.x86.gcc.O0.c.fixed.c
     │   ├── factorial.x86.gcc.O0.dsm
-    │   ├── factorial.x86.gcc.O0.json
+    │   ├── factorial.x86.gcc.O0.config.json
     │   └── factorial.x86.gcc.O0.c.log
     ├── ...
     └── Test_2017 (factorial.x86.clang.O0.exe)/
@@ -64,7 +64,7 @@ For example, a directory with outputs for the ``factorial`` test may contain the
         ├── factorial.x86.clang.O0.ll
         ├── factorial.x86.clang.O0.c.fixed.c
         ├── factorial.x86.clang.O0.dsm
-        ├── factorial.x86.clang.O0.json
+        ├── factorial.x86.clang.O0.config.json
         └── factorial.x86.clang.O0.log
 
 Naming Conventions

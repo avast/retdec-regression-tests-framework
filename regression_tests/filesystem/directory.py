@@ -188,7 +188,7 @@ class Directory:
         """Returns a file with the given name."""
         if name.endswith('.c'):
             return CFile(name, self)
-        elif name.endswith('.json'):
+        elif name.endswith('.config.json'):
             return ConfigFile(name, self)
         elif name.endswith('.yara'):
             return YaraFile(name, self)

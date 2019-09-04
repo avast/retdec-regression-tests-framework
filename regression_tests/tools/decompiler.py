@@ -92,7 +92,7 @@ class Decompiler(Tool):
     @property
     def out_config_file(self):
         """Output configuration file."""
-        return self._get_file(self.out_base_file_name + '.json')
+        return self._get_file(self.out_base_file_name + '.config.json')
 
     @property
     @memoize

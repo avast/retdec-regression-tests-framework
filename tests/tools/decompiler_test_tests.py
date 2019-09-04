@@ -63,7 +63,7 @@ class DecompilerTestTests(BaseDecompilerTestTests):
         self.assertEqual(test.out_ll, test.decompiler.out_ll)
 
     def test_out_config_returns_same_result_as_decomp_out_config(self):
-        test = self.create(TestSettings(input='file.json'))
+        test = self.create(TestSettings(input='file.config.json'))
         self.assertEqual(test.out_config, test.decompiler.out_config)
 
     def test_settings_returns_given_test_settings(self):
