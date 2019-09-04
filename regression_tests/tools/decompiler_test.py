@@ -2,6 +2,8 @@
     Test class for decompilation tests.
 """
 
+import os
+
 from regression_tests.tools.tool_test import ToolTest
 from regression_tests.utils.os import on_windows
 
@@ -107,6 +109,12 @@ class DecompilerTest(ToolTest):
         self._verify_decomp_output_is_c_file()
         self._compile_output_file(timeout)
 
+    def _should_skip_c_compilation_tests(self):
+        """Should we skip tests that want to compile output C file?"""
+        # We use environment variables to communicate the configuration from a
+        # runner to tests as there is currently no better way (see runner.py).
+        return 'RETDEC_TESTS_SKIP_C_COMPILATION_TESTS' in os.environ
+
     def _verify_decomp_output_is_c_file(self):
         """Verifies that the decompilation produced a C file."""
         if not self.decompiler.out_hll_is_c():
@@ -115,8 +123,13 @@ class DecompilerTest(ToolTest):
     def _compile_output_file(self, timeout):
         """Compiles the output C file.
 
+        If we should skip tests that compile output
+
         If the file has already been compiled, this function does nothing.
         """
+        if self._should_skip_c_compilation_tests():
+            self.skipTest('compilation of C files is disabled')
+
         self._fix_out_c_file_if_needed()
         self._compile_file_if_not_exists(
             self._fixed_out_c_file,

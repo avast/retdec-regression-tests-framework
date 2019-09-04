@@ -13,7 +13,7 @@ from regression_tests.test_results import TestsResults
 
 def create_test_results(module_name='module', case_name='Test (input.exe)',
                         start_date=datetime.now(), end_date=datetime.now(),
-                        run_tests=1, failed_tests=0, output=''):
+                        run_tests=1, failed_tests=0, skipped_tests=0, output=''):
     """Creates a TestResults object from the given parameters."""
     return TestResults(
         module_name,
@@ -22,6 +22,7 @@ def create_test_results(module_name='module', case_name='Test (input.exe)',
         end_date,
         run_tests,
         failed_tests,
+        skipped_tests,
         output,
     )
 
@@ -83,6 +84,11 @@ class TestResultsTests(unittest.TestCase):
         test_results = create_test_results(failed_tests=FAILED_TESTS)
         self.assertEqual(test_results.failed_tests, FAILED_TESTS)
 
+    def test_skipped_tests_returns_correct_value(self):
+        SKIPPED_TESTS = 5
+        test_results = create_test_results(skipped_tests=SKIPPED_TESTS)
+        self.assertEqual(test_results.skipped_tests, SKIPPED_TESTS)
+
     def test_succeeded_tests_returns_correct_value(self):
         test_results = create_test_results(run_tests=10, failed_tests=4)
         self.assertEqual(test_results.succeeded_tests, 6)
@@ -110,6 +116,14 @@ class TestResultsTests(unittest.TestCase):
     def test_failed_returns_true_when_there_are_failed_tests(self):
         test_results = create_test_results(run_tests=10, failed_tests=2)
         self.assertTrue(test_results.failed)
+
+    def test_skipped_returns_false_when_there_are_no_skipped_tests(self):
+        test_results = create_test_results(run_tests=10, skipped_tests=0)
+        self.assertFalse(test_results.skipped)
+
+    def test_skipped_returns_true_when_there_are_skipped_tests(self):
+        test_results = create_test_results(run_tests=10, skipped_tests=2)
+        self.assertTrue(test_results.skipped)
 
     def test_output_returns_correct_value(self):
         OUTPUT = 'test output'
@@ -159,6 +173,7 @@ class NoTestResultsTests(unittest.TestCase):
         self.assertEqual(test_results.runtime, 0)
         self.assertEqual(test_results.run_tests, 0)
         self.assertEqual(test_results.failed_tests, 0)
+        self.assertEqual(test_results.skipped_tests, 0)
         self.assertEqual(test_results.output, '')
 
 
@@ -254,6 +269,14 @@ class TestsResultsTests(unittest.TestCase):
         ])
         self.assertEqual(tests_results.failed_tests, 3)
 
+    def test_skipped_tests_returns_correct_value(self):
+        tests_results = TestsResults([
+            create_test_results(run_tests=5, skipped_tests=0),
+            create_test_results(run_tests=5, skipped_tests=1),
+            create_test_results(run_tests=5, skipped_tests=2)
+        ])
+        self.assertEqual(tests_results.skipped_tests, 3)
+
     def test_succeeded_tests_returns_correct_value(self):
         tests_results = TestsResults([
             create_test_results(run_tests=5, failed_tests=0),
@@ -293,6 +316,22 @@ class TestsResultsTests(unittest.TestCase):
             create_test_results(run_tests=5, failed_tests=0)
         ])
         self.assertFalse(tests_results.failed)
+
+    def test_skipped_returns_true_when_one_test_skipped(self):
+        tests_results = TestsResults([
+            create_test_results(run_tests=5, skipped_tests=0),
+            create_test_results(run_tests=5, skipped_tests=2),
+            create_test_results(run_tests=5, skipped_tests=0)
+        ])
+        self.assertTrue(tests_results.skipped)
+
+    def test_skipped_returns_false_when_no_test_skipped(self):
+        tests_results = TestsResults([
+            create_test_results(run_tests=5, skipped_tests=0),
+            create_test_results(run_tests=5, skipped_tests=0),
+            create_test_results(run_tests=5, skipped_tests=0)
+        ])
+        self.assertFalse(tests_results.skipped)
 
     def test_start_date_returns_none_if_no_test_started(self):
         tests_results = TestsResults([

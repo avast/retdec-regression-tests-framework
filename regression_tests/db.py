@@ -245,6 +245,7 @@ class DB:
             end_date=test_results.end_date,
             run_tests=test_results.run_tests,
             failed_tests=test_results.failed_tests,
+            skipped_tests=test_results.skipped_tests,
             output=str(test_results.output),
         ))
         self._execute(insert)
@@ -428,6 +429,7 @@ class DB:
             schema.Column('end_date', types.DateTime()),
             schema.Column('run_tests', types.Integer()),
             schema.Column('failed_tests', types.Integer()),
+            schema.Column('skipped_tests', types.Integer()),
             schema.Column('output', types.Text(length=TEXT_LENGTH)),
         )
 
@@ -483,6 +485,7 @@ class DB:
                 r.end_date,
                 r.run_tests,
                 r.failed_tests,
+                r.skipped_tests,
                 r.output,
             ) for r in results
         ])
