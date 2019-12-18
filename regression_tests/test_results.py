@@ -15,7 +15,7 @@ class TestResults:
     __test__ = False
 
     def __init__(self, module_name, case_name, start_date, end_date, run_tests,
-                 failed_tests, output):
+                 failed_tests, skipped_tests, output):
         """
         :param str module_name: Name of the module to which the test correspond.
         :param str case_name: Name of the case to which the test correspond.
@@ -23,6 +23,7 @@ class TestResults:
         :param datetime end_date: Date and time the test ended.
         :param int run_tests: Total number of tests that were run.
         :param int failed_tests: Number of failed tests.
+        :param int skipped_tests: Number of skipped tests.
         :param str output: Output from the tests.
         """
         self._module_name = module_name
@@ -31,6 +32,7 @@ class TestResults:
         self._end_date = end_date
         self._run_tests = run_tests
         self._failed_tests = failed_tests
+        self._skipped_tests = skipped_tests
         self._output = output
 
     @property
@@ -91,6 +93,16 @@ class TestResults:
         return self.failed_tests > 0
 
     @property
+    def skipped_tests(self):
+        """Number of skipped tests."""
+        return self._skipped_tests
+
+    @property
+    def skipped(self):
+        """Have some of the tests been skipped?"""
+        return self.skipped_tests > 0
+
+    @property
     def runtime(self):
         """Runtime of the test (real time, in seconds).
 
@@ -148,6 +160,7 @@ class NoTestResults(TestResults):
             end_date=datetime.min,
             run_tests=0,
             failed_tests=0,
+            skipped_tests=0,
             output='',
         )
 
@@ -210,6 +223,11 @@ class TestsResults(list):
         return self.run_tests - self.succeeded_tests
 
     @property
+    def skipped_tests(self):
+        """Number of skipped tests."""
+        return sum(result.skipped_tests for result in self)
+
+    @property
     def succeeded_tests(self):
         """Number of succeeded tests."""
         return sum(result.succeeded_tests for result in self)
@@ -223,6 +241,11 @@ class TestsResults(list):
     def failed(self):
         """Have some of the tests failed?"""
         return self.failed_tests > 0
+
+    @property
+    def skipped(self):
+        """Have some of the tests been skipped?"""
+        return self.skipped_tests > 0
 
     @property
     def start_date(self):

@@ -68,7 +68,10 @@ def print_test_results(test_results, stream=sys.stdout):
     """
     # Name and status.
     normal_color = colorama.Fore.WHITE + colorama.Style.BRIGHT
-    if test_results.succeeded:
+    if test_results.skipped:
+        status_color = colorama.Fore.YELLOW + colorama.Style.BRIGHT
+        status = 'SKIP'
+    elif test_results.succeeded:
         status_color = colorama.Fore.GREEN + colorama.Style.BRIGHT
         status = 'OK'
     else:
@@ -106,10 +109,24 @@ def print_summary(tests_results, stream=sys.stdout):
     """Prints a summary for the given tests results (list of
     :class:`.TestResults`) to the given stream.
     """
+    # Separate the tests from the summary with an empty line.
+    print('', file=stream)
+
+    # Print skipped tests first (if any).
+    if tests_results.skipped:
+        color = colorama.Fore.YELLOW + colorama.Style.BRIGHT
+        print_with_color_reset(
+            '{}[{} test{} skipped]'.format(
+                color,
+                tests_results.skipped_tests,
+                's' if tests_results.skipped_tests != 1 else ''),
+            stream
+        )
+
     if tests_results.succeeded:
         color = colorama.Fore.GREEN + colorama.Style.BRIGHT
         print_with_color_reset(
-            '\n{}SUCCESS ({}/{})'.format(
+            '{}SUCCESS ({}/{})'.format(
                 color,
                 tests_results.succeeded_tests,
                 tests_results.run_tests),
@@ -118,7 +135,7 @@ def print_summary(tests_results, stream=sys.stdout):
     else:
         color = colorama.Fore.RED + colorama.Style.BRIGHT
         print_with_color_reset(
-            '\n{}FAIL (failed {} out of {} test{})'.format(
+            '{}FAIL (failed {} out of {} test{})'.format(
                 color,
                 tests_results.failed_tests,
                 tests_results.run_tests,

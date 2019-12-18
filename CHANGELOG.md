@@ -1,5 +1,6 @@
 # Changelog
 
+* 2019-09-04: Enhancement: Add support for skipping tests that compile output C files (either via config or via the `--skip-c-compilation-tests` parameter of `runner.py`).
 * 2019-03-11: Change: Removed mention of 32-bit Windows (it is no longer supported). Added a new requirement for Windows: 64-bit GCC compiler (package `mingw-w64-x86_64-gcc`).
 * 2018-10-14: Change: Removed distinguishing of critical and non-critical tests. Now, there is only a single type of tests (called "non-critical" in the original parlance).
 * 2018-10-14: Change: Removed support for running tests via a custom daemon. We no longer need this piece of functionality as we run tests via TeamCity.

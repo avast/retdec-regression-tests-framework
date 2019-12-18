@@ -55,6 +55,9 @@ def parse_args():
                         help='Do not run tests that have already run for the commit.')
     parser.add_argument('-t', '--tool', type=str, metavar='TOOL', dest='tool',
                         help='Run only tests for the given tool.')
+    parser.add_argument('--skip-c-compilation-tests', action='store_true',
+                        dest='skip_c_compilation_tests',
+                        help='Skip tests that compile the output C source code.')
     args = parser.parse_args()
 
     if args.commit is not None:
@@ -180,7 +183,7 @@ def ensure_all_required_settings_are_set(config):
             sys.exit(1)
 
 
-def adjust_environment(config):
+def adjust_environment(config, args):
     """Adjusts the environment so that the regression tests may run (e.g.
     update PATH).
     """
@@ -233,6 +236,17 @@ def adjust_environment(config):
     root_path = os.path.dirname(__file__)
     scripts_dir = os.path.join(root_path, 'support', 'scripts')
     os.environ['PATH'] = scripts_dir + os.pathsep + os.environ['PATH']
+
+    # We use environment variables to send configuration to tests as there is
+    # currently no better way.
+    if should_skip_c_compilation_tests(config, args):
+        os.environ['RETDEC_TESTS_SKIP_C_COMPILATION_TESTS'] = '1'
+
+
+def should_skip_c_compilation_tests(config, args):
+    """Should we skip tests that want to compile output C file?"""
+    return args.skip_c_compilation_tests or \
+        config['runner'].getboolean('skip_c_compilation_tests')
 
 
 def run_retdec_build(config, db, cmd_runner, tested_commit):
@@ -478,6 +492,7 @@ def run_test_case(test_case, tool_runner):
         test_result.testsRun = 1
         test_result.errors = [object()]  # Only the length is important.
         test_result.failures = []
+        test_result.skipped = []
 
     # Finish timing.
     end_date = datetime.now()
@@ -490,6 +505,7 @@ def run_test_case(test_case, tool_runner):
         end_date,
         test_result.testsRun,
         len(test_result.errors) + len(test_result.failures),
+        len(test_result.skipped),
         test_output.getvalue(),
     )
 
@@ -587,7 +603,7 @@ try:
     tools_dir = Directory(os.path.join(config['runner']['retdec_install_dir'], 'bin'))
 
     # Adjustment of the environment (e.g. update of PATH).
-    adjust_environment(config)
+    adjust_environment(config, args)
 
     # Tests.
 
