@@ -12,7 +12,7 @@ To run regression tests, you must have:
 * Cloned our [retdec](https://github.com/avast/retdec) repository, built and installed RetDec.
 * Cloned our [retdec-regression-tests](https://github.com/avast/retdec-regression-tests) repository that contains test cases.
 
-Additionally, on Microsoft Windows, you need a 32-bit and a 64-bit GCC compiler from [MSYS2](http://www.msys2.org/):
+Additionally, on Microsoft Windows, you need a 32-bit and 64-bit GCC compiler from [MSYS2](http://www.msys2.org/):
 * Download and run an MSYS2 installer:
     * 64-bit Windows: http://sourceforge.net/projects/msys2/files/Base/x86_64/msys2-x86_64-20150916.exe/download
 * Open an MSYS2 shell.
