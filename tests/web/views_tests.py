@@ -42,5 +42,5 @@ class DocsTests(BaseViewsTests):
     """Tests for the `/docs` endpoint."""
 
     def test_redirect_is_performed(self):
-        rv = self.app.get('/docs')
+        rv = self.app.get('/docs/')
         self.assertEqual(rv.status_code, 301)
