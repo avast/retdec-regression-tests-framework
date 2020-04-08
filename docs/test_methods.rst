@@ -329,7 +329,7 @@ Output DSM
     assert self.out_dsm.contains(r'; function: ack')
 
 Output LLVM IR
-^^^^^^^^^^
+^^^^^^^^^^^^^^
 
 .. code-block:: python
 
