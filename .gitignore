@@ -9,13 +9,6 @@ __pycache__
 # Configuration
 /config_local.ini
 
-# Databases
-/*.db
-/*.db-journal
-
-# PID files
-/*.pid
-
 # Virtual environments
 /venv
 /virtualenv

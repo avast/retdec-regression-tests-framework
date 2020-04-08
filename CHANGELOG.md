@@ -1,5 +1,6 @@
 # Changelog
 
+* 2020-04-08: Change: Removed support for the following features that are no longer useful: storing results into a database, showing results on the web, sending email notifications, building of RetDec, resuming tests run, testing a specific commit.
 * 2019-09-04: Enhancement: Add support for skipping tests that compile output C files (either via config or via the `--skip-c-compilation-tests` parameter of `runner.py`).
 * 2019-03-11: Change: Removed mention of 32-bit Windows (it is no longer supported). Added a new requirement for Windows: 64-bit GCC compiler (package `mingw-w64-x86_64-gcc`).
 * 2018-10-14: Change: Removed distinguishing of critical and non-critical tests. Now, there is only a single type of tests (called "non-critical" in the original parlance).

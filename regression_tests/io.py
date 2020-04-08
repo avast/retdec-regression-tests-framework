@@ -49,16 +49,15 @@ def print_error(msg, stream=sys.stderr):
     print_with_color_reset('error: {}'.format(msg), stream)
 
 
-def print_prologue(tests_root_dir, test_cases, tested_commit, resume,
+def print_prologue(tests_root_dir, test_cases,
                    stream=sys.stdout):
     """Prints a prologue for the tests to the given stream."""
     print_with_color_reset(
-        'Running {} test case{} {}in {} for commit {}...\n'.format(
+        'Running {} test case{} in {}...\n'.format(
             len(test_cases),
             's' if len(test_cases) != 1 else '',
-            '(with --resume) ' if resume else '',
             tests_root_dir,
-            tested_commit.short_hash()),
+        ),
         stream
     )
 

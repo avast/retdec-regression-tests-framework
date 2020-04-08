@@ -17,8 +17,6 @@ help:
 clean:
 	@rm -rf .coverage coverage
 	@rm -f logs/*.log
-	@rm -f *.db
-	@rm -f *.db-journal
 	@find . -name '__pycache__' -exec rm -rf {} +
 	@find . -name '*.py[co]' -exec rm -f {} +
 	@$(MAKE) -C docs clean
@@ -39,8 +37,6 @@ lint:
 		regression_tests tests *.py | \
 		grep -v "tests/.*:[0-9]*:[0-9]*: E501 line too long .*" | \
 		grep -v "regression_tests/parsers/c_parser/__init__.py:[0-9]*:[0-9]*: F401 'parse' imported but unused" | \
-		grep -v "regression_tests/web/__init__.py:[0-9]*:[0-9]*: F403 'from .* import \*' used; unable to detect undefined names" | \
-		grep -v "regression_tests/web/__init__.py:[0-9]*:[0-9]*: F401 'regression_tests.web.views.\*' imported but unused" \
 		; true # Always end successfully because of the above greps.
 
 tests:

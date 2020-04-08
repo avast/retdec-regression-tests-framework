@@ -47,8 +47,6 @@ print()
 #
 print('Optional but recommended:')
 check_module_availability('colorama', 'color support')
-check_module_availability('sqlalchemy', 'database support')
-check_module_availability('flask', 'web interface')
 
 print()
 

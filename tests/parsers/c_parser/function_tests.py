@@ -243,7 +243,6 @@ class FunctionTests(WithModuleTests):
         self.assertTrue(foo.calls('bar', func))
 
     def test_calls_does_not_include_empty_function_name_when_there_is_error(self):
-        # Based on commit 591255e.
         func = self.get_func("""
             void func() {
                 (((void (*)())func)(); // <-- syntax error

@@ -60,12 +60,8 @@ Additionally, to run tests for our IDA plugin, you must have:
   clang_dir = /path/to/clang
   ; Path to the cloned repository containing regression tests.
   tests_root_dir = /path/to/retdec-regression-tests
-  ; Path to the RetDec's build directory.
-  retdec_build_dir = /path/to/retdec/build
   ; Path to the RetDec's installation directory.
   retdec_install_dir = /path/to/retdec/installed
-  ; Path to the cloned RetDec repository.
-  retdec_repo_dir = /path/to/retdec
   ```
 
 * Additionally, if you plan to run tests for our IDA plugin, you have to also include the following settings into the `[runner]` section of the `config_local.ini` file:
