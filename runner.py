@@ -76,7 +76,7 @@ def ensure_all_required_settings_are_set(config):
         print_error("'retdec_install_dir' in the [runner] section of config_local.ini "
                     "points to a non-existing directory")
         sys.exit(1)
-    elif not os.path.exists(os.path.join(retdec_install_dir, 'bin', 'retdec-decompiler.py')):
+    elif not os.path.exists(os.path.join(retdec_install_dir, 'bin', 'retdec-decompiler')):
         print_error("'retdec_install_dir' in the [runner] section of config_local.ini "
                     "does not seem to point to RetDec")
         sys.exit(1)
@@ -143,7 +143,7 @@ def adjust_environment(config, args):
     if config['runner'].getboolean('idaplugin_tests_enabled'):
         tools_dir = os.path.join(config['runner']['retdec_install_dir'], 'bin')
 
-        # run-ida-decompilation.py requires retdec-decompiler.py to be reachable from PATH.
+        # run-ida-decompilation.py requires retdec-decompiler to be reachable from PATH.
         os.environ['PATH'] = tools_dir + os.pathsep + os.environ['PATH']
 
         # run-ida-decompilation.py requires path to IDA Pro.
@@ -166,7 +166,7 @@ def adjust_environment(config, args):
     if config['runner'].getboolean('r2plugin_tests_enabled'):
         tools_dir = os.path.join(config['runner']['retdec_install_dir'], 'bin')
 
-        # run-r2-decompilation.py requires retdec-decompiler.py to be reachable from PATH.
+        # run-r2-decompilation.py requires retdec-decompiler to be reachable from PATH.
         os.environ['PATH'] = tools_dir + os.pathsep + os.environ['PATH']
 
         # Copy run-r2-decompilation.py into the directory where other tools

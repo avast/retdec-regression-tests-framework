@@ -27,11 +27,11 @@ The name can by any valid Python identifier, written conventionally in ``snake_c
         arch='x86'
     )
 
-From the above settings, the following ``retdec-decompiler.py`` argument list is automatically created:
+From the above settings, the following ``retdec-decompiler`` argument list is automatically created:
 
 .. code-block:: text
 
-    retdec-decompiler.py file.exe -a x86
+    retdec-decompiler file.exe -a x86
 
 For a complete list of possible arguments to the initializer, see the description of :class:`~tools.decompiler_test_settings.DecompilerTestSettings`.
 
@@ -48,8 +48,8 @@ For such settings, the following two decompilations are run:
 
 .. code-block:: text
 
-    retdec-decompiler.py file.exe -a x86
-    retdec-decompiler.py file.exe -a arm
+    retdec-decompiler file.exe -a x86
+    retdec-decompiler file.exe -a arm
 
 That is, the regression tests framework runs a single decompilation for every combination of the values specified in the settings.
 
@@ -122,7 +122,7 @@ We want to decompile ``file1.exe`` on ``x86`` and ``arm``, and ``file2.elf`` on 
 Arbitrary Parameters for the Decompiler
 ---------------------------------------
 
-If you look at the complete list of possible arguments (:class:`~tools.decompiler_test_settings.DecompilerTestSettings`), you see that not all ``retdec-decompiler.py`` parameters may be specified as arguments to :class:`TestSettings`. The reason is that ``retdec-decompiler.py`` provides too many parameters and their support in the form of arguments would be cumbersome. However, it is possible to specify arbitrary arguments that are directly passed to the ``retdec-decompiler.py`` script via the ``args`` argument:
+If you look at the complete list of possible arguments (:class:`~tools.decompiler_test_settings.DecompilerTestSettings`), you see that not all ``retdec-decompiler`` parameters may be specified as arguments to :class:`TestSettings`. The reason is that ``retdec-decompiler`` provides too many parameters and their support in the form of arguments would be cumbersome. However, it is possible to specify arbitrary arguments that are directly passed to the ``retdec-decompiler`` via the ``args`` argument:
 
 .. code-block:: python
 
@@ -137,9 +137,9 @@ These settings result into the creation of the following decompilation:
 
 .. code-block:: text
 
-    retdec-decompiler.py file.exe -a x86 --select-decode-only --select-functions func1,func2
+    retdec-decompiler file.exe -a x86 --select-decode-only --select-functions func1,func2
 
-In a greater detail, the ``args`` argument is taken, split into sub-arguments by whitespace, and passed to the ``retdec-decompiler.py`` script. The argument list internally looks like this:
+In a greater detail, the ``args`` argument is taken, split into sub-arguments by whitespace, and passed to the ``retdec-decompiler``. The argument list internally looks like this:
 
 .. code-block:: python
 
@@ -147,7 +147,7 @@ In a greater detail, the ``args`` argument is taken, split into sub-arguments by
 
 .. hint::
 
-    When it is possible to specify a ``retdec-decompiler.py`` parameter in the form of a named argument (like architecture or endianness), always prefer it to specifying raw arguments by using the ``args`` argument. That is, do **not** write
+    When it is possible to specify a ``retdec-decompiler`` parameter in the form of a named argument (like architecture or endianness), always prefer it to specifying raw arguments by using the ``args`` argument. That is, do **not** write
 
     .. code-block:: python
 
@@ -157,7 +157,7 @@ In a greater detail, the ``args`` argument is taken, split into sub-arguments by
                 args='-a x86'   # Always prefer using arch='x86'.
             )
 
-    The reason is that named arguments are less prone to changes in ``retdec-decompiler.py``. Indeed, when such an argument changes in ``retdec-decompiler.py``, all that has to be done is changing the internal mapping of named arguments to ``retdec-decompiler.py`` arguments. No test needs to be changed.
+    The reason is that named arguments are less prone to changes in ``retdec-decompiler``. Indeed, when such an argument changes in ``retdec-decompiler``, all that has to be done is changing the internal mapping of named arguments to ``retdec-decompiler`` arguments. No test needs to be changed.
 
 If you want to specify separate arguments for several decompilations for single settings, place them into a list when specifying the settings. For example, consider the following test class:
 
@@ -177,8 +177,8 @@ It results into these two decompilations:
 
 .. code-block:: text
 
-    retdec-decompiler.py file.elf -a x86 --select-decode-only --select-functions func1,func2
-    retdec-decompiler.py file.elf -a x86 --select-decode-only --select-functions func3
+    retdec-decompiler file.elf -a x86 --select-decode-only --select-functions func1,func2
+    retdec-decompiler file.elf -a x86 --select-decode-only --select-functions func3
 
 You can also specify multiple settings, as already described earlier in this section.
 
