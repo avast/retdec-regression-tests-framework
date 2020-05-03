@@ -236,41 +236,14 @@ class DecompilerTest(ToolTest):
             return self.settings.arch
 
         # The architecture is not explicitly specified in the settings, so we
-        # have to obtain it from the output of fileinfo. This is usually the
+        # have to obtain it from the config. This is usually the
         # case when the input file is a binary file and the writer of the test
         # did not specify the architecture.
-        if self._fileinfo_run():
-            return self._get_arch_from_fileinfo_output()
+        return self._get_arch_from_out_config()
 
-        # The architecture is unknown.
-        return None
-
-    def _fileinfo_run(self):
-        """Did fileinfo run?"""
-        return bool(self.decompiler.fileinfo_outputs)
-
-    def _get_arch_from_fileinfo_output(self):
-        """Returns the architecture of the input file from the output of
-        fileinfo.
-        """
-        # Fileinfo output examples:
-        #
-        #     Architecture : ARM (little endian)
-        #     Architecture : x86 (or later and compatible)
-        #     Architecture : MIPS (MIPS I Architecture)
-        #
-        try:
-            # Use the last output because when the input file is packed,
-            # fileinfo may run more than once.
-            arch = self.decompiler.fileinfo_outputs[-1]['Architecture']
-        except KeyError:
-            # No architecture was detected.
-            return None
-        # Include just the first word after ':' because we do not care what is
-        # inside the brackets after the architecture. Moreover, we need to
-        # convert the architecture to lowercase because fileinfo may produce it
-        # in uppercase (like "ARM" in the example above).
-        return arch.split()[0].lower()
+    def _get_arch_from_out_config(self):
+        arch = self.out_config.json.get('architecture', {})
+        return arch.get('name')
 
     def _run_compiled_output_file(self, input, timeout):
         """Runs the compiled output C file with the given input and timeout and
