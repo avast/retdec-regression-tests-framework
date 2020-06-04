@@ -76,7 +76,8 @@ def ensure_all_required_settings_are_set(config):
         print_error("'retdec_install_dir' in the [runner] section of config_local.ini "
                     "points to a non-existing directory")
         sys.exit(1)
-    elif not os.path.exists(os.path.join(retdec_install_dir, 'bin', 'retdec-decompiler')):
+    elif not (os.path.exists(os.path.join(retdec_install_dir, 'bin', 'retdec-decompiler'))
+            or os.path.exists(os.path.join(retdec_install_dir, 'bin', 'retdec-decompiler.exe'))):
         print_error("'retdec_install_dir' in the [runner] section of config_local.ini "
                     "does not seem to point to RetDec")
         sys.exit(1)

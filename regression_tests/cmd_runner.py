@@ -152,11 +152,11 @@ class _WindowsProcess(subprocess.Popen):
         # Python scripts need to be run with 'python' on Windows. Simply running the
         # script by its path doesn't work. That is, for example, instead of
         #
-        #     /path/to/retdec-decompiler.py
+        #     /path/to/script.py
         #
         # we need to run
         #
-        #     python /path/to/retdec-decompiler.py
+        #     python /path/to/script.py
         #
         if 'args' in kwargs and kwargs['args'] and kwargs['args'][0].endswith('.py'):
             kwargs['args'].insert(0, sys.executable)

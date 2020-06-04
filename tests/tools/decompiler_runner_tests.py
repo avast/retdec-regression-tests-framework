@@ -11,6 +11,7 @@ from regression_tests.tools.decompiler import Decompiler
 from regression_tests.tools.decompiler_arguments import DecompilerArguments
 from regression_tests.tools.decompiler_runner import DecompilerRunner
 from regression_tests.tools.tool_test_settings import ToolTestSettings
+from regression_tests.utils.os import on_windows
 
 
 class DecompilerRunnerTests(unittest.TestCase):
@@ -32,7 +33,7 @@ class DecompilerRunnerTests(unittest.TestCase):
     def test_get_tool_executable_name_returns_correct_name(self):
         self.assertEqual(
             self.decomp_runner._get_tool_executable_name('decompiler'),
-            'retdec-decompiler'
+            'retdec-decompiler.exe' if on_windows() else 'retdec-decompiler'
         )
 
     def test_initialize_tool_dir_and_args_just_returns_args_when_config_file_is_not_set(self):

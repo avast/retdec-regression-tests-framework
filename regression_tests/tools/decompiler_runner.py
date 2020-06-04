@@ -5,6 +5,7 @@
 from regression_tests.tools.decompiler import Decompiler
 from regression_tests.tools.tool_runner import ToolRunner
 from regression_tests.utils import overrides
+from regression_tests.utils.os import on_windows
 
 
 class DecompilerRunner(ToolRunner):
@@ -17,7 +18,7 @@ class DecompilerRunner(ToolRunner):
 
     @overrides(ToolRunner)
     def _get_tool_executable_name(self, tool_name):
-        return 'retdec-decompiler'
+        return 'retdec-decompiler' + ('.exe' if on_windows() else '')
 
     @overrides(ToolRunner)
     def _initialize_tool_dir_and_args(self, dir, args):
