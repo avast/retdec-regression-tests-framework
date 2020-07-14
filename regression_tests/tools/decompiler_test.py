@@ -5,7 +5,7 @@
 import os
 
 from regression_tests.tools.tool_test import ToolTest
-from regression_tests.utils.os import on_windows
+from regression_tests.utils.os import on_windows, on_macos
 
 
 class DecompilerTest(ToolTest):
@@ -196,7 +196,7 @@ class DecompilerTest(ToolTest):
     def _use_64_bit_compiler(self):
         """Should we use a 64b compiler to compile the output C file?"""
         arch = self.out_config.json.get('architecture', {})
-        return arch.get('bitSize') == 64
+        return arch.get('bitSize') == 64 or on_macos()
 
     def _fix_out_c_file_if_needed(self):
         """Fixes the output C unless it has already been fixed or does not need
