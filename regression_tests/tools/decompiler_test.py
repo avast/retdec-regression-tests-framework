@@ -3,6 +3,7 @@
 """
 
 import os
+import re
 
 from regression_tests.tools.tool_test import ToolTest
 from regression_tests.utils.os import on_windows, on_macos
@@ -206,6 +207,8 @@ class DecompilerTest(ToolTest):
                 self._fixed_out_c_file.exists()):
             return
 
+        out_c = self.decompiler.out_c
+
         # To make the decompiled C compilable, some functions need to be
         # inserted at the beginning of it.
         fix = '// ================ COMPILATION FIX BEGIN ================\n'
@@ -218,16 +221,21 @@ class DecompilerTest(ToolTest):
         elif self._decomp_arch == 'x86':
             fix += 'void ___main() { }\n'
             fix += 'double _modf(double a, double *b) { return modf(a, b); }\n'
+
+        arch = self.out_config.json.get('architecture', {})
+        if self._use_64_bit_compiler() and arch.get('bitSize') == 32:
+            out_c = re.sub('int32_t', 'int64_t', out_c)
+            fix += '\n// Following substition was applied: s/int32_t/int64_t/g\n'
         fix += '// ================= COMPILATION FIX END =================\n'
 
         self.decompiler.dir.store_file(
             self._fixed_out_c_file.name,
-            fix + self.decompiler.out_c
+            fix + out_c
         )
 
     def _out_c_file_needs_to_be_fixed(self):
         """Checks if the output C file needs to be fixed."""
-        return self._decomp_arch in ['arm', 'x86']
+        return self._decomp_arch in ['arm', 'x86'] or self._use_64_bit_compiler()
 
     @property
     def _decomp_arch(self):
