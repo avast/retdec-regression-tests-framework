@@ -148,7 +148,7 @@ def adjust_environment(config, args):
         os.environ['PATH'] = tools_dir + os.pathsep + os.environ['PATH']
 
         # run-ida-decompilation.py requires path to IDA Pro.
-        os.environ['IDA_PATH'] = config['runner']['idaplugin_ida_dir']
+        os.environ['IDA_DIR'] = config['runner']['idaplugin_ida_dir']
 
         # Copy run-ida-decompilation.py into the directory where other tools
         # are located so it can be found. However, do this only when runner.py
