@@ -26,6 +26,11 @@ def get_tests_dir(tests_dir_path, tests_root_dir):
         # An absolute path to a directory was given.
         return Directory(tests_dir_path)
 
+    # If the given path points to an existing directory relative to
+    # tests_root_dir, then we are done.
+    if tests_root_dir.dir_exists(tests_dir_path):
+        return tests_root_dir.get_dir(tests_dir_path)
+
     # Try replacing dots with path separators. This allows users to use e.g.
     # "integration.factorial" instead of "integration/factorial".
     replaced_tests_dir_path = tests_dir_path.replace('.', os.path.sep)

@@ -1,5 +1,6 @@
 # Changelog
 
+* 2021-09-27: Fix: Fixed tests discovery when passing an existing relative path to `runner.py`.
 * 2020-06-04: Change: use `retdec-decompiler[.exe]` instead of `retdec-decompiler.py`.
 * 2020-04-08: Change: Removed support for the following features that are no longer useful: storing results into a database, showing results on the web, sending email notifications, building of RetDec, resuming tests run, testing a specific commit.
 * 2019-09-04: Enhancement: Add support for skipping tests that compile output C files (either via config or via the `--skip-c-compilation-tests` parameter of `runner.py`).
