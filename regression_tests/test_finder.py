@@ -23,7 +23,7 @@ def get_tests_dir(tests_dir_path, tests_root_dir):
         return tests_root_dir
 
     if os.path.isabs(tests_dir_path):
-        # And absolute path to a directory was given.
+        # An absolute path to a directory was given.
         return Directory(tests_dir_path)
 
     # Try replacing dots with path separators. This allows users to use e.g.
