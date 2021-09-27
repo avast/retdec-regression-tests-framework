@@ -250,8 +250,11 @@ class DecompilerTest(ToolTest):
         return self._get_arch_from_out_config()
 
     def _get_arch_from_out_config(self):
-        arch = self.out_config.json.get('architecture', {})
-        return arch.get('name')
+        arch = self.out_config.json.get('architecture', {}).get('name')
+        if arch is None:
+            return None
+
+        return arch.lower()
 
     def _run_compiled_output_file(self, input, timeout):
         """Runs the compiled output C file with the given input and timeout and

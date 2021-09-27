@@ -8,7 +8,6 @@ import unittest
 from unittest import mock
 
 from regression_tests.parsers.config_parser import Config
-from regression_tests.parsers.fileinfo_output_parser import FileinfoOutput
 from regression_tests.test_settings import TestSettings
 from regression_tests.tools.decompiler import Decompiler
 from regression_tests.tools.decompiler_test import DecompilerTest
@@ -136,18 +135,12 @@ class BaseCompilationAssertionsTests(WithDecompilerTestTests):
 
     def scenario_out_c_is_fixed_for_arch_when_input_is_binary(self, arch):
         self.test = self.create(TestSettings(input='file.exe'))
-        # For binary files, the architecture is obtained from fileinfo (writers
-        # of regression tests do not usually specify the architecture for
-        # binary files because such a specification is useless).
-        #
-        # We also test that the architecture is parsed properly.
-        self.decompiler.fileinfo_outputs = [
-            FileinfoOutput(
-                '\n...\nArchitecture: {} (some irrelevant arch info)\n...'.format(
-                    arch
-                )
-            )
-        ]
+        # For binary files, the architecture is obtained from the config
+        # (writers of regression tests do not usually specify the architecture
+        # for binary files because such a specification is useless).
+        self.decompiler.out_config.json = {
+            'architecture': {'name': arch},
+        }
 
         self._check_out_c_gets_fixed()
 
