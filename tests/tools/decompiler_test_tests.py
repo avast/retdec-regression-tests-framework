@@ -116,6 +116,7 @@ class BaseCompilationAssertionsTests(WithDecompilerTestTests):
         self.decompiler.dir.get_file().exists.return_value = False
         type(self.decompiler.input_file).name = mock.PropertyMock(return_value='file.exe')
         type(self.decompiler.out_c_file).name = mock.PropertyMock(return_value='file.out.c')
+        self.decompiler.out_c = 'int main() { return 0; }'
         self.decompiler.out_c_file.renamed().exists.return_value = False
         self.decompiler.fileinfo_outputs = []
 
