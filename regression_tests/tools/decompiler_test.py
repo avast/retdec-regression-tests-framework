@@ -219,6 +219,9 @@ class DecompilerTest(ToolTest):
             fix += 'double eabii2d(int a) { return (double)a; }\n'
             fix += 'void __gccmain() { }\n'
         elif self._decomp_arch == 'x86':
+            if on_macos():
+                fix += '#include <math.h>\n'
+
             fix += 'void ___main() { }\n'
             fix += 'double _modf(double a, double *b) { return modf(a, b); }\n'
 
