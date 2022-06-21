@@ -163,7 +163,7 @@ def items_to_set(items):
     directly items, `items` is simply converted into a set and returned.
     """
     if (len(items) == 1 and
-            isinstance(items[0], collections.Iterable) and
+            isinstance(items[0], collections.abc.Iterable) and
             not isinstance(items[0], str)):
         return set(items[0])
     return set(items)
